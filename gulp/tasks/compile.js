@@ -7,24 +7,22 @@ gulp.task(
     function (cb) {
         console.log("START! compile.js");
 
-        del(["dist/**/*"]).then(
-            gulp.src(".", {read: false})
-                .pipe(shell([
-                    "tsc"
-                ]))
-                .on(
-                    "end",
-                    function () {
-                        console.log("FINISH! compile.js");
-                        cb();
-                    }
-
-                ).on(
-                "error",
+        gulp.src(".", {read: false})
+            .pipe(shell([
+                "tsc"
+            ]))
+            .on(
+                "end",
                 function () {
-                    console.log("ERROR! compile.js");
+                    console.log("FINISH! compile.js");
+                    cb();
                 }
-            )
+
+            ).on(
+            "error",
+            function () {
+                console.log("ERROR! compile.js");
+            }
         );
     }
 );

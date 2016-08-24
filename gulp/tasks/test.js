@@ -15,7 +15,7 @@ gulp.task(
             ).on(
                 "finish",
                 function() {
-                    console.log("COMPLETE! test.js");
+                    console.log("FINISH! test.js");
                     cb();
                 }
             );

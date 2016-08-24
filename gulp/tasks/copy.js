@@ -4,7 +4,7 @@ var argv = require("yargs").argv;
 gulp.task(
     "copy",
     function (cb) {
-        console.log("START! copy.dist");
+        console.log("START! copy.js");
 
         console.log("argv.to: " + argv.to);
         if (argv.to && argv.to != "undefined") {
@@ -13,14 +13,14 @@ gulp.task(
                 .on(
                     "end",
                     function () {
-                        console.log("END! copy.dist");
+                        console.log("FINISH! copy.js");
                         cb();
                     }
                 );
 
 
         }else {
-            console.log("WARNING! copy.dist can't find argv.to!");
+            console.log("WARNING! copy.js can't find argv.to!");
             cb();
         }
     }

@@ -9,6 +9,7 @@ gulp.task(
     "build",
     function(cb) {
         runSequence(
+            "clean",
             "test",
             "generate-definitions",
             "compile",
