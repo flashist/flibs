@@ -1,0 +1,38 @@
+{
+  "name": "flibs",
+  "version": "0.0.1",
+  "scripts": {},
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flashist/flibs"
+  },
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "dependencies": {
+    "eventemitter3": "^1.2.0",
+    "fcore": "",
+    "fgraphics": ""
+  },
+  "devDependencies": {
+    "del": "2.2.2",
+    "gulp": "3.9.1",
+    "gulp-file": "0.3.0",
+    "gulp-replace": "0.5.4",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-tsc": "^1.2.0",
+    "gulp-typescript": "2.13.6",
+    "gulp-shell": "0.5.2",
+    "map-stream": "0.0.6",
+    "merge2": "1.0.2",
+    "path": "0.12.7",
+    "require-dir": "0.3.0",
+    "run-sequence": "1.2.2",
+    "systemjs": "0.19.31",
+    "tsd": "0.6.5",
+    "typescript": "1.8.10",
+    "vinyl-fs": "2.4.3",
+    "yargs": "5.0.0"
+  }
+}
