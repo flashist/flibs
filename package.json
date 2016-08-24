@@ -12,7 +12,6 @@
   "main": "./dist/index.js",
   "dependencies": {
     "eventemitter3": "^1.2.0",
-    "fcore": "",
     "fgraphics": ""
   },
   "devDependencies": {
