@@ -40,3 +40,7 @@ gulp.task(
         );
     }
 );
+
+
+// Default
+gulp.task("default", ["build"]);
