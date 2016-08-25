@@ -8,7 +8,7 @@ gulp.task(
 
         console.log("argv.to: " + argv.to);
         if (argv.to && argv.to != "undefined") {
-            gulp.src(["./**/*", "!./src", "!./src/**/*", "!./node_modules", "!./node_modules/**/*"])
+            gulp.src(["./**/*", "!./node_modules", "!./node_modules/**/*"])
                 .pipe(gulp.dest(argv.to))
                 .on(
                     "end",
