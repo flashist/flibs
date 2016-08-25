@@ -12,7 +12,7 @@
   "main": "./dist/index.js",
   "dependencies": {
     "eventemitter3": "^1.2.0",
-    "fgraphics": "0.0.6"
+    "fgraphics": "0.0.7"
   },
   "devDependencies": {
     "del": "2.2.2",
