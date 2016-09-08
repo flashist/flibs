@@ -11,7 +11,7 @@
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "dependencies": {
-    "fgraphics": "0.0.21"
+    "fgraphics": "0.0.22"
   },
   "devDependencies": {
     "del": "2.2.2",
