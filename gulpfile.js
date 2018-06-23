@@ -1,46 +1,23 @@
-var gulp = require("gulp"),
-    requireDir = require("require-dir"),
-    tasks = requireDir("./gulp/tasks"),
-    runSequence = require("run-sequence"),
-    argv = require("yargs").argv,
-    shell = require('gulp-shell');
+var gulp = require("gulp");
+var requireDir = require("require-dir");
+var shell = require('gulp-shell');
+var runSequence = require('run-sequence');
+
+var tasks = requireDir("./gulp/tasks");
 
 gulp.task(
-    "build",
-    function(cb) {
+    'build',
+    function(callback) {
         runSequence(
             "clean",
-            "test",
-            "generate-definitions",
+            // "generate-definitions",
+            "copy-to-dist",
             "compile",
-            cb
+
+            callback
         );
     }
 );
-
-gulp.task(
-    "build.dev",
-    function(cb) {
-        console.log("START! build.dev");
-
-        runSequence(
-            "build",
-            function () {
-                return gulp.src(["."], {read: false})
-                    .pipe(shell(["gulp copy --to " + argv.to]))
-                    .on(
-                        "end",
-                        function () {
-                            console.log("END! build.dev");
-
-                            cb();
-                        }
-                    )
-            }
-        );
-    }
-);
-
 
 // Default
 gulp.task("default", ["build"]);
