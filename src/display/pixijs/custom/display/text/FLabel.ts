@@ -30,12 +30,6 @@ export class FLabel extends FContainer {
 
     protected _fieldPadding: Point;
 
-    constructor() {
-        super();
-
-
-    }
-
     protected construction(config?: IFLabelConfig): void {
         super.construction();
 
