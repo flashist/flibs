@@ -1,6 +1,6 @@
 {
   "name": "@flashist/flibs",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "scripts": {
     "build": "gulp",
     "publish:patch": "npm version patch && npm run build && npm publish",
