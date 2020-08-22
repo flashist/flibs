@@ -1,0 +1,7 @@
+import { BaseEventDispatcher } from "fcore";
+import { IGenericObjectVO } from "../..";
+export declare class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO {
+    type: string;
+    id: string;
+    update(source: Partial<this>): void;
+}
