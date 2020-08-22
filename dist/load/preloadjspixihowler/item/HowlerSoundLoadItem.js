@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { StringTools } from "fcore";
+import { StringTools } from "@flashist/fcore";
 import { HowlerSound } from "../../../sounds/howler/HowlerSound";
 import { HowlerSoundEvent } from "../../../sounds/howler/HowlerSoundEvent";
 import { AbstractSoundLoadItem } from "../../abstract/item/AbstractSoundLoadItem";

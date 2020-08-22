@@ -1,4 +1,4 @@
-import { EventListenerHelper, IDatable } from "fcore";
+import { EventListenerHelper, IDatable } from "@flashist/fcore";
 import { DisplayObjectContainer, FStage, DisplayObject } from "../../../../index";
 export declare class FContainer<DataType extends object = object> extends DisplayObjectContainer implements IDatable {
     isFContainer: boolean;

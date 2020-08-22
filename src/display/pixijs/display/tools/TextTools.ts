@@ -1,4 +1,4 @@
-import {Logger} from "fcore";
+import {Logger} from "@flashist/fcore";
 
 import {
     TextTruncateType,

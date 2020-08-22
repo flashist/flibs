@@ -1,4 +1,4 @@
-import {Command} from "fcore";
+import {Command} from "@flashist/fcore";
 import {AbstractLoadItem, getInstance, ILoadItemConfig, LoadManager, LoadStatus, LoadStatusEvent} from "../../..";
 
 export class LoadItemCommand extends Command {

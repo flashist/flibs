@@ -1,4 +1,4 @@
-import { AssociativeArray } from "fcore";
+import { AssociativeArray } from "@flashist/fcore";
 import { GenericObjectsModel } from "./GenericObjectsModel";
 var GenericObjectsByTypeModel = /** @class */ (function () {
     function GenericObjectsByTypeModel() {

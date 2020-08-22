@@ -1,4 +1,4 @@
-import {IConstructor} from "fcore";
+import {IConstructor} from "@flashist/fcore";
 import {IActivatee} from "./IActivatee";
 
 export interface ICreateConfig {

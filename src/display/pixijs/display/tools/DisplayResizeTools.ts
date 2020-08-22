@@ -1,4 +1,4 @@
-import {ObjectTools} from "fcore";
+import {ObjectTools} from "@flashist/fcore";
 
 import {DisplayObjectContainer} from "../DisplayObjectContainer";
 import {IResizeConfig} from "./IResizeConfig";

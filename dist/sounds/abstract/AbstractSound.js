@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { BaseObject } from "fcore";
+import { BaseObject } from "@flashist/fcore";
 import { TweenLite } from "gsap";
 var AbstractSound = /** @class */ (function (_super) {
     __extends(AbstractSound, _super);

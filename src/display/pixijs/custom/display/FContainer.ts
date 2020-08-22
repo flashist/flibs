@@ -1,4 +1,4 @@
-import {EventListenerHelper, Logger, IDatable} from "fcore";
+import {EventListenerHelper, Logger, IDatable} from "@flashist/fcore";
 
 import {
     DisplayObjectContainer,

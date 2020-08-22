@@ -1,4 +1,4 @@
-import {Dictionary, IConstructor, ObjectTools} from "fcore";
+import {Dictionary, IConstructor, ObjectTools} from "@flashist/fcore";
 
 import {
     ICreateConfig,

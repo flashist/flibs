@@ -1,4 +1,4 @@
-import { Command } from "fcore";
+import { Command } from "@flashist/fcore";
 import { AbstractLoadItem, ILoadItemConfig } from "../../..";
 export declare class LoadItemCommand extends Command {
     protected loadConfig: ILoadItemConfig;

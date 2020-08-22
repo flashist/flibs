@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { BaseObject, EventListenerHelper } from "fcore";
+import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 import { FApp, InteractiveEvent } from "../../index";
 import { DragHelperEvent } from "./DragHelperEvent";
 var DragHelper = /** @class */ (function (_super) {

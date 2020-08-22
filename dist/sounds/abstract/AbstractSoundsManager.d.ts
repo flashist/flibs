@@ -1,4 +1,4 @@
-import { Lock, AssociativeArray, BaseObject } from "fcore";
+import { Lock, AssociativeArray, BaseObject } from "@flashist/fcore";
 import { Sound } from "../../index";
 export declare abstract class AbstractSoundsManager extends BaseObject {
     protected soundsToIdMap: AssociativeArray<Sound>;

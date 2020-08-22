@@ -1,4 +1,4 @@
-﻿import {IEventDispatcher, JSKeyboardEvent, BaseObject} from "fcore";
+﻿import {IEventDispatcher, JSKeyboardEvent, BaseObject} from "@flashist/fcore";
 import {
     FApp,
     InteractiveEvent,

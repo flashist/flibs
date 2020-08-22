@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { Lock, AssociativeArray, BaseObject } from "fcore";
+import { Lock, AssociativeArray, BaseObject } from "@flashist/fcore";
 import { TweenLite } from "gsap";
 import { SoundsManagerEvent } from "./SoundsManagerEvent";
 var AbstractSoundsManager = /** @class */ (function (_super) {

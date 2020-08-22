@@ -1,4 +1,4 @@
-import { BaseEventDispatcher } from "fcore";
+import { BaseEventDispatcher } from "@flashist/fcore";
 import { IGenericObjectVO } from "../..";
 export declare class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO {
     type: string;

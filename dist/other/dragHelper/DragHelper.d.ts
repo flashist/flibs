@@ -1,4 +1,4 @@
-import { BaseObject } from "fcore";
+import { BaseObject } from "@flashist/fcore";
 import { DisplayObject } from "../../index";
 export declare class DragHelper extends BaseObject {
     private _view;

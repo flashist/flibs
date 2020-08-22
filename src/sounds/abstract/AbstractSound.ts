@@ -1,4 +1,4 @@
-import {BaseObject} from "fcore";
+import {BaseObject} from "@flashist/fcore";
 
 import {Howl} from "howler";
 import {TweenLite} from "gsap";

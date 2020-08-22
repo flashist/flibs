@@ -1,4 +1,4 @@
-import { AssociativeArray, BaseObject } from "fcore";
+import { AssociativeArray, BaseObject } from "@flashist/fcore";
 import { AbstractLoadItem, LoadStatus } from "../../..";
 export declare class LoadGroup extends BaseObject {
     protected name: string;

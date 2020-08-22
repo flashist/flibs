@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { EventListenerHelper, Logger } from "fcore";
+import { EventListenerHelper, Logger } from "@flashist/fcore";
 import { DisplayObjectContainer, FDisplayEvent, DisplayEvent, FDisplayTools, serviceLocatorProcessItemOnActivate, serviceLocatorProcessItemOnDeactivate } from "../../../../index";
 var FContainer = /** @class */ (function (_super) {
     __extends(FContainer, _super);

@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { ObjectTools, BaseEventDispatcher } from "fcore";
+import { ObjectTools, BaseEventDispatcher } from "@flashist/fcore";
 import { BaseDataVOEvent } from "./BaseDataVOEvent";
 var BaseDataVO = /** @class */ (function (_super) {
     __extends(BaseDataVO, _super);

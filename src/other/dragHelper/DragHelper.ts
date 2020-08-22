@@ -1,4 +1,4 @@
-import {BaseObject, EventListenerHelper} from "fcore";
+import {BaseObject, EventListenerHelper} from "@flashist/fcore";
 
 import {
     DisplayObject, FApp, InteractiveEvent, Point

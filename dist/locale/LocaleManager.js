@@ -1,4 +1,4 @@
-import { StringTools } from "fcore";
+import { StringTools } from "@flashist/fcore";
 import { getInstance } from "../servicelocator/ServiceLocator";
 var LocaleManager = /** @class */ (function () {
     function LocaleManager() {

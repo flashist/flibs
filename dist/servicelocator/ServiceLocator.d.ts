@@ -1,4 +1,4 @@
-import { IConstructor } from "fcore";
+import { IConstructor } from "@flashist/fcore";
 import { ICreateConfig, IServiceLocatorOptions } from "../index";
 export declare class ServiceLocator {
     static options: IServiceLocatorOptions;

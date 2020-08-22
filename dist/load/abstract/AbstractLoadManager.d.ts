@@ -1,4 +1,4 @@
-import { AssociativeArray, BaseObject } from "fcore";
+import { AssociativeArray, BaseObject } from "@flashist/fcore";
 import { ILoadItemConfig } from "./item/ILoadItemConfig";
 import { Loader } from "./Loader";
 import { AbstractLoadItem } from "./item/AbstractLoadItem";

@@ -1,4 +1,4 @@
-import { BaseObject, EventListenerHelper } from "fcore";
+import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 import { ILoadItemConfig } from "./ILoadItemConfig";
 import { LoadStatus } from "../loadstatus/LoadStatus";
 import { IErrorVO } from "../data/IErrorVO";

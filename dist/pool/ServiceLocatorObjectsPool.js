@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { ObjectsPool } from "fcore";
+import { ObjectsPool } from "@flashist/fcore";
 import { getInstance } from "../index";
 var ServiceLocatorObjectsPool = /** @class */ (function (_super) {
     __extends(ServiceLocatorObjectsPool, _super);

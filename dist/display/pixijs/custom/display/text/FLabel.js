@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { ObjectTools } from "fcore";
+import { ObjectTools } from "@flashist/fcore";
 import { Text, BitmapText, Graphics, FContainer, Align, VAlign, FLabelEvent, Point, AutosizeType, FLabelDefaultConfig, DisplayResizeTools } from "../../../../../index";
 var FLabel = /** @class */ (function (_super) {
     __extends(FLabel, _super);

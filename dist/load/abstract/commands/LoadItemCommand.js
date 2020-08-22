@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { Command } from "fcore";
+import { Command } from "@flashist/fcore";
 import { getInstance, LoadManager, LoadStatus, LoadStatusEvent } from "../../..";
 var LoadItemCommand = /** @class */ (function (_super) {
     __extends(LoadItemCommand, _super);

@@ -1,4 +1,4 @@
-import { BaseObject } from "fcore";
+import { BaseObject } from "@flashist/fcore";
 import { ISoundConfig } from "./ISoundConfig";
 import { IPlaySoundConfig } from "./IPlaySoundConfig";
 export declare abstract class AbstractSound extends BaseObject {

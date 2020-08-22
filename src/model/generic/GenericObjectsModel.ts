@@ -1,4 +1,4 @@
-import {AssociativeArray, BaseObject, IConstructor} from "fcore";
+import {AssociativeArray, BaseObject, IConstructor} from "@flashist/fcore";
 import {BaseDataVO} from "../..";
 
 import {IGenericObjectVO} from "./IGenericObjectVO";

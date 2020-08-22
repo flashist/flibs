@@ -1,6 +1,6 @@
 ﻿import {
     StringTools
-} from "fcore";
+} from "@flashist/fcore";
 
 import {
     ILocaleConfig

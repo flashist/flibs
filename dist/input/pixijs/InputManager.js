@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { JSKeyboardEvent, BaseObject } from "fcore";
+import { JSKeyboardEvent, BaseObject } from "@flashist/fcore";
 import { FApp, InteractiveEvent } from "../../index";
 import { InputManagerEvent } from "./InputManagerEvent";
 import { InputManagerEventData } from "./InputManagerEventData";

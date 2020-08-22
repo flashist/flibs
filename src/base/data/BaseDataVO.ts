@@ -1,4 +1,4 @@
-﻿import {ObjectTools, BaseEventDispatcher} from "fcore";
+﻿import {ObjectTools, BaseEventDispatcher} from "@flashist/fcore";
 
 import {IGenericObjectVO} from "../..";
 import {BaseDataVOEvent} from "./BaseDataVOEvent";

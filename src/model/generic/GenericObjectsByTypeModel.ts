@@ -1,4 +1,4 @@
-import {AssociativeArray} from "fcore";
+import {AssociativeArray} from "@flashist/fcore";
 
 import {GenericObjectsModel} from "./GenericObjectsModel";
 import {IGenericObjectVO} from "./IGenericObjectVO";

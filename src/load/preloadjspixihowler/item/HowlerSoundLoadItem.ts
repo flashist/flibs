@@ -1,4 +1,4 @@
-import {StringTools} from "fcore";
+import {StringTools} from "@flashist/fcore";
 
 import {Howl} from "howler";
 

@@ -1,4 +1,4 @@
-import {Command} from "fcore";
+import {Command} from "@flashist/fcore";
 import {getInstance, LoadGroup, LoadManager, LoadStatus, LoadStatusEvent} from "../../..";
 
 export class WaitGroupLoadingCompleteCommand extends Command {

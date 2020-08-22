@@ -1,4 +1,4 @@
-import { AssociativeArray, BaseObject, IConstructor } from "fcore";
+import { AssociativeArray, BaseObject, IConstructor } from "@flashist/fcore";
 import { IGenericObjectVO } from "./IGenericObjectVO";
 export declare class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObjectVO> extends BaseObject {
     protected items: AssociativeArray<ItemType>;

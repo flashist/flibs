@@ -16,10 +16,10 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "dependencies": {
+    "@flashist/fcore": "0.x",
     "@types/createjs": "0.0.29",
     "@types/gsap": "^1.20.2",
     "@types/howler": "^2.1.0",
-    "fcore": "0.x",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {

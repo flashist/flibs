@@ -1,4 +1,4 @@
-import {ObjectsPool, IConstructor} from "fcore";
+import {ObjectsPool, IConstructor} from "@flashist/fcore";
 import {getInstance} from "../index";
 
 export class ServiceLocatorObjectsPool extends ObjectsPool {

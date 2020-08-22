@@ -1,4 +1,4 @@
-import {AssociativeArray, BaseObject} from "fcore";
+import {AssociativeArray, BaseObject} from "@flashist/fcore";
 import {AbstractLoadItem, ILoadProgressVO, LoadEvent, LoadProgressTool, LoadStatus} from "../../..";
 import {LoadStatusPriorityTools} from "../loadstatus/LoadStatusPriorityTools";
 import {LoadStatusEvent} from "../loadstatus/LoadStatusEvent";

@@ -1,4 +1,4 @@
-import {AssociativeArray} from "fcore";
+import {AssociativeArray} from "@flashist/fcore";
 
 import {AbstractLoadItem} from "./item/AbstractLoadItem";
 import {ILoadItemConfig} from "./item/ILoadItemConfig";

@@ -5,7 +5,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-import { Dictionary, ObjectTools } from "fcore";
+import { Dictionary, ObjectTools } from "@flashist/fcore";
 var ServiceLocator = /** @class */ (function () {
     function ServiceLocator() {
     }

@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { AssociativeArray, BaseObject } from "fcore";
+import { AssociativeArray, BaseObject } from "@flashist/fcore";
 import { Loader } from "./Loader";
 import { DefaultLoadItemConfig } from "./item/DefaultLoadItemConfig";
 import { LoadGroup } from "./group/LoadGroup";

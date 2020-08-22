@@ -1,4 +1,4 @@
-import { ObjectTools } from "fcore";
+import { ObjectTools } from "@flashist/fcore";
 var DefaultLoadItemConfig = /** @class */ (function () {
     function DefaultLoadItemConfig() {
         this.loader = DefaultLoadItemConfig.DEFAULT_LOADER_ID;

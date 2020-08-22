@@ -1,4 +1,4 @@
-import {ObjectTools} from "fcore";
+import {ObjectTools} from "@flashist/fcore";
 
 import {
     Text,

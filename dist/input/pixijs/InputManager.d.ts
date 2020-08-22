@@ -1,4 +1,4 @@
-import { BaseObject } from "fcore";
+import { BaseObject } from "@flashist/fcore";
 import { Point } from "../../index";
 export declare class InputManager extends BaseObject {
     protected static _instance: InputManager;

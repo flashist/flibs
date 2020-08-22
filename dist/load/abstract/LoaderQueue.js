@@ -1,4 +1,4 @@
-import { AssociativeArray } from "fcore";
+import { AssociativeArray } from "@flashist/fcore";
 import { LoadTools } from "../tools/LoadTools";
 var LoaderQueue = /** @class */ (function () {
     function LoaderQueue() {
