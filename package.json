@@ -13,8 +13,8 @@
     "type": "git",
     "url": "https://github.com/flashist/flibs"
   },
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "dependencies": {
     "@flashist/fcore": "0.x",
     "@types/createjs": "0.0.29",
