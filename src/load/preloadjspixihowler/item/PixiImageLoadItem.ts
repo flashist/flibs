@@ -2,7 +2,7 @@ import {Loader} from "pixi.js";
 
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
-export class PixiImageLoadItem<DataType extends object = object> extends AbstractLoadItem<DataType> {
+export class PixiImageLoadItem<DataType extends any = any> extends AbstractLoadItem<DataType> {
 
     protected loader: Loader;
 

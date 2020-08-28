@@ -1,14 +1,12 @@
 import {StringTools} from "@flashist/fcore";
 
-import {Howl} from "howler";
-
 import {HowlerSound} from "../../../sounds/howler/HowlerSound";
 import {HowlerSoundEvent} from "../../../sounds/howler/HowlerSoundEvent";
 import {AbstractSoundLoadItem} from "../../abstract/item/AbstractSoundLoadItem";
 import {getInstance, SoundsManager} from "../../../index";
 
 
-export class HowlerSoundLoadItem<DataType extends object = object> extends AbstractSoundLoadItem<DataType> {
+export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSoundLoadItem<DataType> {
 
     // TODO: figure out how it would be possible to separate sounds and loading-sounds classes,
     // at least without using injection, as injection might not be prepared for the sounds manager

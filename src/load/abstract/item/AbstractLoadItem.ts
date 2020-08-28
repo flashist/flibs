@@ -6,7 +6,7 @@ import {IErrorVO} from "../data/IErrorVO";
 import {LoadStatusEvent} from "../loadstatus/LoadStatusEvent";
 import {LoadEvent} from "../LoadEvent";
 
-export abstract class AbstractLoadItem<DataType extends object = object> extends BaseObject<DataType> {
+export abstract class AbstractLoadItem<DataType extends any = any> extends BaseObject<DataType> {
 
     progress: number;
     errorData: IErrorVO;

@@ -54,11 +54,11 @@ export class FLabel extends FContainer {
                 }
             }
         );
-        // height
 
+        // height
         Object.defineProperty(
             this,
-            "width",
+            "height",
             {
                 get() {
                     return this._height;

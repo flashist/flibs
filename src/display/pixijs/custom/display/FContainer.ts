@@ -11,7 +11,7 @@ import {
     DisplayObject
 } from "../../../../index";
 
-export class FContainer<DataType extends object = object> extends DisplayObjectContainer implements IDatable {
+export class FContainer<DataType extends any = any> extends DisplayObjectContainer implements IDatable {
 
     public isFContainer: boolean = true;
 

@@ -1,10 +1,12 @@
+//
+import 'createjs';
+
+//
 import {PreloadjsLoadQueueEventType} from "./PreloadjsLoadQueueEventType";
 import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
-import 'createjs';
-
-export class FileLoadItem<DataType extends object = object> extends AbstractLoadItem<DataType> {
+export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<DataType> {
 
     protected queue: createjs.LoadQueue;
 

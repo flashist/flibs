@@ -3,7 +3,7 @@ import * as WebFont from "webfontloader";
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 import {IFontLoadItemConfig} from "../../abstract/item/IFontLoadItemConfig";
 
-export class FontLoadItem<DataType extends object = object> extends AbstractLoadItem<DataType> {
+export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<DataType> {
 
     public config: IFontLoadItemConfig;
 

@@ -50,7 +50,7 @@ export abstract class AbstractLoadManager extends BaseObject {
         return this.loadersToIdMap.getAllItems().concat();
     }
 
-    public add(item: ILoadItemConfig): AbstractLoadItem {
+    public add<DataType extends any = any>(item: ILoadItemConfig): AbstractLoadItem<DataType> {
         DefaultLoadItemConfig.addDefaultData(item);
 
         let tempLoader: Loader = this.getLoader(item.loader);
