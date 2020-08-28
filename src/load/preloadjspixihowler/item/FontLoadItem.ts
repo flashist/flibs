@@ -1,13 +1,9 @@
-import {Logger} from "@flashist/fcore";
-
 import * as WebFont from "webfontloader";
 
-import {PreloadjsLoadQueueEventType} from "./PreloadjsLoadQueueEventType";
-import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 import {IFontLoadItemConfig} from "../../abstract/item/IFontLoadItemConfig";
 
-export class FontLoadItem extends AbstractLoadItem {
+export class FontLoadItem<DataType extends object = object> extends AbstractLoadItem<DataType> {
 
     public config: IFontLoadItemConfig;
 

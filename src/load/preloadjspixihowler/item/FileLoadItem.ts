@@ -4,7 +4,7 @@ import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
 import 'createjs';
 
-export class FileLoadItem extends AbstractLoadItem {
+export class FileLoadItem<DataType extends object = object> extends AbstractLoadItem<DataType> {
 
     protected queue: createjs.LoadQueue;
 
