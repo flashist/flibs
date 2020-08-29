@@ -7,7 +7,6 @@ export class PixiImageLoadItem<DataType extends any = any> extends AbstractLoadI
     protected loader: Loader;
 
     protected progressBinding: any;
-    protected fileCompleteBinding: any;
     protected completeBinding: any;
     protected errorBinding: any;
 
@@ -41,11 +40,6 @@ export class PixiImageLoadItem<DataType extends any = any> extends AbstractLoadI
                 this.processLoadingProgress(loader.progress / 100);
             }
         );
-        /*this.fileCompleteBinding = this.loader.onLoad.add(
-            (loader: loaders.Loader, resource: loaders.Resource) => {
-                console.log(args);
-            }
-        );*/
         this.completeBinding = this.loader.onComplete.add(
             (loader: Loader, resourcesMap: {[key: string]: any}) => {
                 this.processLoadingComplete(resourcesMap);

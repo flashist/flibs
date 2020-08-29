@@ -1,73 +1,61 @@
-//
-import 'createjs';
+import {Loader} from "pixi.js";
 
-//
-import {PreloadjsLoadQueueEventType} from "./PreloadjsLoadQueueEventType";
 import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
 
 export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<DataType> {
 
-    protected queue: createjs.LoadQueue;
+    protected loader: Loader;
+
+    protected progressBinding: any;
+    protected completeBinding: any;
+    protected errorBinding: any;
 
     protected internalPrepare(): void {
-        this.queue = new createjs.LoadQueue(
-            false,
-            this.config.basePath
-        );
-        this.queue.loadFile(
-            this.config.src,
-            false
+        this.loader = new Loader(this.config.basePath);
+        this.loader.add(
+            this.config.id,
+            this.config.src
         );
     }
 
     protected internalStart():void {
         super.internalStart();
 
-        this.queue.load();
+        this.loader.load();
     }
 
     protected internalStop():void {
         super.internalStop();
 
-        if (this.queue) {
-            this.queue.setPaused(true);
+        if (this.loader) {
+            this.loader.reset();
         }
     }
 
     protected addLoadingListeners(): void {
-        super.addLoadingListeners();
+        super.addLoadingListeners();super.addLoadingListeners();
 
-        this.eventListenerHelper.addEventListener(
-            this.queue,
-            PreloadjsLoadQueueEventType.FILE_LOAD,
-            this.onFileLoad
+        this.progressBinding = this.loader.onProgress.add(
+            (loader: Loader, resource: any) => {
+                this.processLoadingProgress(loader.progress / 100);
+            }
         );
-        this.eventListenerHelper.addEventListener(
-            this.queue,
-            PreloadjsLoadQueueEventType.PROGRESS,
-            this.onProgress
+        this.completeBinding = this.loader.onComplete.add(
+            (loader: Loader, resourcesMap: {[key: string]: any}) => {
+                for (let fileKey in resourcesMap) {
+                    this.processLoadingComplete(resourcesMap[fileKey]);
+                }
+            }
         );
-        this.eventListenerHelper.addEventListener(
-            this.queue,
-            PreloadjsLoadQueueEventType.ERROR,
-            this.onError
-        );
-    }
-
-    protected onFileLoad(event: IPreloadJSLoadCompleteEvent): void {
-        this.processLoadingComplete(event.result);
-    }
-
-    protected onProgress(event: createjs.ProgressEvent): void {
-        this.processLoadingProgress(event.progress);
-    }
-
-    protected onError(event: createjs.ErrorEvent): void {
-        this.processLoadingError(
-            {
-                data: event.data,
-                errorCode: event.title
+        this.errorBinding = this.loader.onError.add(
+            (error: any, loader: Loader, resource: any) => {
+                this.processLoadingError(
+                    {
+                        data: error,
+                        errorCode: error.toString
+                    }
+                );
             }
         );
     }

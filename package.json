@@ -13,11 +13,10 @@
     "type": "git",
     "url": "https://github.com/flashist/flibs"
   },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "index.js",
+  "typings": "index.d.ts",
   "dependencies": {
     "@flashist/fcore": "0.x",
-    "@types/createjs": "0.0.29",
     "@types/gsap": "^1.20.2",
     "@types/howler": "^2.1.0",
     "webfontloader": "^1.6.28"
