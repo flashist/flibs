@@ -1,4 +1,4 @@
-import {Command} from "@flashist/fcore";
+import {Command, CommandErrorCode} from "@flashist/fcore";
 import {AbstractLoadItem, getInstance, ILoadItemConfig, LoadManager, LoadStatus, LoadStatusEvent} from "../../..";
 
 export class LoadItemCommand extends Command {
@@ -37,6 +37,7 @@ export class LoadItemCommand extends Command {
     }
 
     protected processError(): void {
+        this.errorCode = CommandErrorCode.GENERAL_ERROR;
         this.notifyComplete(null, this.loadItem.errorData);
     }
 
