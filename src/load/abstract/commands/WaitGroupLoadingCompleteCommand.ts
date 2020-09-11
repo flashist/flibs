@@ -14,6 +14,10 @@ export class WaitGroupLoadingCompleteCommand extends Command {
         if (tempGroup.status === LoadStatus.COMPLETE) {
             this.notifyComplete();
 
+        } else if (tempGroup.status === LoadStatus.WAIT) {
+            console.log("WaitGroupLoadingCompleteCommand | executeInternal __ Group is not in the loading status! this.groupName: ", this.groupName, " | tempGroup.status: ", tempGroup.status);
+            this.notifyComplete();
+
         } else {
             this.eventListenerHelper.addEventListener(
                 tempGroup,
