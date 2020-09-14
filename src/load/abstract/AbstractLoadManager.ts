@@ -1,4 +1,4 @@
-import {StringTools, AssociativeArray, BaseObject} from "@flashist/fcore";
+import {ObjectTools, StringTools, AssociativeArray, BaseObject} from "@flashist/fcore";
 
 import {ILoadItemConfig} from "./item/ILoadItemConfig";
 import {Loader} from "./Loader";
@@ -176,6 +176,13 @@ export abstract class AbstractLoadManager extends BaseObject {
         return StringTools.substitute(
             sourceUrl,
             this.substituteUrlParams
+        );
+    }
+
+    public addSubstituteParams(params: object): void {
+        ObjectTools.copyProps(
+            this.substituteUrlParams,
+            params
         );
     }
 }
