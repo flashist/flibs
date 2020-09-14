@@ -42,7 +42,7 @@ export class LoadItemCommand extends Command {
 
     protected processError(): void {
         this.errorCode = CommandErrorCode.GENERAL_ERROR;
-        this.notifyComplete(null, this.loadItem.errorData);
+        this.terminate();
     }
 
 }
