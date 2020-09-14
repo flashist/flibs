@@ -9,14 +9,8 @@ import {HowlerSoundLoadItem} from "./item/HowlerSoundLoadItem";
 
 export class PreloadjsPixiLoadFactory extends AbstractLoadFactory {
 
-    createItem(config: ILoadItemConfig): AbstractLoadItem {
-        // Only FileLoadItem, until other loaders are implemented
-
+    protected internalCreateItem(config: ILoadItemConfig): AbstractLoadItem {
         let result: AbstractLoadItem;
-
-        if (this.basePath) {
-            config.basePath = this.basePath;
-        }
 
         switch (config.fileType) {
             case FileType.IMAGE:
