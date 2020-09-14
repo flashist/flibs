@@ -1,4 +1,4 @@
-import {AssociativeArray, BaseObject} from "@flashist/fcore";
+import {StringTools, AssociativeArray, BaseObject} from "@flashist/fcore";
 
 import {ILoadItemConfig} from "./item/ILoadItemConfig";
 import {Loader} from "./Loader";
@@ -14,19 +14,23 @@ export abstract class AbstractLoadManager extends BaseObject {
     // protected loadersToGroupMap: {[key:string]: Loader} = {};
     protected loadersToIdMap: AssociativeArray<Loader>;
     protected loadGroupsToNameMap: AssociativeArray<LoadGroup>;
+    protected loadItemsToIdMap: AssociativeArray<AbstractLoadItem>;
+
+    protected substituteUrlParams: object = {};
 
     protected construction(...args): void {
         super.construction(...args);
 
         this.loadersToIdMap = new AssociativeArray();
         this.loadGroupsToNameMap = new AssociativeArray();
+        this.loadItemsToIdMap = new AssociativeArray();
 
         this.addLoader(new Loader(DefaultLoadItemConfig.DEFAULT_LOADER_ID));
     }
 
     public addLoader(loader: Loader): void {
         this.loadersToIdMap.push(loader, loader.id);
-        this.addLoaderListeners(loader);
+        // this.addLoaderListeners(loader);
     }
 
     protected getLoader(loaderId?: string): Loader {
@@ -50,66 +54,75 @@ export abstract class AbstractLoadManager extends BaseObject {
         return this.loadersToIdMap.getAllItems().concat();
     }
 
-    public add<DataType extends any = any>(item: ILoadItemConfig): AbstractLoadItem<DataType> {
-        DefaultLoadItemConfig.addDefaultData(item);
+    public load<DataType extends any = any>(itemConfig: ILoadItemConfig): AbstractLoadItem<DataType> {
+        if (this.loadItemsToIdMap.getItem(itemConfig.id)) {
+            console.warn("AbstractLoadManager | add __ WARNING! Item with the same id already exists. item:", itemConfig);
+        }
 
-        let tempLoader: Loader = this.getLoader(item.loader);
+        DefaultLoadItemConfig.addDefaultData(itemConfig);
 
-        const loadItem: AbstractLoadItem = tempLoader.add(item);
+        let tempLoader: Loader = this.getLoader(itemConfig.loader);
+
+        const loadItem: AbstractLoadItem = tempLoader.add(itemConfig);
+        this.loadItemsToIdMap.push(loadItem, itemConfig.id);
 
         this.addItemToLoadGroups(loadItem);
-        this.addItemListeners(loadItem);
+        // this.addItemListeners(loadItem);
         // this.updateLoadGroupStatusesForItem(loadItem);
 
         return loadItem;
     }
 
-    protected addLoaderListeners(loader: Loader): void {
-        /*this.eventListenerHelper.addEventListener(
-            loader,
-            LoadEvent.PROGRESS,
-            () => {
-                this.dispatchEvent(LoadManagerEvent.LOADER_PROGRESS, loader.id);
-            }
-        );
-
-        this.eventListenerHelper.addEventListener(
-            loader,
-            LoadEvent.COMPLETE,
-            () => {
-                this.dispatchEvent(LoadManagerEvent.LOADER_COMPLETE, loader.id);
-            }
-        );
-
-        /!*this.eventListenerHelper.addEventListener(
-            loader,
-            LoaderEvent.ITEM_COMPLETE,
-            (item: AbstractLoadItem) => {
-                this.dispatchEvent(LoadManagerEvent.LOADER_ITEM_COMPLETE, loader.id, item);
-            }
-        );*!/
-
-        this.eventListenerHelper.addEventListener(
-            loader,
-            LoadEvent.ERROR,
-            (item: AbstractLoadItem) => {
-                this.dispatchEvent(LoadManagerEvent.LOADER_ERROR, loader.id);
-            }
-        );*/
+    public getLoadItem(id: string): AbstractLoadItem {
+        return this.loadItemsToIdMap.getItem(id);
     }
 
-    protected addItemListeners(item: AbstractLoadItem): void {
-        /*this.eventListenerHelper.addEventListener(
-            item,
-            LoadStatusEvent.STATUS_CHANGE,
-            () => {
-                this.updateLoadGroupStatusesForItem(item);
-            }
-        );*/
-    }
+    // protected addLoaderListeners(loader: Loader): void {
+    //     /*this.eventListenerHelper.addEventListener(
+    //         loader,
+    //         LoadEvent.PROGRESS,
+    //         () => {
+    //             this.dispatchEvent(LoadManagerEvent.LOADER_PROGRESS, loader.id);
+    //         }
+    //     );
+    //
+    //     this.eventListenerHelper.addEventListener(
+    //         loader,
+    //         LoadEvent.COMPLETE,
+    //         () => {
+    //             this.dispatchEvent(LoadManagerEvent.LOADER_COMPLETE, loader.id);
+    //         }
+    //     );
+    //
+    //     /!*this.eventListenerHelper.addEventListener(
+    //         loader,
+    //         LoaderEvent.ITEM_COMPLETE,
+    //         (item: AbstractLoadItem) => {
+    //             this.dispatchEvent(LoadManagerEvent.LOADER_ITEM_COMPLETE, loader.id, item);
+    //         }
+    //     );*!/
+    //
+    //     this.eventListenerHelper.addEventListener(
+    //         loader,
+    //         LoadEvent.ERROR,
+    //         (item: AbstractLoadItem) => {
+    //             this.dispatchEvent(LoadManagerEvent.LOADER_ERROR, loader.id);
+    //         }
+    //     );*/
+    // }
 
-    /*// Groups
-    public getGroupStatus(group?: string): LoadStatus {
+    // protected addItemListeners(item: AbstractLoadItem): void {
+    //     /*this.eventListenerHelper.addEventListener(
+    //         item,
+    //         LoadStatusEvent.STATUS_CHANGE,
+    //         () => {
+    //             this.updateLoadGroupStatusesForItem(item);
+    //         }
+    //     );*/
+    // }
+
+    // Groups
+    /*public getGroupStatus(group?: string): LoadStatus {
         let tempLoader: Loader = this.getLoader(group);
         return tempLoader.status;
     }*/
@@ -157,5 +170,12 @@ export abstract class AbstractLoadManager extends BaseObject {
 
         const result: LoadStatus = LoadStatusPriorityTools.getTopPriorityStatus(statuses);
         return result;
+    }
+
+    public substituteUrlPlaceholders(sourceUrl: string): string {
+        return StringTools.substitute(
+            sourceUrl,
+            this.substituteUrlParams
+        );
     }
 }

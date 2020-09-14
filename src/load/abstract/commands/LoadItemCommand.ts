@@ -12,7 +12,11 @@ export class LoadItemCommand extends Command {
     protected executeInternal(): void {
         let loadManager: LoadManager = getInstance(LoadManager);
 
-        this.loadItem = loadManager.add(this.loadConfig);
+        // Substitute placeholders (to give a way to load different assets for different locales/platforms/etc)
+        loadManager.substituteUrlPlaceholders(this.loadConfig.basePath);
+        loadManager.substituteUrlPlaceholders(this.loadConfig.src);
+
+        this.loadItem = loadManager.load(this.loadConfig);
         this.eventListenerHelper.addEventListener(
             this.loadItem,
             LoadStatusEvent.STATUS_CHANGE,
