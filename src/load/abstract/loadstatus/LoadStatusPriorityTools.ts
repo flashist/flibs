@@ -10,8 +10,8 @@ export class LoadStatusPriorityTools {
         for (let singleStatus of statuses) {
             const statusPriority: number = LoadStatusPriority[singleStatus];
 
-            if (!result ||
-                statusPriority > lastLoadStatusPriority) {
+            if ((!result) ||
+                (statusPriority > lastLoadStatusPriority)) {
 
                 result = singleStatus;
                 lastLoadStatusPriority = statusPriority;
