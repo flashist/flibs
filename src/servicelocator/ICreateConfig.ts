@@ -9,5 +9,5 @@ export interface ICreateConfig {
 
     activateeConstructors?: IConstructor<IActivatee>[];
 
-    constructionArgs?: any[];
+    // constructionArgs?: any[];
 }

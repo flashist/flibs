@@ -80,7 +80,7 @@ export class ServiceLocator {
         }*/
     }
 
-    static getInstance<Type extends IConstructor>(item: IConstructor<Type>, ...args: ConstructorParameters<Type>): Type
+    static getInstance<Type extends any>(item: IConstructor<Type>, ...args: ConstructorParameters<IConstructor<Type>>): Type
     static getInstance<Type extends any>(item: IConstructor<Type>, ...args): Type {
 
         let result: Type;
@@ -88,10 +88,9 @@ export class ServiceLocator {
         let tempInjection: IInjection = ServiceLocator.getInjection(item);
 
         let constructionArgs: any[] = [];
-        if (tempInjection.config?.constructionArgs) {
-            constructionArgs = tempInjection.config.constructionArgs;
+        if (args) {
+            constructionArgs = args;
         }
-
         if (tempInjection.config && tempInjection.config.isSingleton) {
             if (!tempInjection.singletonInstance) {
                 tempInjection.singletonInstance = (new tempInjection.item(...constructionArgs) as Type);
@@ -100,7 +99,7 @@ export class ServiceLocator {
             result = tempInjection.singletonInstance;
 
         } else {
-            result = (new tempInjection.item(...args) as Type);
+            result = (new tempInjection.item(...constructionArgs) as Type);
         }
 
         if (ServiceLocator.options.debug) {
