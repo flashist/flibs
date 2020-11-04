@@ -84,11 +84,15 @@ export class InputManager extends BaseObject {
         }
 
         let tempData: InputManagerEventData = new InputManagerEventData((event || window.event));
+        tempData.nativeKeyboardEvent = tempData.nativeEvent;
+
         this.dispatchEvent(InputManagerEvent.KEY_DOWN, tempData);
     }
 
     protected onKeyPress(event: KeyboardEvent): void {
         let tempData: InputManagerEventData = new InputManagerEventData((event || window.event));
+        tempData.nativeKeyboardEvent = tempData.nativeEvent;
+
         this.dispatchEvent(InputManagerEvent.KEY_PRESS, tempData);
     }
 
@@ -100,6 +104,8 @@ export class InputManager extends BaseObject {
         }
 
         let tempData: InputManagerEventData = new InputManagerEventData((event || window.event));
+        tempData.nativeKeyboardEvent = tempData.nativeEvent;
+
         this.dispatchEvent(InputManagerEvent.KEY_UP, tempData);
     }
 
