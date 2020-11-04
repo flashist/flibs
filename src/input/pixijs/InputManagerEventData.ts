@@ -1,7 +1,7 @@
 ﻿export class InputManagerEventData {
-    public nativeEvent:any;
+    public nativeEvent: any;
 
-    constructor(nativeEvent:any) {
+    constructor(nativeEvent: any) {
         this.nativeEvent = nativeEvent;
     }
 }
