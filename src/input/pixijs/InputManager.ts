@@ -77,8 +77,8 @@ export class InputManager extends BaseObject {
     protected onKeyDown(event: KeyboardEvent): void {
         //CustomLogger.log("InputManager | onKeyDown __ event.event.keyCode: " + event.keyCode);
 
-        if (!this.pressedKeyCodes[event.keyCode]) {
-            this.pressedKeyCodes[event.keyCode] = true;
+        if (!this.pressedKeyCodes[event.code]) {
+            this.pressedKeyCodes[event.code] = true;
 
             this.isDataChanged = true;
         }
@@ -97,8 +97,8 @@ export class InputManager extends BaseObject {
     }
 
     protected onKeyUp(event: KeyboardEvent): void {
-        if (this.pressedKeyCodes[event.keyCode]) {
-            this.pressedKeyCodes[event.keyCode] = false;
+        if (this.pressedKeyCodes[event.code]) {
+            this.pressedKeyCodes[event.code] = false;
 
             this.isDataChanged = true;
         }
@@ -140,15 +140,15 @@ export class InputManager extends BaseObject {
     }
 
 
-    public checkIfKeyJustPressed(keyCode: number): Boolean {
+    public checkIfKeyJustPressed(keyCode: string): Boolean {
         return this.justPressedKeyCodes[keyCode];
     }
 
-    public checkIfKeyJustReleased(keyCode: number): boolean {
+    public checkIfKeyJustReleased(keyCode: string): boolean {
         return this.justReleasedKeyCodes[keyCode];
     }
 
-    public checkIfKeyDown(keyCode: number): boolean {
+    public checkIfKeyDown(keyCode: string): boolean {
         return this.pressedKeyCodes[keyCode];
     }
 
