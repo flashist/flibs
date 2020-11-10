@@ -37,6 +37,10 @@
     N: "KeyN",
     M: "KeyM",
 
+    ESCAPE: "Escape",
+    ENTER: "Enter",
+    SPACE: "Space",
+
     MINUS: "Minus",
     EQUAL: "Equal",
     BACKSPACE: "Backspace",
