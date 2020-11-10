@@ -1,77 +1,67 @@
-﻿export class KeyCodes {
-    public static BACKSPACE:number = 8;
-    public static TAB:number = 9;
-    public static ENTER:number = 13;
-    public static SHIFT:number = 16;
-    public static CONTROL:number = 17;
-    public static CAPSLOCK:number = 20;
-    public static ESC:number = 27;
-    public static SPACEBAR:number = 32;
-    public static PAGE_UP:number = 33;
-    public static PAGE_DOWN:number = 34;
-    public static END:number = 35;
-    public static HOME:number = 36;
-    public static LEFT_ARROW:number = 37;
-    public static UP_ARROW:number = 38;
-    public static RIGHT_ARROW:number = 39;
-    public static DOWN_ARROW:number = 40;
-    public static INSERT:number = 45;
-    public static DELETE:number = 46;
-    public static NUM_LOCK:number = 144;
-    public static SCOLLLOCK:number = 145;
-    public static PAUSE_BREAK:number = 19;
+﻿export const KeyCodes = {
+    1: "Digit1",
+    2: "Digit2",
+    3: "Digit3",
+    4: "Digit4",
+    5: "Digit5",
+    6: "Digit6",
+    7: "Digit7",
+    8: "Digit8",
+    9: "Digit9",
+    0: "Digit0",
 
-    public static A:number = 65;
-    public static B:number = 66;
-    public static C:number = 67;
-    public static D:number = 68;
-    public static E:number = 69;
-    public static F:number = 70;
-    public static G:number = 71;
-    public static H:number = 72;
-    public static I:number = 73;
-    public static J:number = 74;
-    public static K:number = 75;
-    public static L:number = 76;
-    public static M:number = 77;
-    public static N:number = 78;
-    public static O:number = 79;
-    public static P:number = 80;
-    public static Q:number = 81;
-    public static R:number = 82;
-    public static S:number = 83;
-    public static T:number = 84;
-    public static U:number = 85;
-    public static V:number = 86;
-    public static W:number = 87;
-    public static X:number = 88;
-    public static Y:number = 89;
-    public static Z:number = 90;
+    Q: "KeyQ",
+    W: "KeyW",
+    E: "KeyE",
+    R: "KeyR",
+    T: "KeyT",
+    Y: "KeyY",
+    U: "KeyU",
+    I: "KeyI",
+    O: "KeyO",
+    P: "KeyP",
+    A: "KeyA",
+    S: "KeyS",
+    D: "KeyD",
+    F: "KeyF",
+    G: "KeyG",
+    H: "KeyH",
+    J: "KeyJ",
+    K: "KeyK",
+    L: "KeyL",
+    Z: "KeyZ",
+    X: "KeyX",
+    C: "KeyC",
+    V: "KeyV",
+    B: "KeyB",
+    N: "KeyN",
+    M: "KeyM",
 
-    public static 0:number = 48;
-    public static 1:number = 49;
-    public static 2:number = 50;
-    public static 3:number = 51;
-    public static 4:number = 52;
-    public static 5:number = 53;
-    public static 6:number = 54;
-    public static 7:number = 55;
-    public static 8:number = 56;
-    public static 9:number = 57;
+    MINUS: "Minus",
+    EQUAL: "Equal",
+    BACKSPACE: "Backspace",
+    TAB: "Tab",
+    BRACKET_LEFT: "BracketLeft",
+    BRACKET_RIGHT: "BracketRight",
+    SEMICOLON: "Semicolon",
+    QUOTE: "Quote",
+    BACKSLASH: "Backslash",
+    COMMA: "Comma",
+    PERIOD: "Period",
+    SLASH: "Slash",
+    INTLBACKSLASH: "IntlBackslash",
+    CAPSLOCK: "CapsLock",
+    SHIFT_LEFT: "ShiftLeft",
+    SHIFT_RIGHT: "ShiftRight",
+    CTRL_LEFT: "ControlLeft",
+    CTRL_RIGHT: "ControlRight",
+    ALT_LEFT: "AltLeft",
+    ALT_RIGHT: "AltRight",
+    META_LEFT: "MetaLeft",
+    META_RIGHT: "MetaRight",
 
-    public static F1:number = 112;
-    public static F2:number = 113;
-    public static F3:number = 114;
-    public static F4:number = 115;
-    public static F5:number = 116;
-    public static F6:number = 117;
-    public static F7:number = 118;
-    public static F8:number = 119;
-    public static F9:number = 120;
-    //F10 = nokey;
-    public static F11:number = 122;
-    public static F12:number = 123;
-    public static F13:number = 124;
-    public static F14:number = 125;
-    public static F15:number = 126;
-}
+    ARROW_UP: "ArrowUp",
+    ARROW_DOWN: "ArrowDown",
+    ARROW_LEFT: "ArrowLeft",
+    ARROW_RIGHT: "ArrowRight"
+};

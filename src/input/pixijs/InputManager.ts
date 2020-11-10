@@ -34,7 +34,7 @@ export class InputManager extends BaseObject {
         var documentAny: any = (document as any);
         var documentDispatcher: IEventDispatcher<Event> = (documentAny as IEventDispatcher<Event>);
         this.eventListenerHelper.addEventListener(documentDispatcher, JSKeyboardEvent.KEY_DOWN, this.onKeyDown);
-        this.eventListenerHelper.addEventListener(documentDispatcher, JSKeyboardEvent.KEY_PRESS, this.onKeyPress);
+        // this.eventListenerHelper.addEventListener(documentDispatcher, JSKeyboardEvent.KEY_PRESS, this.onKeyPress);
         this.eventListenerHelper.addEventListener(documentDispatcher, JSKeyboardEvent.KEY_UP, this.onKeyUp);
         // this.eventListenerHelper.addEventListener(SharedTicker, TickerEvent.TICK, this.onTick);
 
@@ -89,12 +89,12 @@ export class InputManager extends BaseObject {
         this.dispatchEvent(InputManagerEvent.KEY_DOWN, tempData);
     }
 
-    protected onKeyPress(event: KeyboardEvent): void {
+    /*protected onKeyPress(event: KeyboardEvent): void {
         let tempData: InputManagerEventData = new InputManagerEventData((event || window.event));
         tempData.nativeKeyboardEvent = tempData.nativeEvent;
 
         this.dispatchEvent(InputManagerEvent.KEY_PRESS, tempData);
-    }
+    }*/
 
     protected onKeyUp(event: KeyboardEvent): void {
         if (this.pressedKeyCodes[event.code]) {
@@ -140,15 +140,15 @@ export class InputManager extends BaseObject {
     }
 
 
-    public checkIfKeyJustPressed(keyCode: string): Boolean {
+    public checkIfKeyCodeJustPressed(keyCode: string): Boolean {
         return this.justPressedKeyCodes[keyCode];
     }
 
-    public checkIfKeyJustReleased(keyCode: string): boolean {
+    public checkIfKeyCodeJustReleased(keyCode: string): boolean {
         return this.justReleasedKeyCodes[keyCode];
     }
 
-    public checkIfKeyDown(keyCode: string): boolean {
+    public checkIfKeyCodeDown(keyCode: string): boolean {
         return this.pressedKeyCodes[keyCode];
     }
 
