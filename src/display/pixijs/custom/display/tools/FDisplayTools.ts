@@ -12,12 +12,17 @@ export class FDisplayTools {
     private static cachedPoint: Point = new Point();
 
     static findStageInDisplayList(object: DisplayObject): FStage {
-        let result: FStage = FDisplayTools.findParentInDisplayList(
-            object.parent,
-            (parent: DisplayObjectContainer) => {
-                return FStage.isFStage(parent)
+        let result: FStage;
+
+        let tempParent: DisplayObjectContainer = object.parent;
+        while (tempParent) {
+            if (FStage.isFStage(tempParent)) {
+                result = (tempParent as FStage);
+                break;
+            } else {
+                tempParent = tempParent.parent;
             }
-        ) as FStage;
+        }
 
         return result;
     }
