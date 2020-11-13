@@ -24,7 +24,7 @@ export class FDisplayTools {
 
     static findParentInDisplayList(
         object: DisplayObject,
-        condition: (object: DisplayObject) => boolean,
+        condition: (object: DisplayObjectContainer) => boolean,
         filter: (object: DisplayObject) => boolean = null): DisplayObjectContainer {
 
         let result: DisplayObjectContainer;
