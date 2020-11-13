@@ -9,28 +9,52 @@ import {
 
 export class FDisplayTools {
 
-    static findStageInDisplayList(object: DisplayObject): FStage {
-        let result: FStage;
+    private static cachedPoint: Point = new Point();
 
-        let tempParent: DisplayObjectContainer = object.parent;
-        while (tempParent) {
-            if (FStage.isFStage(tempParent)) {
-                result = (tempParent as FStage);
-                break;
-            } else {
-                tempParent = tempParent.parent;
+    static findStageInDisplayList(object: DisplayObject): FStage {
+        let result: FStage = FDisplayTools.findParentInDisplayList(
+            object.parent,
+            (parent: DisplayObjectContainer) => {
+                return FStage.isFStage(parent)
             }
-        }
+        ) as FStage;
 
         return result;
     }
 
-    private static cachedPoint: Point = new Point();
+    static findParentInDisplayList(
+        object: DisplayObject,
+        condition: (object: DisplayObject) => boolean,
+        filter: (object: DisplayObject) => boolean = null): DisplayObjectContainer {
+
+        let result: DisplayObjectContainer;
+
+        let tempParent: DisplayObjectContainer = object.parent;
+        while (tempParent) {
+            if (!filter || filter(tempParent)) {
+                if (condition(tempParent)) {
+                    result = tempParent;
+                    break;
+
+                } else {
+                    tempParent = tempParent.parent;
+                }
+
+            } else {
+                // Stop looking for a class, because one of the parent classes doesn't pass the filter func
+                break;
+            }
+        }
+
+        return result;
+
+    }
 
     public static getObjectsUnderPoint(
         root: DisplayObject,
         x: number,
-        y: number): IFDisplayObjectUnderPointVO {
+        y: number,
+        filter: (object: DisplayObject) => boolean = null): IFDisplayObjectUnderPointVO {
 
         let result: IFDisplayObjectUnderPointVO;
 
@@ -44,9 +68,11 @@ export class FDisplayTools {
                 let childrenCount: number = rootContainer.children.length;
                 for (let childIndex: number = 0; childIndex < childrenCount; childIndex++) {
                     tempChild = rootContainer.children[childIndex];
-                    tempChildResult = this.getObjectsUnderPoint(tempChild, x, y);
-                    if (tempChildResult) {
-                        tempChildren.push(tempChildResult);
+                    if (!filter || filter(tempChild)) {
+                        tempChildResult = this.getObjectsUnderPoint(tempChild, x, y);
+                        if (tempChildResult) {
+                            tempChildren.push(tempChildResult);
+                        }
                     }
                 }
 
@@ -55,7 +81,7 @@ export class FDisplayTools {
                     result = {object: root, children: tempChildren};
                 }
 
-            // If the object isn't a container
+                // If the object isn't a container
             } else {
 
                 let isUnderPoint: boolean = false;
