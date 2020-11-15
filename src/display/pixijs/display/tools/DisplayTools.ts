@@ -35,6 +35,35 @@ export class DisplayTools {
         container.addChildAt(child, index);
     }
 
+
+    static findParentInDisplayList(
+        object: DisplayObject,
+        condition: (object: DisplayObjectContainer) => boolean,
+        filter: (object: DisplayObject) => boolean = null): DisplayObjectContainer {
+
+        let result: DisplayObjectContainer;
+
+        let tempParent: DisplayObjectContainer = object.parent;
+        while (tempParent) {
+            if (!filter || filter(tempParent)) {
+                if (condition(tempParent)) {
+                    result = tempParent;
+                    break;
+
+                } else {
+                    tempParent = tempParent.parent;
+                }
+
+            } else {
+                // Stop looking for a class, because one of the parent classes doesn't pass the filter func
+                break;
+            }
+        }
+
+        return result;
+
+    }
+
     /*public static findChildByName<ChildType extends IDisplayObjectWrapper>(container:IDisplayObjectContainerWrapper,
      childName:string,
      isRecursive:boolean):ChildType {
