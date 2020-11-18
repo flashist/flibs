@@ -8,11 +8,15 @@ import {
 
 export class ServiceLocator {
 
-    public static options: IServiceLocatorOptions = {};
+    private static config: IServiceLocatorOptions = {};
 
     private static injectionsMap: Dictionary<IConstructor, IInjection> = new Dictionary<IConstructor, IInjection>();
 
     private static activatorToActivateesMap: Dictionary<any, IActivatee[]> = new Dictionary<any, IActivatee[]>();
+
+    static startInit(config: IServiceLocatorOptions = {}): void {
+        ServiceLocator.config = config;
+    }
 
     static activate(): void {
         let tempInjection: IInjection;
@@ -102,7 +106,7 @@ export class ServiceLocator {
             result = (new tempInjection.item(...constructionArgs) as Type);
         }
 
-        if (ServiceLocator.options.debug) {
+        if (ServiceLocator.config.debug) {
             let constructorName: string = ServiceLocator.getConstructorName(item);
             window[constructorName] = result;
         }
