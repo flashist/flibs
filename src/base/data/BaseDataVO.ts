@@ -3,12 +3,12 @@
 import {IGenericObjectVO} from "../..";
 import {BaseDataVOEvent} from "./BaseDataVOEvent";
 
-export class BaseDataVO<SubClassType extends typeof BaseDataVO = null> extends BaseEventDispatcher implements IGenericObjectVO {
+export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO {
 
     public type: string = "";
     public id: string = "";
 
-    protected explicitSourcePropertyNames: (keyof SubClassType & string)[] = [];
+    protected explicitSourcePropertyNames: string[] = [];
 
     update(source: Partial<this>): void {
         const isChanged: boolean = ObjectTools.copyProps(this, source);
