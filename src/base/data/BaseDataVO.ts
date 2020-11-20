@@ -8,7 +8,7 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
     public type: string = "";
     public id: string = "";
 
-    protected explicitSourcePropertyNames: (keyof this)[];
+    protected explicitSourcePropertyNames: string[] = [];
 
     update(source: Partial<this>): void {
         const isChanged: boolean = ObjectTools.copyProps(this, source);
@@ -22,7 +22,7 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
         let sourceObj: Partial<this> = {};
 
         let copyKeys: string[] = this.explicitSourcePropertyNames as any;
-        if (!copyKeys) {
+        if (!copyKeys || copyKeys.length > 0) {
             copyKeys = Object.keys(this);
         }
 
