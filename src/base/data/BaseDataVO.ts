@@ -22,7 +22,7 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
         let sourceObj: Partial<this> = {};
 
         let copyKeys: string[] = this.explicitSourcePropertyNames as any;
-        if (!copyKeys || copyKeys.length > 0) {
+        if (!copyKeys || copyKeys.length <= 0) {
             copyKeys = Object.keys(this);
         }
 
