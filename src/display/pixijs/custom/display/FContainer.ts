@@ -34,8 +34,6 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
         this.isConstructed = true;
         this.onConstructedComplete();
 
-        this.commitData();
-
         // PIXI eveents
         this.stageListenerHelper.addEventListener(
             this,
@@ -101,8 +99,7 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
     }
 
     protected onConstructedComplete(): void {
-        // TODO: might be used in subclasses to initiate object behavior,
-        // when all children are created and prepared
+        this.commitData();
     }
 
     protected onAddedToStage(): void {
