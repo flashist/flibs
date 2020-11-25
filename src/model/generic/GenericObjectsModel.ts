@@ -13,7 +13,7 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
     protected construction(...args): void {
         super.construction(...args);
 
-        this.DefaultItemClass = BaseDataVO as any;
+        // this.DefaultItemClass = BaseDataVO as any;
     }
 
     public parseSource(source: IGenericObjectVO): void {
