@@ -99,7 +99,7 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
     }
 
     protected onConstructedComplete(): void {
-        this.commitData();
+        // this.commitData();
     }
 
     protected onAddedToStage(): void {
