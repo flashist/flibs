@@ -1,4 +1,4 @@
-﻿import {IEventDispatcher, JSKeyboardEvent, BaseObject} from "@flashist/fcore";
+﻿import {ArrayTools, IEventDispatcher, JSKeyboardEvent, BaseObject} from "@flashist/fcore";
 import {
     FApp,
     InteractiveEvent,
@@ -152,6 +152,13 @@ export class InputManager extends BaseObject {
 
     public checkIfKeyCodeDown(keyCode: string): boolean {
         return this.pressedKeyCodes[keyCode];
+    }
+
+    public checkIfAnyCodeDown(keyCodes: string[]): boolean {
+        return ArrayTools.checkIfSomeEqual(
+            this.pressedKeyCodes,
+            keyCodes
+        );
     }
 
     public getLastGlobalInteractionPos(): Point {
