@@ -155,10 +155,11 @@ export class InputManager extends BaseObject {
     }
 
     public checkIfAnyCodeDown(keyCodes: string[]): boolean {
-        return ArrayTools.checkIfSomeEqual(
-            this.pressedKeyCodes,
-            keyCodes
-        );
+        return keyCodes.some(
+            (code: string) => {
+                return !!this.pressedKeyCodes[code];
+            }
+        )
     }
 
     public getLastGlobalInteractionPos(): Point {
