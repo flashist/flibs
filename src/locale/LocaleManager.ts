@@ -17,8 +17,11 @@ export class LocaleManager {
 
     public useTextLinks: boolean = true;
 
+    protected bindMethodReplaceRegExpKeyByStrings: (substring: string, ...params) => string;
+
     public constructor() {
         this.localeToIdMap = {};
+        this.bindMethodReplaceRegExpKeyByStrings = this.replaceRegExpKeyByStrings.bind(this);
 
         this.setCurrentLanguage("");
     }
@@ -81,7 +84,7 @@ export class LocaleManager {
 
         if (this.useTextLinks) {
             // Change links by key L on the specific locales
-            res = res.replace(/\@(.*)\@/gi, this.replaceRegExpKeyByStrings);
+            res = res.replace(/\@(.*)\@/gi, this.bindMethodReplaceRegExpKeyByStrings);
         }
 
         //
@@ -91,7 +94,7 @@ export class LocaleManager {
 
         if (this.useTextLinks) {
             // Check the links with L again
-            res = res.replace(/\@(.*)\@/gi, this.replaceRegExpKeyByStrings);
+            res = res.replace(/\@(.*)\@/gi, this.bindMethodReplaceRegExpKeyByStrings);
         }
 
         return res;
