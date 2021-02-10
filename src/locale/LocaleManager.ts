@@ -100,8 +100,8 @@ export class LocaleManager {
         return res;
     }
 
-    protected replaceRegExpKeyByStrings(substring: string, ...params): string {
-        return this.currentLocale.texts[substring];
+    protected replaceRegExpKeyByStrings(substring: string, group1: string, ...args): string {
+        return this.currentLocale.texts[group1];
     }
 }
 
