@@ -136,7 +136,7 @@ export class InputManager extends BaseObject {
                 this.prevPressedKeyCodes[keyCode] = this.pressedKeyCodes[keyCode];
             }
 
-            this.dispatchEvent(InputManagerEvent.DATA_CHANGED);
+            this.dispatchEvent(InputManagerEvent.DATA_CHANGE);
         }
 
         //CustomLogger.logCurrentTime();
