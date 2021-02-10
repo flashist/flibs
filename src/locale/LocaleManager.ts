@@ -15,6 +15,8 @@ export class LocaleManager {
     private _currentLanguage: string;
     protected currentLocale: ILocaleConfig;
 
+    public useTextLinks: boolean = true;
+
     public constructor() {
         this.localeToIdMap = {};
 
@@ -77,16 +79,20 @@ export class LocaleManager {
     protected format(str: string, params: any = null): string {
         var res: string = str;
 
-        // Change links by key L on the specific locales
-        res = res.replace(/(\d+)L/gi, this.replaceRegExpKeyByStrings);
+        if (this.useTextLinks) {
+            // Change links by key L on the specific locales
+            res = res.replace(/\@(.*)\@/gi, this.replaceRegExpKeyByStrings);
+        }
 
         //
         if (str && params) {
             res = StringTools.substitute(res, params);
         }
 
-        // Check the links with L again
-        res = res.replace(/(\d+)L/gi, this.replaceRegExpKeyByStrings);
+        if (this.useTextLinks) {
+            // Check the links with L again
+            res = res.replace(/\@(.*)\@/gi, this.replaceRegExpKeyByStrings);
+        }
 
         return res;
     }
