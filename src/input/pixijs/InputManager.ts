@@ -105,6 +105,8 @@ export class InputManager extends BaseObject {
             this.isDataChanged = true;
         }
 
+        this.updateInput();
+
         let tempData: InputManagerEventData = new InputManagerEventData((event || window.event));
         tempData.nativeKeyboardEvent = tempData.nativeEvent;
 
