@@ -1,16 +1,9 @@
 var gulp = require("gulp");
-var del = require("del");
+var rimraf = require("rimraf");
 
 gulp.task(
     "clean",
-    function (cb) {
-        console.log("START! clean.js");
-
-        del(["dist/**/*"]).then(
-            function() {
-                console.log("FINISH! compile.js");
-                cb();
-            }
-        );
+    (cb) => {
+        return rimraf("./dist/**/*", cb);
     }
 );

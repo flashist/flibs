@@ -1,36 +1,36 @@
 {
-  "name": "flibs",
-  "version": "0.0.21",
-  "scripts": {},
+  "name": "@flashist/flibs",
+  "version": "0.0.95",
+  "scripts": {
+    "build": "gulp",
+    "publish:patch": "npm version patch && npm run build && cd ./dist && npm publish",
+    "publish:minor": "npm version minor && npm run build && cd ./dist && npm publish",
+    "publish:major": "npm version major && npm run build && cd ./dist && npm publish"
+  },
   "license": "MIT",
   "private": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/flashist/flibs"
   },
-  "typings": "dist/index.d.ts",
-  "main": "dist/index.js",
+  "main": "index.js",
+  "typings": "index.d.ts",
   "dependencies": {
-    "fgraphics": "0.0.26"
+    "@flashist/fcore": "0.x",
+    "@types/gsap": "^1.20.2",
+    "@types/howler": "^2.1.0",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "del": "2.2.2",
-    "gulp": "3.9.1",
-    "gulp-file": "0.3.0",
-    "gulp-replace": "0.5.4",
-    "gulp-sourcemaps": "1.6.0",
-    "gulp-tsc": "^1.2.0",
-    "gulp-typescript": "2.13.6",
-    "gulp-shell": "0.5.2",
-    "map-stream": "0.0.6",
-    "merge2": "1.0.2",
-    "path": "0.12.7",
-    "require-dir": "0.3.0",
-    "run-sequence": "1.2.2",
-    "systemjs": "0.19.31",
-    "tsd": "0.6.5",
-    "typescript": "1.8.10",
-    "vinyl-fs": "2.4.3",
-    "yargs": "5.0.0"
+    "@types/webfontloader": "^1.6.29",
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.8.0",
+    "pixi.js": "^5.3.3",
+    "require-dir": "^1.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.2"
+  },
+  "peerDependencies": {
+    "pixi.js": "^5.3.3"
   }
 }

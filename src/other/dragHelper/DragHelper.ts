@@ -1,38 +1,42 @@
-import {BaseObject, EventListenerHelper} from "fcore/dist/index";
-import {IDisplayObjectWrapper, DisplayObjectWrapperMouseEvent, EngineAdapter, TickerEvent} from "fgraphics/dist/index";
+import {BaseObject, EventListenerHelper} from "@flashist/fcore";
+
+import {
+    DisplayObject, FApp, InteractiveEvent, Point
+} from "../../index";
+
 import {DragHelperEvent} from "./DragHelperEvent";
 
 export class DragHelper extends BaseObject {
 
-    private _view:IDisplayObjectWrapper;
-    private viewEventListenerHelper:EventListenerHelper<string>;
+    private _view: DisplayObject;
+    private viewEventListenerHelper: EventListenerHelper<string>;
 
-    private _isDragStarted:boolean;
+    private _isDragStarted: boolean;
 
-    public startDragGlobalX:number = 0;
-    public startDragGlobalY:number = 0;
-    public lastDragGlobalX:number = 0;
-    public lastDragGlobalY:number = 0;
-    public changeDragGlobalX:number = 0;
-    public changeDragGlobalY:number = 0;
+    public startDragGlobalX: number = 0;
+    public startDragGlobalY: number = 0;
+    public lastDragGlobalX: number = 0;
+    public lastDragGlobalY: number = 0;
+    public changeDragGlobalX: number = 0;
+    public changeDragGlobalY: number = 0;
 
     // Might be useful to prevent too quick/too small drags
-    public dragUpdateDelay:number = 0;
+    public dragUpdateDelay: number = 0;
 
-    protected dragStartTime:number = 0;
+    protected dragStartTime: number = 0;
 
     public constructor() {
         super();
     }
 
 
-    protected construction():void {
+    protected construction(): void {
         super.construction();
 
         this.viewEventListenerHelper = new EventListenerHelper(this);
     }
 
-    destruction():void {
+    destruction(): void {
         super.destruction();
 
         if (this.viewEventListenerHelper) {
@@ -42,57 +46,61 @@ export class DragHelper extends BaseObject {
     }
 
 
-    protected removeListeners():void {
+    protected removeListeners(): void {
         super.removeListeners();
 
         this.removeViewListeners(this.view);
     }
 
 
-    protected addViewObjectListeners(object:IDisplayObjectWrapper):void {
+    protected addViewObjectListeners(object: DisplayObject): void {
         if (!object) {
             return;
         }
 
         this.viewEventListenerHelper.addEventListener(
             object,
-            DisplayObjectWrapperMouseEvent.MOUSE_DOWN,
+            InteractiveEvent.DOWN,
             this.onMouseDown
         );
         this.viewEventListenerHelper.addEventListener(
             object,
-            DisplayObjectWrapperMouseEvent.MOUSE_UP,
+            InteractiveEvent.UP,
             this.onMouseUp
         );
         this.viewEventListenerHelper.addEventListener(
             object,
-            DisplayObjectWrapperMouseEvent.MOUSE_UP_OUTSIDE,
+            InteractiveEvent.UP_OUTSIDE,
             this.onMouseUp
         );
-        this.viewEventListenerHelper.addEventListener(
+
+        /*this.viewEventListenerHelper.addEventListener(
             EngineAdapter.instance.mainTicker,
             TickerEvent.TICK,
             this.onTick
-        );
+        );*/
+        FApp.instance.ticker.add(this.onTick, this);
     }
 
-    protected removeViewListeners(object:IDisplayObjectWrapper):void {
+    protected removeViewListeners(object: DisplayObject): void {
         if (!object) {
             return;
         }
         this.viewEventListenerHelper.removeAllListeners();
+
+        FApp.instance.ticker.remove(this.onTick, this);
     }
 
 
-    private onMouseDown():void {
+    private onMouseDown(): void {
         this.startDrag();
     }
 
-    private onMouseUp():void {
+    private onMouseUp(): void {
         this.stopDrag();
     }
 
-    private onTick():void {
+    private onTick(): void {
         if (this.isDragStarted) {
             if (this.checkIsNeedUpdateDrag()) {
                 this.updateDrag();
@@ -101,26 +109,27 @@ export class DragHelper extends BaseObject {
     }
 
 
-    private dispatchDragStartEvent():void {
+    private dispatchDragStartEvent(): void {
         this.dispatchEvent(DragHelperEvent.DRAG_START);
     }
 
-    private dispatchDragUpdateEvent():void {
+    private dispatchDragUpdateEvent(): void {
         this.dispatchEvent(DragHelperEvent.DRAG_UPDATE);
     }
 
-    private dispatchDragEndEvent():void {
+    private dispatchDragEndEvent(): void {
         this.dispatchEvent(DragHelperEvent.DRAG_END);
     }
 
-    private startDrag():void {
+    private startDrag(): void {
         if (this.isDragStarted) {
             return;
         }
         this.isDragStarted = true;
 
-        this.startDragGlobalX = EngineAdapter.instance.globalMouseX;
-        this.startDragGlobalY = EngineAdapter.instance.globalMouseY;
+        const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
+        this.startDragGlobalX = globalPos.x;
+        this.startDragGlobalY = globalPos.y;
 
         this.lastDragGlobalX = this.startDragGlobalX;
         this.lastDragGlobalY = this.startDragGlobalY;
@@ -131,7 +140,7 @@ export class DragHelper extends BaseObject {
         this.dispatchDragStartEvent();
     }
 
-    private stopDrag():void {
+    public stopDrag(): void {
         if (!this.isDragStarted) {
             return;
         }
@@ -142,28 +151,31 @@ export class DragHelper extends BaseObject {
         this.dispatchDragEndEvent();
     }
 
-    private updateDrag():void {
+    private updateDrag(): void {
         // Если последняя точка перетаскивания не изменилась, то прерываем функцию
-        if (this.lastDragGlobalX == EngineAdapter.instance.globalMouseX &&
-            this.lastDragGlobalY == EngineAdapter.instance.globalMouseY) {
+        const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
+        if (this.lastDragGlobalX == globalPos.x &&
+            this.lastDragGlobalY == globalPos.y) {
             return;
         }
 
-        this.lastDragGlobalX = EngineAdapter.instance.globalMouseX;
-        this.lastDragGlobalY = EngineAdapter.instance.globalMouseY;
+        this.lastDragGlobalX = globalPos.x;
+        this.lastDragGlobalY = globalPos.y;
 
         this.changeDragGlobalX = this.lastDragGlobalX - this.startDragGlobalX;
         this.changeDragGlobalY = this.lastDragGlobalY - this.startDragGlobalY;
+        console.log("this.lastDragGlobalX:", this.lastDragGlobalX, " | this.lastDragGlobalY:", this.lastDragGlobalY);
+        console.log("this.startDragGlobalX:", this.startDragGlobalX, " | this.startDragGlobalY:", this.startDragGlobalY);
 
         this.dispatchDragUpdateEvent();
     }
 
 
-    public get isDragStarted():boolean {
+    public get isDragStarted(): boolean {
         return this._isDragStarted;
     }
 
-    public set isDragStarted(value:boolean) {
+    public set isDragStarted(value: boolean) {
         if (value == this.isDragStarted) {
             return;
         }
@@ -175,10 +187,11 @@ export class DragHelper extends BaseObject {
     }
 
 
-    get view():IDisplayObjectWrapper {
+    get view(): DisplayObject {
         return this._view;
     }
-    set view(value:IDisplayObjectWrapper) {
+
+    set view(value: DisplayObject) {
 
         if (value == this.view) {
             return;
@@ -191,8 +204,8 @@ export class DragHelper extends BaseObject {
     }
 
 
-    private checkIsNeedUpdateDrag():boolean {
-        var result:boolean;
+    private checkIsNeedUpdateDrag(): boolean {
+        var result: boolean;
 
         if (Date.now() >= this.dragStartTime + this.dragUpdateDelay) {
             result = true;
