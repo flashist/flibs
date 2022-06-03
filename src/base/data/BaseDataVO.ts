@@ -1,7 +1,7 @@
-﻿import {ArrayTools, ObjectTools, BaseEventDispatcher} from "@flashist/fcore";
+﻿import { ArrayTools, ObjectTools, BaseEventDispatcher } from "@flashist/fcore";
 
-import {IGenericObjectVO} from "../..";
-import {BaseDataVOEvent} from "./BaseDataVOEvent";
+import { IGenericObjectVO } from "../..";
+import { BaseDataVOEvent } from "./BaseDataVOEvent";
 
 export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO {
 
@@ -11,6 +11,7 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
     protected explicitSourcePropertyNames: string[] = [];
     protected ignoreSourcePropertyNames: string[] = [];
     protected addSourcePropertyNames: string[] = [];
+    protected copyAsLinkPropertyNames: string[] = [];
 
     constructor(sourceData?: any, ...args) {
         super(sourceData, ...args);
@@ -19,7 +20,8 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
             "eventEmitter",
             "explicitSourcePropertyNames",
             "ignoreSourcePropertyNames",
-            "addSourcePropertyNames"
+            "addSourcePropertyNames",
+            "copyAsLinkPropertyNames"
         );
 
         if (sourceData) {
@@ -29,6 +31,19 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
 
     update(source: Partial<this>): void {
         const isChanged: boolean = ObjectTools.copyProps(this, source);
+
+        const copyKeyNames: string[] = Object.keys(source);
+        for (let keyName of copyKeyNames) {
+            if (this.copyAsLinkPropertyNames.indexOf(keyName) === -1) {
+                ObjectTools.copySingleProp(
+                    this,
+                    source,
+                    keyName
+                );
+            } else {
+                this[keyName] = source[keyName];
+            }
+        }
 
         if (isChanged) {
             this.dispatchEvent(BaseDataVOEvent.CHANGE);
@@ -75,11 +90,15 @@ export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO 
         copyKeyNames.sort();
 
         for (let keyName of copyKeyNames) {
-            ObjectTools.copySingleProp(
-                sourceObj,
-                this,
-                keyName
-            );
+            if (this.copyAsLinkPropertyNames.indexOf(keyName) === -1) {
+                ObjectTools.copySingleProp(
+                    sourceObj,
+                    this,
+                    keyName
+                );
+            } else {
+                sourceObj[keyName] = this[keyName];
+            }
         }
 
         return sourceObj;
