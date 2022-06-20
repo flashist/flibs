@@ -1,4 +1,4 @@
-import {ObjectTools} from "@flashist/fcore";
+import { ObjectTools } from "@flashist/fcore";
 
 import {
     Text,
@@ -29,6 +29,10 @@ export class FLabel extends FContainer {
     protected _width: number;
 
     protected _fieldPadding: Point;
+
+    constructor(config?: IFLabelConfig) {
+        super(config);
+    }
 
     protected construction(config?: IFLabelConfig): void {
         super.construction();

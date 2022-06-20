@@ -1,4 +1,4 @@
-import {EventListenerHelper, Logger, IDatable} from "@flashist/fcore";
+import { EventListenerHelper, Logger, IDatable } from "@flashist/fcore";
 
 import {
     DisplayObjectContainer,
@@ -70,7 +70,7 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
     public destruction(): void {
         // Note: subclasses should implement their own logic here
 
-        this.destroy({children: true});
+        this.destroy({ children: true });
 
         if (this.eventListenerHelper) {
             this.eventListenerHelper.destruction();
