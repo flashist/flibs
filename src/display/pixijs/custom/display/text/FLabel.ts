@@ -202,6 +202,9 @@ export class FLabel extends FContainer {
     protected arrange(): void {
         super.arrange();
 
+        // Reset Field Scale
+        this.field.scale.set(1);
+
         if (this.autosize) {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
                 this._width = this.field.width + (this.fieldPaddingX * 2);
