@@ -122,8 +122,7 @@ export class FLabel extends FContainer {
                 {
 
                     fontName: this.config.fontFamily,
-                    fontSize: this.config.size
-                    ,
+                    fontSize: this.config.size,
                     tint: this.config.color
                 }
             );

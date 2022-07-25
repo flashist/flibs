@@ -1,5 +1,5 @@
-import {IFLabelConfig} from "./IFLabelConfig";
+import { IFLabelConfig } from "./IFLabelConfig";
 
 export class FLabelDefaultConfig implements IFLabelConfig {
-    public fitToSize: boolean = true;
+    public autosize: boolean = true;
 }
