@@ -8,9 +8,13 @@ export interface IFLabelConfig {
     bgAlpha?: number;
     autosize?: boolean;
     autosizeType?: AutosizeType;
-    maxAutoSize?: Point;
+    // maxAutoSize?: Point;
+    maxAutosizeWidth?: number;
+    maxAutosizeHeight?: number;
     fitToSize?: boolean;
-    fieldPadding?: Point;
+    // fieldPadding?: Point;
+    fieldPaddingX?: number;
+    fieldPaddingY?: number;
 
     fontFamily?: string;
     size?: number;

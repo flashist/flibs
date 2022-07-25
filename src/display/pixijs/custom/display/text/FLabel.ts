@@ -28,8 +28,6 @@ export class FLabel extends FContainer {
     protected _height: number;
     protected _width: number;
 
-    protected _fieldPadding: Point;
-
     constructor(config?: IFLabelConfig) {
         super(config);
     }
@@ -90,11 +88,6 @@ export class FLabel extends FContainer {
                 ignoreExistedProperties: true
             }
         );
-
-        this._fieldPadding = new Point();
-        if (this.config.fieldPadding) {
-            this._fieldPadding = this.config.fieldPadding;
-        }
 
         this.bg = new Graphics();
         this.addChild(this.bg);
@@ -211,16 +204,16 @@ export class FLabel extends FContainer {
 
         if (this.autosize) {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
-                this._width = this.field.width + (this._fieldPadding.x * 2);
-                if (this.maxAutoSize?.x) {
-                    this._width = Math.max(this._width, this.maxAutoSize.x);
+                this._width = this.field.width + (this.fieldPaddingX * 2);
+                if (this.maxAutosizeWidth) {
+                    this._width = Math.max(this._width, this.maxAutosizeWidth);
                 }
             }
 
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.HEIGHT) {
-                this._height = this.field.height + (this._fieldPadding.y * 2);
-                if (this.maxAutoSize?.y) {
-                    this._width = Math.max(this._height, this.maxAutoSize.y);
+                this._height = this.field.height + (this.fieldPaddingY * 2);
+                if (this.maxAutosizeHeight) {
+                    this._width = Math.max(this._height, this.maxAutosizeHeight);
                 }
             }
         }
@@ -240,32 +233,32 @@ export class FLabel extends FContainer {
         this.bg.width = this._width;
         this.bg.height = this._height;
 
-        let newX: number = this._fieldPadding.x;
+        let newX: number = this.fieldPaddingX;
         switch (this.align) {
             case Align.CENTER:
                 newX = Math.floor((this._width - (this.textWidth * this.field.scale.x)) * 0.5);
                 break;
             case Align.RIGHT:
-                newX = Math.floor(this._width - (this.textWidth * this.field.scale.x)) - this._fieldPadding.x;
+                newX = Math.floor(this._width - (this.textWidth * this.field.scale.x)) - this.fieldPaddingX;
                 break;
         }
         this.field.x = newX;
 
-        let newY: number = this._fieldPadding.y;
+        let newY: number = this.fieldPaddingY;
         switch (this.valign) {
             case VAlign.MIDDLE:
                 newY = Math.floor((this._height - (this.textHeight * this.field.scale.y)) * 0.5);
                 break;
             case VAlign.BOTTOM:
-                newY = Math.floor(this._height - (this.textHeight * this.field.scale.y)) - this._fieldPadding.y;
+                newY = Math.floor(this._height - (this.textHeight * this.field.scale.y)) - this.fieldPaddingY;
                 break;
         }
         this.field.y = newY;
 
-        this.fieldMask.x = this._fieldPadding.x;
-        this.fieldMask.y = this._fieldPadding.y;
-        this.fieldMask.width = this._width - (this._fieldPadding.x * 2);
-        this.fieldMask.height = this._height - (this._fieldPadding.y * 2);
+        this.fieldMask.x = this.fieldPaddingX;
+        this.fieldMask.y = this.fieldPaddingY;
+        this.fieldMask.width = this._width - (this.fieldPaddingX * 2);
+        this.fieldMask.height = this._height - (this.fieldPaddingY * 2);
     }
 
 
@@ -474,18 +467,32 @@ export class FLabel extends FContainer {
         this.arrange();
     }
 
-    public get maxAutoSize(): Point {
-        return this.config.maxAutoSize;
+    public get maxAutosizeWidth(): number {
+        return this.config.maxAutosizeWidth || 0;
     }
-    public set maxAutoSize(value: Point) {
-        if (value === this.config.maxAutoSize) {
+    public set maxAutosizeWidth(value: number) {
+        if (value === this.config.maxAutosizeWidth) {
             return;
         }
 
-        this.config.maxAutoSize = value;
+        this.config.maxAutosizeWidth = value;
 
         this.arrange();
     }
+
+    public get maxAutosizeHeight(): number {
+        return this.config.maxAutosizeHeight || 0;
+    }
+    public set maxAutosizeHeight(value: number) {
+        if (value === this.config.maxAutosizeHeight) {
+            return;
+        }
+
+        this.config.maxAutosizeHeight = value;
+
+        this.arrange();
+    }
+
 
     public get fitToSize(): boolean {
         return this.config.fitToSize;
@@ -517,10 +524,10 @@ export class FLabel extends FContainer {
     }
 
     get textAvailableWidth(): number {
-        return this.width - (this.fieldPadding.x * 2);
+        return this.width - (this.fieldPaddingX * 2);
     }
     get textAvailableHeight(): number {
-        return this.height - (this.fieldPadding.y * 2);
+        return this.height - (this.fieldPaddingY * 2);
     }
 
     get bold(): boolean {
@@ -580,16 +587,28 @@ export class FLabel extends FContainer {
     }
 
 
-    get fieldPadding(): Point {
-        return this._fieldPadding;
+    get fieldPaddingX(): number {
+        return this.config.fieldPaddingX || 0;
     }
-
-    set fieldPadding(value: Point) {
-        if (this._fieldPadding.equals(value)) {
+    set fieldPaddingX(value: number) {
+        if (this.config.fieldPaddingX === value) {
             return;
         }
 
-        this._fieldPadding = value.clone();
+        this.config.fieldPaddingX = value;
+
+        this.arrange();
+    }
+
+    get fieldPaddingY(): number {
+        return this.config.fieldPaddingY || 0;
+    }
+    set fieldPaddingY(value: number) {
+        if (this.config.fieldPaddingY === value) {
+            return;
+        }
+
+        this.config.fieldPaddingY = value;
 
         this.arrange();
     }
