@@ -212,10 +212,16 @@ export class FLabel extends FContainer {
         if (this.autosize) {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
                 this._width = this.field.width + (this._fieldPadding.x * 2);
+                if (this.maxAutoSize?.x) {
+                    this._width = Math.max(this._width, this.maxAutoSize.x);
+                }
             }
 
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.HEIGHT) {
                 this._height = this.field.height + (this._fieldPadding.y * 2);
+                if (this.maxAutoSize?.y) {
+                    this._width = Math.max(this._height, this.maxAutoSize.y);
+                }
             }
         }
 
@@ -464,6 +470,19 @@ export class FLabel extends FContainer {
         }
 
         this.config.autosizeType = value;
+
+        this.arrange();
+    }
+
+    public get maxAutoSize(): Point {
+        return this.config.maxAutoSize;
+    }
+    public set maxAutoSize(value: Point) {
+        if (value === this.config.maxAutoSize) {
+            return;
+        }
+
+        this.config.maxAutoSize = value;
 
         this.arrange();
     }
