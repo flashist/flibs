@@ -206,14 +206,14 @@ export class FLabel extends FContainer {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
                 this._width = this.field.width + (this.fieldPaddingX * 2);
                 if (this.maxAutosizeWidth) {
-                    this._width = Math.max(this._width, this.maxAutosizeWidth);
+                    this._width = Math.min(this._width, this.maxAutosizeWidth);
                 }
             }
 
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.HEIGHT) {
                 this._height = this.field.height + (this.fieldPaddingY * 2);
                 if (this.maxAutosizeHeight) {
-                    this._width = Math.max(this._height, this.maxAutosizeHeight);
+                    this._width = Math.min(this._height, this.maxAutosizeHeight);
                 }
             }
         }
