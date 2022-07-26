@@ -138,8 +138,8 @@ export class DragHelper extends BaseObject {
         this.view.parent.toLocal({ x: this.startDragGlobalX, y: this.startDragGlobalY }, null, this.startDragLocalPoint);
 
         // 
-        this.startDragViewShiftPoint.x = this.startDragGlobalX - this.view.x;
-        this.startDragViewShiftPoint.y = this.startDragGlobalY - this.view.y;
+        this.startDragViewShiftPoint.x = this.startDragLocalPoint.x - this.view.x;
+        this.startDragViewShiftPoint.y = this.startDragLocalPoint.y - this.view.y;
 
         this.lastDragGlobalX = this.startDragGlobalX;
         this.lastDragGlobalY = this.startDragGlobalY;
@@ -251,7 +251,7 @@ export class DragHelper extends BaseObject {
     public get lastDragWithShiftLocalX(): number {
         return this.lastDragLocalPoint.x - this.startDragViewShiftPoint.x;
     }
-    public get lastDragWidthShiftLocalY(): number {
+    public get lastDragWithShiftLocalY(): number {
         return this.lastDragLocalPoint.y - this.startDragViewShiftPoint.y;
     }
 }
