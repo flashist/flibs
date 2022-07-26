@@ -22,6 +22,8 @@ export class DragHelper extends BaseObject {
 
     protected startDragLocalPoint: Point = new Point();
     protected lastDragLocalPoint: Point = new Point();
+    // Shift is needed to calculate correct final position of the drag
+    protected startDragViewShiftPoint: Point = new Point();
 
     // Might be useful to prevent too quick/too small drags
     public dragUpdateDelay: number = 0;
@@ -135,6 +137,10 @@ export class DragHelper extends BaseObject {
         this.startDragGlobalY = globalPos.y;
         this.view.parent.toLocal({ x: this.startDragGlobalX, y: this.startDragGlobalY }, null, this.startDragLocalPoint);
 
+        // 
+        this.startDragViewShiftPoint.x = this.startDragGlobalX - this.view.x;
+        this.startDragViewShiftPoint.y = this.startDragGlobalY - this.view.y;
+
         this.lastDragGlobalX = this.startDragGlobalX;
         this.lastDragGlobalY = this.startDragGlobalY;
         this.lastDragLocalPoint.x = this.startDragLocalPoint.x;
@@ -240,5 +246,12 @@ export class DragHelper extends BaseObject {
     }
     public get changeDragLocalY(): number {
         return this.lastDragLocalPoint.y - this.startDragLocalPoint.y;
+    }
+
+    public get lastDragWithShiftLocalX(): number {
+        return this.lastDragLocalPoint.x - this.startDragViewShiftPoint.x;
+    }
+    public get lastDragWidthShiftLocalY(): number {
+        return this.lastDragLocalPoint.y - this.startDragViewShiftPoint.y;
     }
 }
