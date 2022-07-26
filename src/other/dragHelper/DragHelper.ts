@@ -133,13 +133,12 @@ export class DragHelper extends BaseObject {
         const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
         this.startDragGlobalX = globalPos.x;
         this.startDragGlobalY = globalPos.y;
-        this.startDragLocalPoint.x = this.view.x;
-        this.startDragLocalPoint.y = this.view.y;
+        this.view.parent.toLocal({ x: this.startDragGlobalX, y: this.startDragGlobalY }, null, this.startDragLocalPoint);
 
         this.lastDragGlobalX = this.startDragGlobalX;
         this.lastDragGlobalY = this.startDragGlobalY;
-        this.lastDragLocalPoint.x = this.view.x;
-        this.lastDragLocalPoint.y = this.view.y;
+        this.lastDragLocalPoint.x = this.startDragLocalPoint.x;
+        this.lastDragLocalPoint.y = this.startDragLocalPoint.y;
 
         this.changeDragGlobalX = 0;
         this.changeDragGlobalY = 0;
