@@ -1,10 +1,10 @@
-import {BaseObject, EventListenerHelper} from "@flashist/fcore";
+import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 
 import {
     DisplayObject, FApp, InteractiveEvent, Point
 } from "../../index";
 
-import {DragHelperEvent} from "./DragHelperEvent";
+import { DragHelperEvent } from "./DragHelperEvent";
 
 export class DragHelper extends BaseObject {
 
@@ -19,6 +19,9 @@ export class DragHelper extends BaseObject {
     public lastDragGlobalY: number = 0;
     public changeDragGlobalX: number = 0;
     public changeDragGlobalY: number = 0;
+
+    protected startDragLocalPoint: Point = new Point();
+    protected lastDragLocalPoint: Point = new Point();
 
     // Might be useful to prevent too quick/too small drags
     public dragUpdateDelay: number = 0;
@@ -130,9 +133,13 @@ export class DragHelper extends BaseObject {
         const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
         this.startDragGlobalX = globalPos.x;
         this.startDragGlobalY = globalPos.y;
+        this.startDragLocalPoint.x = this.view.x;
+        this.startDragLocalPoint.y = this.view.y;
 
         this.lastDragGlobalX = this.startDragGlobalX;
         this.lastDragGlobalY = this.startDragGlobalY;
+        this.lastDragLocalPoint.x = this.view.x;
+        this.lastDragLocalPoint.y = this.view.y;
 
         this.changeDragGlobalX = 0;
         this.changeDragGlobalY = 0;
@@ -167,9 +174,10 @@ export class DragHelper extends BaseObject {
         console.log("this.lastDragGlobalX:", this.lastDragGlobalX, " | this.lastDragGlobalY:", this.lastDragGlobalY);
         console.log("this.startDragGlobalX:", this.startDragGlobalX, " | this.startDragGlobalY:", this.startDragGlobalY);
 
+        this.view.parent.toLocal({ x: this.lastDragGlobalX, y: this.lastDragGlobalY }, null, this.lastDragLocalPoint);
+
         this.dispatchDragUpdateEvent();
     }
-
 
     public get isDragStarted(): boolean {
         return this._isDragStarted;
@@ -212,5 +220,26 @@ export class DragHelper extends BaseObject {
         }
 
         return result;
+    }
+
+    public get startDragLocalX(): number {
+        return this.startDragLocalPoint.x;
+    }
+    public get startDragLocalY(): number {
+        return this.startDragLocalPoint.y;
+    }
+
+    public get lastDragLocalX(): number {
+        return this.lastDragLocalPoint.x;
+    }
+    public get lastDragLocalY(): number {
+        return this.lastDragLocalPoint.y;
+    }
+
+    public get changeDragLocalX(): number {
+        return this.lastDragLocalPoint.x - this.startDragLocalPoint.x;
+    }
+    public get changeDragLocalY(): number {
+        return this.lastDragLocalPoint.y - this.startDragLocalPoint.y;
     }
 }
