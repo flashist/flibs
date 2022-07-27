@@ -6,7 +6,7 @@ import {
     ILocaleConfig
 } from "./ILocaleConfig";
 
-import {getInstance} from "../servicelocator/ServiceLocator";
+import { getInstance } from "../servicelocator/ServiceLocator";
 
 export class LocaleManager {
 
@@ -68,12 +68,29 @@ export class LocaleManager {
 
 
     public getText(textId: string, params: any = null): string {
-        var result: string = "";
+        // The text id will be used in the case of no text found
+        let result: string = textId;
         if (this.currentLocale) {
-            if (this.currentLocale.texts[textId]) {
-                result = this.currentLocale.texts[textId];
-                result = this.format(result, params);
+            const pathsToText: string[] = textId.split(".");
+
+            let curPathLevel: any = this.currentLocale.texts;
+            const pathsCount: number = pathsToText.length;
+            for (let pathIndex: number = 0; pathIndex < pathsCount; pathIndex++) {
+                const tempPathId: string = pathsToText[pathIndex];
+                if (curPathLevel[tempPathId]) {
+                    curPathLevel = curPathLevel[tempPathId];
+                    // If it's the final path
+                    if (pathIndex === pathsCount - 1) {
+                        result = curPathLevel[tempPathId];
+                        result = this.format(result, params);
+                    }
+                }
             }
+
+            // if (this.currentLocale.texts[textId]) {
+            //     result = this.currentLocale.texts[textId];
+            //     result = this.format(result, params);
+            // }
         }
 
         return result;
@@ -101,7 +118,8 @@ export class LocaleManager {
     }
 
     protected replaceRegExpKeyByStrings(substring: string, group1: string, ...args): string {
-        return this.currentLocale.texts[group1];
+        // return this.currentLocale.texts[group1];
+        return this.getText(group1);
     }
 }
 
