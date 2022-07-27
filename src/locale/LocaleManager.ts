@@ -81,6 +81,7 @@ export class LocaleManager {
                     curPathLevel = curPathLevel[tempPathId];
                     // If it's the final path
                     if (pathIndex === pathsCount - 1) {
+                        result = curPathLevel;
                         result = this.format(result, params);
                     }
                 }
