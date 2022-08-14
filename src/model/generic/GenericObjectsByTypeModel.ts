@@ -1,7 +1,7 @@
-import {AssociativeArray} from "@flashist/fcore";
+import { AssociativeArray } from "@flashist/fcore";
 
-import {GenericObjectsModel} from "./GenericObjectsModel";
-import {IGenericObjectVO} from "./IGenericObjectVO";
+import { GenericObjectsModel } from "./GenericObjectsModel";
+import { IGenericObjectVO } from "./IGenericObjectVO";
 
 export class GenericObjectsByTypeModel {
     protected modelsToTypeMap: AssociativeArray<GenericObjectsModel> = new AssociativeArray<GenericObjectsModel>();
@@ -31,9 +31,9 @@ export class GenericObjectsByTypeModel {
         return typeModel.getItem(id) as ItemType;
     }
 
-    public getItemsForType<ItemType extends IGenericObjectVO = IGenericObjectVO>(type: string): ItemType[] {
+    public getItemsForType<ItemType extends IGenericObjectVO = IGenericObjectVO>(type: string, makeCopy: boolean = true): ItemType[] {
         const typeModel: GenericObjectsModel = this.getModelForType(type);
-        return typeModel.getAllItems() as ItemType[];
+        return typeModel.getAllItems(makeCopy) as ItemType[];
     }
 
     public mapModelToType(model: GenericObjectsModel, type: string): void {
