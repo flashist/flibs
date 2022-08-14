@@ -1,8 +1,8 @@
-import {AssociativeArray, AssociativeArrayEvent, BaseObject, IConstructor} from "@flashist/fcore";
+import { AssociativeArray, AssociativeArrayEvent, BaseObject, IConstructor } from "@flashist/fcore";
 
-import {IGenericObjectVO} from "./IGenericObjectVO";
-import {GenericObjectChangeActionType} from "./GenericObjectChangeActionType";
-import {GenericObjectsModelEvent} from "./GenericObjectsModelEvent";
+import { IGenericObjectVO } from "./IGenericObjectVO";
+import { GenericObjectChangeActionType } from "./GenericObjectChangeActionType";
+import { GenericObjectsModelEvent } from "./GenericObjectsModelEvent";
 
 export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObjectVO> extends BaseObject {
 
@@ -67,7 +67,7 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
     protected createEmpty(id: string): ItemType {
         let result: ItemType;
 
-        const initSourceData: any = {id: id, type: this.itemsType};
+        const initSourceData: any = { id: id, type: this.itemsType };
         if (this.DefaultItemClass) {
             result = new this.DefaultItemClass();
         } else {
@@ -87,7 +87,7 @@ export class GenericObjectsModel<ItemType extends IGenericObjectVO = IGenericObj
         }
     }
 
-    public getAllItems(): ItemType[] {
-        return this.items.getAllItems();
+    public getAllItems(makeCopy: boolean = true): ItemType[] {
+        return this.items.getAllItems(makeCopy);
     }
 }
