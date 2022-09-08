@@ -1,12 +1,12 @@
-﻿import {ArrayTools, IEventDispatcher, JSKeyboardEvent, BaseObject} from "@flashist/fcore";
+﻿import { ArrayTools, IEventDispatcher, JSKeyboardEvent, BaseObject } from "@flashist/fcore";
 import {
     FApp,
     InteractiveEvent,
     Point
 } from "../../index";
 
-import {InputManagerEvent} from "./InputManagerEvent";
-import {InputManagerEventData} from "./InputManagerEventData";
+import { InputManagerEvent } from "./InputManagerEvent";
+import { InputManagerEventData } from "./InputManagerEventData";
 
 export class InputManager extends BaseObject {
 
@@ -162,6 +162,22 @@ export class InputManager extends BaseObject {
         return keyCodes.some(
             (code: string) => {
                 return !!this.pressedKeyCodes[code];
+            }
+        )
+    }
+
+    public checkIfAnyCodeJustPressed(keyCodes: string[]): boolean {
+        return keyCodes.some(
+            (code: string) => {
+                return !!this.justPressedKeyCodes[code];
+            }
+        )
+    }
+
+    public checkIfAnyCodeJustReleased(keyCodes: string[]): boolean {
+        return keyCodes.some(
+            (code: string) => {
+                return !!this.justReleasedKeyCodes[code];
             }
         )
     }
