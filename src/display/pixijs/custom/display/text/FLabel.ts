@@ -178,15 +178,19 @@ export class FLabel extends FContainer {
 
             if (this.config.stroke) {
                 textField.style.stroke = this.config.stroke;
-                textField.style.strokeThickness = !!this.config.strokeThickness;
+                if (this.config.strokeThickness) {
+                    textField.style.strokeThickness = this.config.strokeThickness;
+                } else {
+                    this.config.strokeThickness = 0;
+                }
             } else {
                 textField.style.stroke = 0;
             }
 
             if (this.config.align) {
-                textField.style.align = this.config.align;
+                textField.style.align = this.config.align as any;
             } else {
-                textField.style.align = Align.LEFT;
+                textField.style.align = Align.LEFT as any;
             }
         }
 

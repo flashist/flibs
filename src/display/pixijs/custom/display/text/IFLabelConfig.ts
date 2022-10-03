@@ -1,6 +1,5 @@
 
 import { AutosizeType } from "./AutosizeType";
-import { Point } from "../../../../..";
 
 export interface IFLabelConfig {
     isBitmap?: boolean;
