@@ -2,7 +2,8 @@
 import {
     FApp,
     InteractiveEvent,
-    Point
+    Point,
+    Ticker
 } from "../../index";
 
 import { InputManagerEvent } from "./InputManagerEvent";
@@ -50,13 +51,13 @@ export class InputManager extends BaseObject {
             this.onStageUp
         );
 
-        FApp.instance.ticker.add(this.onTick, this);
+        Ticker.shared.add(this.onTick, this);
     }
 
     protected removeListeners(): void {
         super.removeListeners();
 
-        FApp.instance.ticker.remove(this.onTick, this);
+        Ticker.shared.remove(this.onTick, this);
     }
 
 

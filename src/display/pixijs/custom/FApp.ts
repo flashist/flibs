@@ -16,8 +16,6 @@ export class FApp extends App {
     protected lastTimeRendered: number = 0;
     protected targetRenderInterval: number;
 
-    public ticker: Ticker;
-
     constructor(protected options?: any | AppProperties) {
         super(options);
 
@@ -30,8 +28,6 @@ export class FApp extends App {
             this.fpsLimitterEnabled = true;
             this.targetRenderInterval = 1000 / this.options.targetFps;
         }
-
-        this.ticker = Ticker.shared;
 
         FApp._instance = this;
 
