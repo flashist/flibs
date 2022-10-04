@@ -72,8 +72,6 @@ export * from './load/preloadjspixihowler/item/PreloadjsLoadQueueEventType'
 export * from './geom/pixijs/Point'
 export * from './geom/pixijs/Rectangle'
 
-export * from './display/pixijs/ticker/Ticker'
-
 export * from './input/pixijs/InputManager'
 export * from './input/pixijs/InputManagerEvent'
 export * from './input/pixijs/InputManagerEventData'

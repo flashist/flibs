@@ -1,7 +1,7 @@
 import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 
 import {
-    DisplayObject, FApp, InteractiveEvent, Point, Ticker
+    DisplayObject, FApp, InteractiveEvent, Point
 } from "../../index";
 
 import { DragHelperEvent } from "./DragHelperEvent";
@@ -84,7 +84,7 @@ export class DragHelper extends BaseObject {
             TickerEvent.TICK,
             this.onTick
         );*/
-        Ticker.shared.add(this.onTick, this);
+        FApp.instance.ticker.add(this.onTick, this);
     }
 
     protected removeViewListeners(object: DisplayObject): void {
@@ -93,7 +93,7 @@ export class DragHelper extends BaseObject {
         }
         this.viewEventListenerHelper.removeAllListeners();
 
-        Ticker.shared.remove(this.onTick, this);
+        FApp.instance.ticker.remove(this.onTick, this);
     }
 
 

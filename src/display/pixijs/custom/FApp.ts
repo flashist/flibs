@@ -2,8 +2,7 @@ import {
     App,
     FStage,
     AppProperties,
-    Point,
-    Ticker
+    Point
 } from "../../../index";
 
 export class FApp extends App {
