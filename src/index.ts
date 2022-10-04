@@ -1,4 +1,4 @@
-import {LoadEvent} from "./load/abstract/LoadEvent";
+import { LoadEvent } from "./load/abstract/LoadEvent";
 
 export * from "./servicelocator/IActivatee";
 export * from './servicelocator/ICreateConfig'
@@ -61,8 +61,8 @@ export * from './sounds/abstract/ISoundConfig'
 
 // Graphics/Loader/Sound Adapters
 // export * from './load/preloadjspixihowler/PreloadjsPixiLoadFactory'
-export {PreloadjsPixiLoadFactory as LoadFactory} from './load/preloadjspixihowler/PreloadjsPixiLoadFactory'
-export {PreloadjsPixiLoadManager as LoadManager} from './load/preloadjspixihowler/PreloadjsPixiLoadManager'
+export { PreloadjsPixiLoadFactory as LoadFactory } from './load/preloadjspixihowler/PreloadjsPixiLoadFactory'
+export { PreloadjsPixiLoadManager as LoadManager } from './load/preloadjspixihowler/PreloadjsPixiLoadManager'
 export * from './load/preloadjspixihowler/item/FileLoadItem'
 export * from './load/preloadjspixihowler/item/FontLoadItem'
 export * from './load/preloadjspixihowler/item/IPreloadJSLoadEvent'
@@ -71,6 +71,8 @@ export * from './load/preloadjspixihowler/item/PreloadjsLoadQueueEventType'
 
 export * from './geom/pixijs/Point'
 export * from './geom/pixijs/Rectangle'
+
+export * from './display/pixijs/ticker/Ticker'
 
 export * from './input/pixijs/InputManager'
 export * from './input/pixijs/InputManagerEvent'
@@ -108,5 +110,5 @@ export * from './display/pixijs/custom/display/text/FLabelEvent'
 export * from './display/pixijs/custom/display/text/FLabel'
 export * from './display/pixijs/custom/FApp'
 
-export {HowlerSound as Sound} from './sounds/howler/HowlerSound';
-export {HowlerSoundsManager as SoundsManager} from './sounds/howler/HowlerSoundsManager';
+export { HowlerSound as Sound } from './sounds/howler/HowlerSound';
+export { HowlerSoundsManager as SoundsManager } from './sounds/howler/HowlerSoundsManager';
