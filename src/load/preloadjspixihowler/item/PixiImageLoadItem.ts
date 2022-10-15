@@ -1,6 +1,6 @@
-import {Loader} from "pixi.js";
+import { Loader } from "pixi.js";
 
-import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
+import { AbstractLoadItem } from "../../abstract/item/AbstractLoadItem";
 
 export class PixiImageLoadItem<DataType extends any = any> extends AbstractLoadItem<DataType> {
 
@@ -18,13 +18,13 @@ export class PixiImageLoadItem<DataType extends any = any> extends AbstractLoadI
         );
     }
 
-    protected internalStart():void {
+    protected internalStart(): void {
         super.internalStart();
 
         this.loader.load();
     }
 
-    protected internalStop():void {
+    protected internalStop(): void {
         super.internalStop();
 
         if (this.loader) {
@@ -41,7 +41,7 @@ export class PixiImageLoadItem<DataType extends any = any> extends AbstractLoadI
             }
         );
         this.completeBinding = this.loader.onComplete.add(
-            (loader: Loader, resourcesMap: {[key: string]: any}) => {
+            (loader: Loader, resourcesMap: { [key: string]: any }) => {
                 this.processLoadingComplete(resourcesMap);
             }
         );

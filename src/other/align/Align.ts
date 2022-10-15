@@ -1,6 +1,6 @@
-export const Align = {
-    NONE: "none",
-    LEFT: "left",
-    CENTER: "center",
-    RIGHT: "right"
+export enum Align {
+    NONE = "none",
+    LEFT = "left",
+    CENTER = "center",
+    RIGHT = "right"
 };
