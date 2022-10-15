@@ -356,11 +356,11 @@ export class FLabel extends FContainer {
     }*/
 
 
-    public get align(): string {
+    public get align(): Align {
         return this.config.align;
     }
 
-    public set align(value: string) {
+    public set align(value: Align) {
         if (value === this.config.align) {
             return;
         }
@@ -372,11 +372,11 @@ export class FLabel extends FContainer {
     }
 
 
-    public get valign(): string {
+    public get valign(): VAlign {
         return this.config.valign;
     }
 
-    public set valign(value: string) {
+    public set valign(value: VAlign) {
         if (value === this.config.valign) {
             return;
         }

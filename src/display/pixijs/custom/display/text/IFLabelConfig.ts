@@ -1,4 +1,6 @@
 
+import { Align } from "../../../../../other/align/Align";
+import { VAlign } from "../../../../../other/align/VAlign";
 import { AutosizeType } from "./AutosizeType";
 
 export interface IFLabelConfig {
@@ -18,8 +20,8 @@ export interface IFLabelConfig {
     fontFamily?: string;
     size?: number;
     color?: number;
-    align?: string;
-    valign?: string;
+    align?: Align;
+    valign?: VAlign;
     bold?: boolean;
 
     dropShadow?: boolean;
