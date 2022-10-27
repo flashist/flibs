@@ -423,9 +423,10 @@ export class FLabel extends FContainer {
         const bgAlpha = this.config.bgAlpha ? this.config.bgAlpha : 0;
 
         this.bg.clear();
-        this.bg.beginFill(bgColor, bgAlpha);
+        this.bg.beginFill(bgColor, 1);
         this.bg.drawRect(0, 0, 10, 10);
         this.bg.endFill();
+        this.bg.alpha = bgAlpha;
 
         this.fieldMask.clear();
         this.fieldMask.beginFill(0x00FF00, 1);
