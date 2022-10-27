@@ -9,4 +9,12 @@ export class HtmlTools {
             Math.max(document.documentElement.clientHeight, window.innerHeight)
         )
     }
+
+    static createElementFromHTMLString(htmlString: string): ChildNode {
+        var div: HTMLElement = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+
+        // Change this to div.childNodes to support multiple top-level nodes.
+        return div.firstChild;
+    }
 }
