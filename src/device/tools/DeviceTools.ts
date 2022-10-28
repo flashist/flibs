@@ -11,7 +11,8 @@ export class DeviceTools {
         }
 
         return {
-            deviceType: isMobile ? DeviceType.MOBILE : DeviceType.DESKTOP
+            deviceType: isMobile ? DeviceType.MOBILE : DeviceType.DESKTOP,
+            pixelRatio: isMobile ? window.devicePixelRatio : 1
         };
     }
 }
