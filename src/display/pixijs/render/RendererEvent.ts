@@ -1,4 +1,5 @@
-export const RendererEvent = {
-    PRERENDER: "prerender",
-    POSTRENDER: "postrender"
+export enum RendererEvent {
+    PRERENDER = "prerender",
+    POSTRENDER = "postrender",
+    RESIZE = "resize"
 };
