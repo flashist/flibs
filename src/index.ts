@@ -24,6 +24,10 @@ export * from './model/generic/GenericObjectsWithStaticTools'
 export * from './base/data/BaseDataVOEvent'
 export * from './base/data/BaseDataVO'
 
+export * from './device/data/IDeviceInfoVO'
+export * from './device/data/DeviceType'
+export * from './device/tools/DeviceTools'
+
 // export * from './load/abstract/LoadFactory'
 // export * from './load/abstract/LoadManager'
 export * from './load/abstract/LoadEvent'
