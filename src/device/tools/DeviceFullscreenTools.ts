@@ -120,7 +120,7 @@ export class DeviceFullscreenTools {
         });
     }
 
-    static toggle(element: Element, options?: any) {
+    static toggle(element: Element = document.documentElement, options?: any) {
         return DeviceFullscreenTools.isFullscreen ? DeviceFullscreenTools.exit() : DeviceFullscreenTools.request(element, options);
     }
 
