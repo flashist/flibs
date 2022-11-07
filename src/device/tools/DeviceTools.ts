@@ -1,6 +1,7 @@
 // import screenfull from 'screenfull';
 import { DeviceType } from "../data/DeviceType";
 import { IDeviceInfoVO } from "../data/IDeviceInfoVO";
+import { DeviceFullscreenTools } from "./DeviceFullscreenTools";
 
 export class DeviceTools {
     static getDeviceInfo(userAgent: string): IDeviceInfoVO {
@@ -23,17 +24,10 @@ export class DeviceTools {
             pixelRatio = window.devicePixelRatio;
         }
 
-
-        // Fullscreen
-        const fullScreenApiAvailable: boolean =
-            document.fullscreenEnabled ||
-            (document as any).mozFullScreenEnabled ||
-            (document.documentElement as any).webkitRequestFullScreen;
-
         return {
             deviceType: deviceType,
             pixelRatio: pixelRatio,
-            isFullScreenApiAvailable: fullScreenApiAvailable
+            isFullScreenApiAvailable: DeviceFullscreenTools.isEnabled
         };
     }
 }

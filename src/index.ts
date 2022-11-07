@@ -25,6 +25,7 @@ export * from './base/data/BaseDataVOEvent'
 export * from './base/data/BaseDataVO'
 
 export * from './device/data/IDeviceInfoVO'
+export * from './device/tools/IFullscreenNativeAPI'
 export * from './device/data/DeviceType'
 export * from './device/tools/DeviceTools'
 
