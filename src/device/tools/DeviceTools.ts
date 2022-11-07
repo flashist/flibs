@@ -1,4 +1,4 @@
-import screenfull from 'screenfull';
+// import screenfull from 'screenfull';
 import { DeviceType } from "../data/DeviceType";
 import { IDeviceInfoVO } from "../data/IDeviceInfoVO";
 
@@ -25,7 +25,8 @@ export class DeviceTools {
         return {
             deviceType: deviceType,
             pixelRatio: pixelRatio,
-            isFullScreenApiAvailable: screenfull.isEnabled
+            // isFullScreenApiAvailable: screenfull.isEnabled
+            isFullScreenApiAvailable: false
         };
     }
 }
