@@ -18,15 +18,22 @@ export class DeviceTools {
             }
         }
 
+        // Pixel ratio based on the device type
         if (deviceType !== DeviceType.DESKTOP) {
             pixelRatio = window.devicePixelRatio;
         }
 
+
+        // Fullscreen
+        const fullScreenApiAvailable: boolean =
+            document.fullscreenEnabled ||
+            (document as any).mozFullScreenEnabled ||
+            (document.documentElement as any).webkitRequestFullScreen;
+
         return {
             deviceType: deviceType,
             pixelRatio: pixelRatio,
-            // isFullScreenApiAvailable: screenfull.isEnabled
-            isFullScreenApiAvailable: false
+            isFullScreenApiAvailable: fullScreenApiAvailable
         };
     }
 }
