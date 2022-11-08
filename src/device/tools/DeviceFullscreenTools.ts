@@ -1,5 +1,3 @@
-import { IFullscreenNativeAPI } from "./IFullscreenNativeAPI";
-
 export class DeviceFullscreenTools {
 
     private static methodMap = [

@@ -1,6 +1,7 @@
 // import screenfull from 'screenfull';
 import { DeviceType } from "../data/DeviceType";
 import { IDeviceInfoVO } from "../data/IDeviceInfoVO";
+import { OSType } from "../data/OSType";
 import { DeviceFullscreenTools } from "./DeviceFullscreenTools";
 
 export class DeviceTools {
@@ -24,10 +25,30 @@ export class DeviceTools {
             pixelRatio = window.devicePixelRatio;
         }
 
+        // let userAgent = window.navigator.userAgent;
+        const platform = (window.navigator as any)?.userAgentData?.platform || window.navigator.platform;
+        const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
+        const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+        const iosPlatforms = ['iPhone', 'iPad', 'iPod'];
+
+        let osType: OSType;
+        if (macosPlatforms.indexOf(platform) !== -1) {
+            osType = OSType.MAC_OS;
+        } else if (iosPlatforms.indexOf(platform) !== -1) {
+            osType = OSType.IOS;
+        } else if (windowsPlatforms.indexOf(platform) !== -1) {
+            osType = OSType.WINDOWS;
+        } else if (/Android/.test(userAgent)) {
+            osType = OSType.ANDROID;
+        } else if (/Linux/.test(platform)) {
+            osType = OSType.LINUX;
+        }
+
         return {
             deviceType: deviceType,
             pixelRatio: pixelRatio,
-            isFullScreenApiAvailable: DeviceFullscreenTools.isEnabled
+            isFullScreenApiAvailable: DeviceFullscreenTools.isEnabled,
+            osType: osType
         };
     }
 }
