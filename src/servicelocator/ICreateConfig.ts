@@ -1,7 +1,9 @@
-import {IConstructor} from "@flashist/fcore";
-import {IActivatee} from "./IActivatee";
+import { IConstructor } from "@flashist/fcore";
+import { IActivatee } from "./IActivatee";
 
 export interface ICreateConfig {
+    id?: string;
+
     toSubstitute?: IConstructor,
 
     isSingleton?: boolean;

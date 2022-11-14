@@ -1,12 +1,11 @@
 ﻿import {
     StringTools
 } from "@flashist/fcore";
+import { getInstance } from "../servicelocator/ServiceLocatorShortcuts";
 
 import {
     ILocaleConfig
 } from "./ILocaleConfig";
-
-import { getInstance } from "../servicelocator/ServiceLocator";
 
 export class LocaleManager {
 

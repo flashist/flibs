@@ -4,6 +4,7 @@ export * from "./servicelocator/IActivatee";
 export * from './servicelocator/ICreateConfig'
 export * from './servicelocator/IServiceLocatorOptions'
 export * from './servicelocator/ServiceLocator'
+export * from './servicelocator/ServiceLocatorShortcuts'
 
 export * from './pool/ServiceLocatorObjectsPool'
 

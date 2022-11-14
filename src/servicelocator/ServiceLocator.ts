@@ -1,4 +1,4 @@
-import {Dictionary, IConstructor, ObjectTools} from "@flashist/fcore";
+import { Dictionary, IConstructor, ObjectTools } from "@flashist/fcore";
 
 import {
     ICreateConfig,
@@ -222,9 +222,3 @@ interface IInjection {
 
     singletonInstance?: any;
 }
-
-// Shortcuts
-export const getInstance: typeof ServiceLocator.getInstance = ServiceLocator.getInstance;
-export const serviceLocatorAdd: typeof ServiceLocator.add = ServiceLocator.add;
-export const serviceLocatorProcessItemOnActivate: typeof ServiceLocator.processItemOnActivate = ServiceLocator.processItemOnActivate;
-export const serviceLocatorProcessItemOnDeactivate: typeof ServiceLocator.processItemOnDeactivate = ServiceLocator.processItemOnDeactivate;
