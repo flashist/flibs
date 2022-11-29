@@ -26,7 +26,7 @@ export abstract class AbstractLoadFactory {
             TempClass = this.fileTypeToLoadItemClassMap[FileType.DEFAULT];
         }
 
-        const result: AbstractLoadItem = new TempClass();
+        const result: AbstractLoadItem = new TempClass(config);
         return result;
     }
 
