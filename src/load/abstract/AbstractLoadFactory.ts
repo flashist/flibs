@@ -1,11 +1,18 @@
-import {ILoadItemConfig} from "./item/ILoadItemConfig";
-import {AbstractLoadItem} from "./item/AbstractLoadItem";
-import {getInstance, LoadManager} from "../../index";
+import { ILoadItemConfig } from "./item/ILoadItemConfig";
+import { AbstractLoadItem } from "./item/AbstractLoadItem";
+import { IConstructor } from "@flashist/fcore";
+import { FileType } from "./data/FileType";
+import { getInstance, LoadManager } from "../..";
 
 export abstract class AbstractLoadFactory {
     static instance: AbstractLoadFactory;
 
+    fileTypeToLoadItemClassMap: { [fileType: string]: IConstructor<AbstractLoadItem> };
     basePath: string;
+
+    constructor() {
+        this.fileTypeToLoadItemClassMap = {};
+    }
 
     public createItem(config: ILoadItemConfig): AbstractLoadItem {
         this.prepareConfig(config);
@@ -13,7 +20,15 @@ export abstract class AbstractLoadFactory {
         return this.internalCreateItem(config);
     }
 
-    protected abstract internalCreateItem(config: ILoadItemConfig): AbstractLoadItem;
+    protected internalCreateItem(config: ILoadItemConfig): AbstractLoadItem {
+        let TempClass: IConstructor<AbstractLoadItem> = this.fileTypeToLoadItemClassMap[config.fileType];
+        if (!TempClass) {
+            TempClass = this.fileTypeToLoadItemClassMap[FileType.DEFAULT];
+        }
+
+        const result: AbstractLoadItem = new TempClass();
+        return result;
+    }
 
     protected prepareConfig(config: ILoadItemConfig): void {
 
