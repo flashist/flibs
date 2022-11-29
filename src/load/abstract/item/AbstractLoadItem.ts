@@ -1,10 +1,10 @@
-import {BaseObject, EventListenerHelper} from "@flashist/fcore";
+import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 
-import {ILoadItemConfig} from "./ILoadItemConfig";
-import {LoadStatus} from "../loadstatus/LoadStatus";
-import {IErrorVO} from "../data/IErrorVO";
-import {LoadStatusEvent} from "../loadstatus/LoadStatusEvent";
-import {LoadEvent} from "../LoadEvent";
+import { ILoadItemConfig } from "./ILoadItemConfig";
+import { LoadStatus } from "../loadstatus/LoadStatus";
+import { IErrorVO } from "../data/IErrorVO";
+import { LoadStatusEvent } from "../loadstatus/LoadStatusEvent";
+import { LoadEvent } from "../LoadEvent";
 
 export abstract class AbstractLoadItem<DataType extends any = any> extends BaseObject<DataType> {
 
@@ -70,7 +70,7 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
         this.dispatchEvent(LoadEvent.PROGRESS);
     }
 
-    protected processLoadingComplete(data: any): void {
+    protected processLoadingComplete(data: any, loadSourceData: any): void {
         this.data = data;
         this.status = LoadStatus.COMPLETE;
 

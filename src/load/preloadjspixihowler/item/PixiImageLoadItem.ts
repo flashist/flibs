@@ -42,7 +42,7 @@ export class PixiImageLoadItem<DataType extends any = any> extends AbstractLoadI
         );
         this.completeBinding = this.loader.onComplete.add(
             (loader: Loader, resourcesMap: { [key: string]: any }) => {
-                this.processLoadingComplete(resourcesMap);
+                this.processLoadingComplete(resourcesMap, resourcesMap);
             }
         );
         this.errorBinding = this.loader.onError.add(

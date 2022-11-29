@@ -1,9 +1,9 @@
-import {StringTools} from "@flashist/fcore";
+import { StringTools } from "@flashist/fcore";
 
-import {HowlerSound} from "../../../sounds/howler/HowlerSound";
-import {HowlerSoundEvent} from "../../../sounds/howler/HowlerSoundEvent";
-import {AbstractSoundLoadItem} from "../../abstract/item/AbstractSoundLoadItem";
-import {getInstance, SoundsManager} from "../../../index";
+import { HowlerSound } from "../../../sounds/howler/HowlerSound";
+import { HowlerSoundEvent } from "../../../sounds/howler/HowlerSoundEvent";
+import { AbstractSoundLoadItem } from "../../abstract/item/AbstractSoundLoadItem";
+import { getInstance, SoundsManager } from "../../../index";
 
 
 export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSoundLoadItem<DataType> {
@@ -90,7 +90,7 @@ export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSou
         this.sound.engineSound.on(
             HowlerSoundEvent.LOAD_ERROR,
             (soundId: number, error: any) => {
-                this.processLoadingError({errorCode: error, data: error});
+                this.processLoadingError({ errorCode: error, data: error });
             }
         );
     }
@@ -111,7 +111,7 @@ export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSou
     }
 
     protected processLoadingComplete(data: any): void {
-        super.processLoadingComplete(data);
+        super.processLoadingComplete(data, null);
 
         this.soundsManager.registerSound(
             this.config.id,

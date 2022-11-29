@@ -1,7 +1,7 @@
 import * as WebFont from "webfontloader";
 
-import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
-import {IFontLoadItemConfig} from "../../abstract/item/IFontLoadItemConfig";
+import { AbstractLoadItem } from "../../abstract/item/AbstractLoadItem";
+import { IFontLoadItemConfig } from "../../abstract/item/IFontLoadItemConfig";
 
 export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<DataType> {
 
@@ -53,7 +53,7 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
                 },
                 5000
             );*/
-            this.processLoadingComplete(familyName);
+            this.processLoadingComplete(familyName, null);
         };
         this.fontLoadingConfig.fontinactive = (familyName: string, fontValidationDescription: string) => {
             console.log("FontLoadItem | fontinactive __ familyName: ", familyName);
@@ -83,10 +83,10 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
 
         for (let propName in this.config.fontFace) {
             if (propName == "font-family") {
-                result+= `${propName}: "${this.config.fontFace[propName]}"`;
+                result += `${propName}: "${this.config.fontFace[propName]}"`;
 
             } else {
-                result+= `${propName}: ${this.config.fontFace[propName]}`;
+                result += `${propName}: ${this.config.fontFace[propName]}`;
             }
         }
 
