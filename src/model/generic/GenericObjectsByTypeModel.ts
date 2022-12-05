@@ -6,10 +6,11 @@ import { IGenericObjectVO } from "./IGenericObjectVO";
 export class GenericObjectsByTypeModel {
     protected modelsToTypeMap: AssociativeArray<GenericObjectsModel> = new AssociativeArray<GenericObjectsModel>();
 
-    protected constructor() {
+    constructor() {
         // Preparing shortcuts
         getItem = this.getItem.bind(this);
         getItemsForType = this.getItemsForType.bind(this);
+        commitItems = this.commitItems.bind(this);
     }
 
     public commitItems(items: IGenericObjectVO[]): void {
@@ -50,3 +51,4 @@ export class GenericObjectsByTypeModel {
 // Shortcuts
 export let getItem: typeof GenericObjectsByTypeModel.prototype.getItem;
 export let getItemsForType: typeof GenericObjectsByTypeModel.prototype.getItemsForType;
+export let commitItems: typeof GenericObjectsByTypeModel.prototype.commitItems;
