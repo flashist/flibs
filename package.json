@@ -1,8 +1,7 @@
 {
   "name": "@flashist/flibs",
   "version": "0.0.149",
-  "scripts": {
-  },
+  "scripts": {},
   "license": "MIT",
   "private": false,
   "repository": {
