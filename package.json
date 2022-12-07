@@ -2,10 +2,6 @@
   "name": "@flashist/flibs",
   "version": "0.0.149",
   "scripts": {
-    "build": "gulp",
-    "publish:patch": "npm version patch && npm run build && cd ./dist && npm publish",
-    "publish:minor": "npm version minor && npm run build && cd ./dist && npm publish",
-    "publish:major": "npm version major && npm run build && cd ./dist && npm publish"
   },
   "license": "MIT",
   "private": false,
