@@ -23,8 +23,8 @@
     "pixi.js": "6.x"
   },
   "devDependencies": {
-    "@types/webfontloader": "^1.6.29",
     "@flashist/fbuildscripts": "0.x",
+    "@types/webfontloader": "^1.6.29",
     "typescript": "^4.0.2"
   }
 }
