@@ -19,18 +19,12 @@
     "@flashist/fcore": "0.x",
     "@types/gsap": "^1.20.2",
     "@types/howler": "^2.1.0",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "pixi.js": "6.x"
   },
   "devDependencies": {
     "@types/webfontloader": "^1.6.29",
-    "gulp": "^4.0.2",
-    "gulp-shell": "^0.8.0",
-    "pixi.js": "^6.5.5",
-    "require-dir": "^1.2.0",
-    "rimraf": "^3.0.2",
+    "@flashist/fbuildscripts": "0.x",
     "typescript": "^4.0.2"
-  },
-  "peerDependencies": {
-    "pixi.js": "^6.5.5"
   }
 }
