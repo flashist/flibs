@@ -22,7 +22,9 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
     protected startPromiseResolve: Function;
     protected startPromiseReject: Function;
 
-    constructor(public config: ILoadItemConfig, public dependencies: AbstractLoadItem[]) {
+    public dependencies: AbstractLoadItem[];
+
+    constructor(public config: ILoadItemConfig) {
         super();
 
         this.internalPrepare();
@@ -30,6 +32,7 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
 
     protected internalPrepare(): void {
         this.eventListenerHelper = new EventListenerHelper(this);
+        this.dependencies = [];
     }
 
     start(): Promise<void> {

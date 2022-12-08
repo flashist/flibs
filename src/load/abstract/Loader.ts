@@ -89,17 +89,19 @@ export class Loader extends BaseObject {
         let result: AbstractLoadItem = this.queue.get(config);
 
         if (!result) {
-            result = AbstractLoadFactory.instance.createItem(config);
-            this.queue.add(result);
-
             // Finding dependency loading
+            const dependencyItems: AbstractLoadItem[] = [];
             if (config.dependencies) {
-                const dependencyLoadItems: AbstractLoadItem[] = [];
                 for (let singleDependencyConfig of config.dependencies) {
                     const tempDependencyLoadItem: AbstractLoadItem = this.add(singleDependencyConfig);
-                    dependencyLoadItems.push(tempDependencyLoadItem);
+                    dependencyItems.push(tempDependencyLoadItem);
                 }
             }
+
+            result = AbstractLoadFactory.instance.createItem(config);
+            result.dependencies = dependencyItems;
+
+            this.queue.add(result);
         }
 
         if (this.status !== LoadStatus.LOADING) {
