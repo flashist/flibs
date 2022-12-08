@@ -1,4 +1,4 @@
-import {Loader} from "pixi.js";
+import {Loader, resources} from "pixi.js";
 
 import {IPreloadJSLoadCompleteEvent} from "./IPreloadJSLoadEvent";
 import {AbstractLoadItem} from "../../abstract/item/AbstractLoadItem";
@@ -43,7 +43,7 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         );
         this.completeBinding = this.loader.onComplete.add(
             (loader: Loader, resourcesMap: { [key: string]: any }) => {
-                
+                this.onLoaderComplete(resourcesMap);
             }
         );
         this.errorBinding = this.loader.onError.add(

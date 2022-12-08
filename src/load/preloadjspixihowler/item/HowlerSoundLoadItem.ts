@@ -111,11 +111,11 @@ export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSou
     }
 
     protected processLoadingComplete(sourceData: any, data: any): void {
-        super.processLoadingComplete(sourceData, data);
-
         this.soundsManager.registerSound(
             this.config.id,
             this.sound
         );
+
+        super.processLoadingComplete(sourceData, data);
     }
 }
