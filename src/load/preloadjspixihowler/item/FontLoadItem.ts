@@ -41,7 +41,7 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
 
     protected addLoadingListeners(): void {
         super.addLoadingListeners();
-
+        
         this.fontLoadingConfig.fontloading = (familyName: string, fontValidationDescription: string) => {
             console.log("FontLoadItem | fontloading __ familyName: ", familyName);
         };
@@ -53,7 +53,7 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
                 },
                 5000
             );*/
-            this.processLoadingComplete(familyName, null);
+            this.processLoadingComplete(familyName, familyName);
         };
         this.fontLoadingConfig.fontinactive = (familyName: string, fontValidationDescription: string) => {
             console.log("FontLoadItem | fontinactive __ familyName: ", familyName);

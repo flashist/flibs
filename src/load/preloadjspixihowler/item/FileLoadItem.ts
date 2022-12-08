@@ -44,7 +44,8 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         this.completeBinding = this.loader.onComplete.add(
             (loader: Loader, resourcesMap: {[key: string]: any}) => {
                 for (let fileKey in resourcesMap) {
-                    this.processLoadingComplete(resourcesMap[fileKey].data, resourcesMap[fileKey]);
+                    const tempFileItem = resourcesMap[fileKey];
+                    this.processLoadingComplete(tempFileItem, tempFileItem.data);
                 }
             }
         );

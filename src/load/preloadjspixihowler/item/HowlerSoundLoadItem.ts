@@ -68,7 +68,7 @@ export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSou
         this.sound.engineSound.on(
             HowlerSoundEvent.LOAD,
             () => {
-                this.processLoadingComplete(this.sound.engineSound);
+                this.processLoadingComplete(this.sound.engineSound, this.sound.engineSound);
             }
         );
         /*this.completeBinding = this.sound.onComplete.add(
@@ -110,8 +110,8 @@ export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSou
         this.sound.engineSound.off(HowlerSoundEvent.LOAD_ERROR);
     }
 
-    protected processLoadingComplete(data: any): void {
-        super.processLoadingComplete(data, null);
+    protected processLoadingComplete(sourceData: any, data: any): void {
+        super.processLoadingComplete(sourceData, data);
 
         this.soundsManager.registerSound(
             this.config.id,
