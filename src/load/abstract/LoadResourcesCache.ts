@@ -1,6 +1,4 @@
 export class LoadResourcesCache {
-    private static _instance: LoadResourcesCache;
-
     private static cache: {[key: string]: any} = {};
 
     static add(id: string, data: any): void {
