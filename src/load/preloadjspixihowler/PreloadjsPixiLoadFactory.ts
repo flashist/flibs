@@ -4,16 +4,18 @@ import { FileType } from "../abstract/data/FileType";
 import { PixiImageLoadItem } from "./item/PixiImageLoadItem";
 import { FontLoadItem } from "./item/FontLoadItem";
 import { HowlerSoundLoadItem } from "./item/HowlerSoundLoadItem";
+import { PixiSpineLoadItem } from "./item/PixiSpineLoadItem";
 
 export class PreloadjsPixiLoadFactory extends AbstractLoadFactory {
     constructor() {
         super();
 
         this.fileTypeToLoadItemClassMap[FileType.DEFAULT] = FileLoadItem;
-        this.fileTypeToLoadItemClassMap[FileType.IMAGE] = PixiImageLoadItem;
-        this.fileTypeToLoadItemClassMap[FileType.SPRITESHEET] = PixiImageLoadItem;
         this.fileTypeToLoadItemClassMap[FileType.FONT] = FontLoadItem;
         this.fileTypeToLoadItemClassMap[FileType.SOUND] = HowlerSoundLoadItem;
+        this.fileTypeToLoadItemClassMap[FileType.IMAGE] = PixiImageLoadItem;
+        this.fileTypeToLoadItemClassMap[FileType.SPRITESHEET] = PixiImageLoadItem;
+        this.fileTypeToLoadItemClassMap[FileType.SPINE] = PixiSpineLoadItem;
     }
 
     // protected internalCreateItem(config: ILoadItemConfig): AbstractLoadItem {

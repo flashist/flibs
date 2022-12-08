@@ -1,8 +1,9 @@
 export const FileType = {
     DEFAULT: "default",
     TEXT: "text",
+    FONT: "font",
+    SOUND: "sound",
     IMAGE: "image",
     SPRITESHEET: "spritesheet",
-    FONT: "font",
-    SOUND: "sound"
+    SPINE: "spine"
 };

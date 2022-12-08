@@ -1,6 +1,3 @@
-import { Loader } from "pixi.js";
-
-import { AbstractLoadItem } from "../../abstract/item/AbstractLoadItem";
 import { FileLoadItem } from "./FileLoadItem";
 
 export class PixiImageLoadItem<DataType extends any = any> extends FileLoadItem<DataType> {
@@ -9,5 +6,5 @@ export class PixiImageLoadItem<DataType extends any = any> extends FileLoadItem<
         // Don't call super, because parsing of images should be a bit different
         this.processLoadingComplete(resourcesMap, resourcesMap);
     }
-    
+
 }

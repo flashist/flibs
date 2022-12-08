@@ -73,6 +73,7 @@ export * from './load/preloadjspixihowler/item/FileLoadItem'
 export * from './load/preloadjspixihowler/item/FontLoadItem'
 export * from './load/preloadjspixihowler/item/IPreloadJSLoadEvent'
 export * from './load/preloadjspixihowler/item/PixiImageLoadItem'
+export * from './load/preloadjspixihowler/item/PixiSpineLoadItem'
 export * from './load/preloadjspixihowler/item/PreloadjsLoadQueueEventType'
 
 export * from './geom/pixijs/Point'
