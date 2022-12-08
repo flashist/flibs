@@ -5,7 +5,7 @@ import { LoadStatus } from "../loadstatus/LoadStatus";
 import { IErrorVO } from "../data/IErrorVO";
 import { LoadStatusEvent } from "../loadstatus/LoadStatusEvent";
 import { LoadEvent } from "../LoadEvent";
-import { LoadResourcesCache } from "../AbstractLoadResourcesCache";
+import { LoadResourcesCache } from "../LoadResourcesCache";
 
 export abstract class AbstractLoadItem<DataType extends any = any> extends BaseObject<DataType> {
 
