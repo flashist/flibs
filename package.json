@@ -6,7 +6,7 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/flashist/flibs"
+    "url": "https://github.com/flashist/flibs2"
   },
   "main": "index.js",
   "typings": "index.d.ts",
