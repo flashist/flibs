@@ -111,7 +111,7 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
         this.data = data;
         this.status = LoadStatus.COMPLETE;
 
-        LoadResourcesCache.add(this.config.id, sourceData);
+        LoadResourcesCache.add(this.config.id, data);
 
         this.removeLoadingListeners();
         
