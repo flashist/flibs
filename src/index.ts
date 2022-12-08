@@ -31,6 +31,7 @@ export * from './device/tools/DeviceTools'
 
 // export * from './load/abstract/LoadFactory'
 // export * from './load/abstract/LoadManager'
+export * from './load/abstract/LoadResourcesCache'
 export * from './load/abstract/LoadEvent'
 export * from './load/abstract/loadstatus/LoadStatus'
 export * from './load/abstract/loadstatus/LoadStatusPriority'
