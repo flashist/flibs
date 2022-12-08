@@ -1,6 +1,4 @@
 import { AbstractLoadFactory } from "../abstract/AbstractLoadFactory";
-import { AbstractLoadItem } from "../abstract/item/AbstractLoadItem";
-import { ILoadItemConfig } from "../abstract/item/ILoadItemConfig";
 import { FileLoadItem } from "./item/FileLoadItem";
 import { FileType } from "../abstract/data/FileType";
 import { PixiImageLoadItem } from "./item/PixiImageLoadItem";

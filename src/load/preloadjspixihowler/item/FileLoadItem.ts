@@ -19,13 +19,13 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         );
     }
 
-    protected internalStart():void {
+    protected internalStart(): void {
         super.internalStart();
 
         this.loader.load();
     }
 
-    protected internalStop():void {
+    protected internalStop(): void {
         super.internalStop();
 
         if (this.loader) {
@@ -34,7 +34,7 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
     }
 
     protected addLoadingListeners(): void {
-        super.addLoadingListeners();super.addLoadingListeners();
+        super.addLoadingListeners();
 
         this.progressBinding = this.loader.onProgress.add(
             (loader: Loader, resource: any) => {
@@ -42,11 +42,8 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
             }
         );
         this.completeBinding = this.loader.onComplete.add(
-            (loader: Loader, resourcesMap: {[key: string]: any}) => {
-                for (let fileKey in resourcesMap) {
-                    const tempFileItem = resourcesMap[fileKey];
-                    this.processLoadingComplete(tempFileItem, tempFileItem.data);
-                }
+            (loader: Loader, resourcesMap: { [key: string]: any }) => {
+                
             }
         );
         this.errorBinding = this.loader.onError.add(
@@ -59,5 +56,25 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
                 );
             }
         );
+    }
+
+    protected onLoaderComplete(resourcesMap: { [key: string]: any }): void {
+        for (let fileKey in resourcesMap) {
+            const tempFileItem = resourcesMap[fileKey];
+            this.processLoadingComplete(tempFileItem, tempFileItem.data);
+        }
+    }
+
+    protected removeLoadingListeners(): void {
+        super.removeLoadingListeners();
+
+        if (!this.loader) {
+            return;
+        }
+
+        this.loader.onProgress.detach(this.progressBinding);
+        // this.loader.onLoad.detach(this.fileCompleteBinding);
+        this.loader.onComplete.detach(this.completeBinding);
+        this.loader.onError.detach(this.errorBinding);
     }
 }

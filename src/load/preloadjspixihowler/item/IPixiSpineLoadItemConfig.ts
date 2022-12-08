@@ -1,4 +1,4 @@
-export interface ILoadItemConfig {
+export interface IPixiSpineLoadItemConfig {
     src: string;
 
     id: string;
@@ -13,7 +13,5 @@ export interface ILoadItemConfig {
     uniqueId?: string;
 
     loadWeight?: number;
-
-    dependencies?: ILoadItemConfig[];
 
 }

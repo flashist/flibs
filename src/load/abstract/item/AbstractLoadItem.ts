@@ -18,7 +18,11 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
 
     protected eventListenerHelper: EventListenerHelper;
 
-    constructor(public config: ILoadItemConfig) {
+    protected startPromise: Promise<void>;
+    protected startPromiseResolve: Function;
+    protected startPromiseReject: Function;
+
+    constructor(public config: ILoadItemConfig, public dependencies: AbstractLoadItem[]) {
         super();
 
         this.internalPrepare();
@@ -28,15 +32,41 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
         this.eventListenerHelper = new EventListenerHelper(this);
     }
 
-    start(): void {
-        if (this.status === LoadStatus.LOADING) {
-            return;
+    start(): Promise<void> {
+        if (this.startPromise) {
+            return this.startPromise;
         }
-        this.status = LoadStatus.LOADING;
 
-        this.addLoadingListeners();
+        this.startPromise = new Promise(
+            (resolve: Function, reject: Function) => {
+                this.startPromiseResolve = resolve;
+                this.startPromiseReject = reject;
+                
+                if (this.status === LoadStatus.LOADING) {
+                    return;
+                }
+                this.status = LoadStatus.LOADING;
+        
+                // If there are dependencies, start dependencies first
+                const dependencyLoadPromisses: Promise<void>[] = [];
+                for (let singleDependency of this.dependencies) {
+                    dependencyLoadPromisses.push(singleDependency.start());
+                }
 
-        this.internalStart();
+                Promise.all(dependencyLoadPromisses)
+                    .then(
+                        () => {
+                            this.addLoadingListeners();
+                            this.internalStart();
+                        }
+                    )
+                    .catch(
+                        (error) =>{
+                            this.processLoadingError(error)
+                        }
+                    )
+            }
+        );
     }
 
     protected internalStart(): void {
@@ -78,11 +108,12 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
         this.data = data;
         this.status = LoadStatus.COMPLETE;
 
-        this.removeLoadingListeners();
+        LoadResourcesCache.add(this.config.id, sourceData);
 
-        LoadResourcesCache.add(this.config.id, data);
+        this.removeLoadingListeners();
         
         this.dispatchEvent(LoadEvent.COMPLETE);
+        this.startPromiseResolve();
     }
 
     protected processLoadingError(errorData: IErrorVO): void {
@@ -92,6 +123,7 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
         this.removeLoadingListeners();
 
         this.dispatchEvent(LoadEvent.ERROR);
+        this.startPromiseReject();
     }
 
     public getIsSuccess(): boolean {
