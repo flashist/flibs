@@ -16,9 +16,11 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         // Applying CSS to HTML
         let style: any = document.createElement("style");
         style.type = "text/css";
-        document.getElementsByTagName('head')[0].appendChild(style);
         let fontRule: string = this.generateFontFaceRule();
-        style.sheet.insertRule(fontRule);
+        // style.sheet.insertRule(fontRule);
+        style.sheet.innerHTML = fontRule;
+        //
+        document.getElementsByTagName('head')[0].appendChild(style);
 
         this.fontLoadingConfig = {
             custom: {
