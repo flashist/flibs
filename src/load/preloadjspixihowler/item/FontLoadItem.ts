@@ -84,10 +84,10 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
 
         for (let propName in this.config.fontFace) {
             if (propName == "font-family") {
-                result += `${propName}: "${this.config.fontFace[propName]}"`;
+                result += `${propName}: "${this.config.fontFace[propName]}";`;
 
             } else {
-                result += `${propName}: ${this.config.fontFace[propName]}`;
+                result += `${propName}: ${this.config.fontFace[propName]};`;
             }
         }
 
