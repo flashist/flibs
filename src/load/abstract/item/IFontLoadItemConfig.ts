@@ -5,5 +5,6 @@ export interface IFontLoadItemConfig extends ILoadItemConfig {
         "font-family": string;
         "font-weight"?: string;
         "font-style"?: string;
-    }
+    };
+    timeout?: number;
 }

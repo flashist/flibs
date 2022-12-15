@@ -23,7 +23,8 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         this.fontLoadingConfig = {
             custom: {
                 families: [this.config.fontFace["font-family"]]
-            }
+            },
+            timeout: (this.config.timeout || 10000)
         };
     }
 
