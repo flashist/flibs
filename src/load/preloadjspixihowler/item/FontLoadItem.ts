@@ -17,8 +17,8 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         let style: any = document.createElement("style");
         style.type = "text/css";
         let fontRule: string = this.generateFontFaceRule();
-        // style.sheet.insertRule(fontRule);
-        style.innerHTML = fontRule;
+        style.sheet.insertRule(fontRule);
+        // style.innerHTML = fontRule;
         //
         document.getElementsByTagName('head')[0].appendChild(style);
 
@@ -81,15 +81,15 @@ export class FontLoadItem<DataType extends any = any> extends AbstractLoadItem<D
             src: url('${filepathWithoutExtension}.woff2') format('woff2'),
                 url('${filepathWithoutExtension}.woff') format('woff'),
                 url('${filepathWithoutExtension}.ttf') format('truetype'),
-                url('${filepathWithoutExtension}.svg#Rochester-Regular') format('svg'),
+                url('${filepathWithoutExtension}.svg#${filepathWithoutExtension}') format('svg'),
                 url('${filepathWithoutExtension}.eot?#iefix') format('embedded-opentype');`;
 
         for (let propName in this.config.fontFace) {
             if (propName == "font-family") {
-                result += `${propName}: "${this.config.fontFace[propName]}";`;
+                result += `${propName}: "${this.config.fontFace[propName]}";\n`;
 
             } else {
-                result += `${propName}: ${this.config.fontFace[propName]};`;
+                result += `${propName}: ${this.config.fontFace[propName]};\n`;
             }
         }
 
