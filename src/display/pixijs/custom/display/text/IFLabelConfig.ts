@@ -2,6 +2,7 @@
 import { Align } from "../../../../../other/align/Align";
 import { VAlign } from "../../../../../other/align/VAlign";
 import { AutosizeType } from "./AutosizeType";
+import { GradientColorType } from "./GradientColorType";
 
 export interface IFLabelConfig {
     isBitmap?: boolean;
@@ -20,6 +21,11 @@ export interface IFLabelConfig {
     fontFamily?: string;
     size?: number;
     color?: number;
+    gradientColor?: {
+        colors: number[];
+        stops: number[];
+        type: GradientColorType
+    };
     align?: Align;
     valign?: VAlign;
     bold?: boolean;

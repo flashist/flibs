@@ -140,9 +140,17 @@ export class FLabel extends FContainer {
             if (this.config.size) {
                 textField.style.fontSize = this.config.size;
             }
+            
             if (this.config.color) {
                 textField.style.fill = this.config.color;
             }
+ 
+            if (this.config.gradientColor) {
+                textField.style.fill = this.config.gradientColor.colors;
+                textField.style.fillGradientStops = this.config.gradientColor.stops;
+                textField.style.fillGradientType = this.config.gradientColor.type as any;
+            }
+
             if (this.config.bold) {
                 textField.style.fontWeight = "bold";
             } else {
@@ -309,6 +317,16 @@ export class FLabel extends FContainer {
         }
 
         this.config.color = value;
+
+        this.applyStyle();
+    }
+
+    public get gradientColor(): typeof this.config.gradientColor {
+        return this.config.gradientColor;
+    }
+
+    public set gradientColor(value: typeof this.config.gradientColor) {
+        this.config.gradientColor = value;
 
         this.applyStyle();
     }
