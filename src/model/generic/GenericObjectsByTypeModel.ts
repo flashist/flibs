@@ -52,3 +52,8 @@ export class GenericObjectsByTypeModel {
 export let getItem: typeof GenericObjectsByTypeModel.prototype.getItem;
 export let getItemsForType: typeof GenericObjectsByTypeModel.prototype.getItemsForType;
 export let commitItems: typeof GenericObjectsByTypeModel.prototype.commitItems;
+
+//
+window["getItem"] = getItem;
+window["getItemsForType"] = getItemsForType;
+window["commitItems"] = commitItems;

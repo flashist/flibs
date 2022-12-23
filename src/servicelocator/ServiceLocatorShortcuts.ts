@@ -5,3 +5,6 @@ export const getInstance: typeof ServiceLocator.getInstance = ServiceLocator.get
 export const serviceLocatorAdd: typeof ServiceLocator.add = ServiceLocator.add;
 export const serviceLocatorProcessItemOnActivate: typeof ServiceLocator.processItemOnActivate = ServiceLocator.processItemOnActivate;
 export const serviceLocatorProcessItemOnDeactivate: typeof ServiceLocator.processItemOnDeactivate = ServiceLocator.processItemOnDeactivate;
+
+//
+window["getInstance"] = getInstance;
