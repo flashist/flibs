@@ -11,6 +11,11 @@ export class GenericObjectsByTypeModel {
         getItem = this.getItem.bind(this);
         getItemsForType = this.getItemsForType.bind(this);
         commitItems = this.commitItems.bind(this);
+
+        // For console debug
+        window["getItem"] = getItem;
+        window["getItemsForType"] = getItemsForType;
+        window["commitItems"] = commitItems;
     }
 
     public commitItems(items: IGenericObjectVO[]): void {
@@ -52,8 +57,3 @@ export class GenericObjectsByTypeModel {
 export let getItem: typeof GenericObjectsByTypeModel.prototype.getItem;
 export let getItemsForType: typeof GenericObjectsByTypeModel.prototype.getItemsForType;
 export let commitItems: typeof GenericObjectsByTypeModel.prototype.commitItems;
-
-//
-window["getItem"] = getItem;
-window["getItemsForType"] = getItemsForType;
-window["commitItems"] = commitItems;
