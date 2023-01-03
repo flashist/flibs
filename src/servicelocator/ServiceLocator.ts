@@ -84,7 +84,7 @@ export class ServiceLocator {
         }*/
     }
 
-    static getInstance<Type extends any>(item: IConstructor<Type>, ...args: ConstructorParameters<IConstructor<Type>>): Type
+    static getInstance<Type extends IConstructor>(item: Type, ...args: ConstructorParameters<Type>): Type;
     static getInstance<Type extends any>(item: IConstructor<Type>, ...args): Type {
 
         let result: Type;
