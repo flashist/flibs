@@ -1,4 +1,4 @@
-import { Command, CommandErrorCode } from "@flashist/fcore";
+import {Command, CommandErrorCode} from "@flashist/fcore";
 import {
     AbstractLoadItem,
     ILoadItemConfig,
@@ -22,25 +22,16 @@ export class LoadItemsListCommand extends Command {
             waitPromisses.push(tempPromise);
         }
 
-        const depenciesCompleteCallback = () => {
-            this.notifyComplete();
-        }
-
-        if (waitPromisses.length <= 0) {
-            depenciesCompleteCallback();
-
-        } else {
-            Promise.all(waitPromisses)
-                .then(
-                    () => {
-                        depenciesCompleteCallback();
-                    },
-                    () => {
-                        this.errorCode = CommandErrorCode.GENERAL_ERROR;
-                        this.terminate();
-                    }
-                );
-        }
+        Promise.all(waitPromisses)
+            .then(
+                () => {
+                    this.notifyComplete();
+                },
+                () => {
+                    this.errorCode = CommandErrorCode.GENERAL_ERROR;
+                    this.terminate();
+                }
+            );
     }
 
 }
