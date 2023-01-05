@@ -118,13 +118,13 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
     protected processLoadingComplete(sourceData: any, data: any): void {
         this.sourceData = sourceData;
         this.data = data;
-        this.status = LoadStatus.COMPLETE;
 
         LoadResourcesCache.add(this.config.id, data);
 
         this.removeLoadingListeners();
 
-        this.dispatchEvent(LoadEvent.COMPLETE);
+        // this.dispatchEvent(LoadEvent.COMPLETE);
+        this.status = LoadStatus.COMPLETE;
         this.startPromiseResolve();
     }
 
