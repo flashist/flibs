@@ -1,19 +1,19 @@
-import { BaseObject, EventListenerHelper } from "@flashist/fcore";
+import {BaseObject, EventListenerHelper} from "@flashist/fcore";
 
-import { AbstractLoadItem } from "./item/AbstractLoadItem";
-import { ILoadItemConfig } from "./item/ILoadItemConfig";
-import { LoaderQueue } from "./LoaderQueue";
-import { AbstractLoadFactory } from "./AbstractLoadFactory";
-import { LoadStatus } from "./loadstatus/LoadStatus";
-import { LoadStatusEvent } from "./loadstatus/LoadStatusEvent";
-import { LoadEvent } from "./LoadEvent";
-import { LoadGroup } from "./group/LoadGroup";
+import {AbstractLoadItem} from "./item/AbstractLoadItem";
+import {ILoadItemConfig} from "./item/ILoadItemConfig";
+import {LoaderQueue} from "./LoaderQueue";
+import {AbstractLoadFactory} from "./AbstractLoadFactory";
+import {LoadStatus} from "./loadstatus/LoadStatus";
+import {LoadStatusEvent} from "./loadstatus/LoadStatusEvent";
+import {LoadEvent} from "./LoadEvent";
+import {LoadGroup} from "./group/LoadGroup";
 
 export class Loader extends BaseObject {
 
     public id: string;
 
-    protected queue: LoaderQueue;
+    protected queue:LoaderQueue;
     protected group: LoadGroup;
 
     public stopOnError: boolean = false;
@@ -130,7 +130,7 @@ export class Loader extends BaseObject {
         this.curItem.start();
     }
 
-    protected addCurItemListeners(): void {
+    protected addCurItemListeners():void {
         this.removeCurItemListeners();
 
         if (!this.curItem) {
@@ -143,19 +143,10 @@ export class Loader extends BaseObject {
             this.onItemProgress
         );*/
 
-        // this.curItemEventListenerHelper.addEventListener(
-        //     this.curItem,
-        //     LoadEvent.COMPLETE,
-        //     this.onItemComplete
-        // );
         this.curItemEventListenerHelper.addEventListener(
             this.curItem,
-            LoadStatusEvent.STATUS_CHANGE,
-            () => {
-                if (this.curItem.status === LoadStatus.COMPLETE) {
-                    this.onItemComplete();
-                }
-            }
+            LoadEvent.COMPLETE,
+            this.onItemComplete
         );
 
         this.curItemEventListenerHelper.addEventListener(
@@ -165,7 +156,7 @@ export class Loader extends BaseObject {
         );
     }
 
-    protected removeCurItemListeners(): void {
+    protected removeCurItemListeners():void {
         if (!this.curItem) {
             return;
         }
