@@ -44,30 +44,39 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
             (resolve: Function, reject: Function) => {
                 this.startPromiseResolve = resolve;
                 this.startPromiseReject = reject;
-                
+
                 if (this.status === LoadStatus.LOADING) {
                     return;
                 }
                 this.status = LoadStatus.LOADING;
-        
+
                 // If there are dependencies, start dependencies first
                 const dependencyLoadPromisses: Promise<void>[] = [];
                 for (let singleDependency of this.dependencies) {
                     dependencyLoadPromisses.push(singleDependency.start());
                 }
 
-                Promise.all(dependencyLoadPromisses)
-                    .then(
-                        () => {
-                            this.addLoadingListeners();
-                            this.internalStart();
-                        }
-                    )
-                    .catch(
-                        (error) =>{
-                            this.processLoadingError(error)
-                        }
-                    )
+                const depenciesCompleteCallback = () => {
+                    this.addLoadingListeners();
+                    this.internalStart();
+                }
+
+                if (dependencyLoadPromisses.length <= 0) {
+                    depenciesCompleteCallback();
+
+                } else {
+                    Promise.all(dependencyLoadPromisses)
+                        .then(
+                            () => {
+                                depenciesCompleteCallback();
+                            }
+                        )
+                        .catch(
+                            (error) => {
+                                this.processLoadingError(error)
+                            }
+                        );
+                }
             }
         );
     }
@@ -114,7 +123,7 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
         LoadResourcesCache.add(this.config.id, data);
 
         this.removeLoadingListeners();
-        
+
         this.dispatchEvent(LoadEvent.COMPLETE);
         this.startPromiseResolve();
     }
