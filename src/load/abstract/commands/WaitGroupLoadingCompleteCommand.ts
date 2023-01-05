@@ -1,5 +1,5 @@
-import {Command} from "@flashist/fcore";
-import {getInstance, LoadGroup, LoadManager, LoadStatus, LoadStatusEvent} from "../../..";
+import { Command } from "@flashist/fcore";
+import { getInstance, LoadGroup, LoadManager, LoadStatus, LoadStatusEvent } from "../../..";
 
 export class WaitGroupLoadingCompleteCommand extends Command {
 
@@ -14,7 +14,7 @@ export class WaitGroupLoadingCompleteCommand extends Command {
         if (tempGroup.status === LoadStatus.COMPLETE) {
             this.notifyComplete();
 
-        } else if (tempGroup.status === LoadStatus.WAIT) {
+        } else if (tempGroup.status === LoadStatus.WAIT && tempGroup.getAllItems().length <= 0) {
             console.log("WaitGroupLoadingCompleteCommand | executeInternal __ Group is not in the loading status! this.groupName: ", this.groupName, " | tempGroup.status: ", tempGroup.status);
             this.notifyComplete();
 
