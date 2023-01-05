@@ -130,11 +130,11 @@ export abstract class AbstractLoadItem<DataType extends any = any> extends BaseO
 
     protected processLoadingError(errorData: IErrorVO): void {
         this.errorData = errorData;
+        this.status = LoadStatus.ERROR;
 
         this.removeLoadingListeners();
 
-        // this.dispatchEvent(LoadEvent.ERROR);
-        this.status = LoadStatus.ERROR;
+        this.dispatchEvent(LoadEvent.ERROR);
         this.startPromiseReject();
     }
 

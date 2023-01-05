@@ -148,28 +148,21 @@ export class Loader extends BaseObject {
         //     LoadEvent.COMPLETE,
         //     this.onItemComplete
         // );
-        // this.curItemEventListenerHelper.addEventListener(
-        //     this.curItem,
-        //     LoadEvent.ERROR,
-        //     this.onItemError
-        // );
         this.curItemEventListenerHelper.addEventListener(
             this.curItem,
             LoadStatusEvent.STATUS_CHANGE,
             () => {
                 if (this.curItem.status === LoadStatus.COMPLETE) {
                     this.onItemComplete();
-                } else if (this.curItem.status === LoadStatus.ERROR) {
-                    this.onItemError();
                 }
             }
         );
 
-        // this.curItemEventListenerHelper.addEventListener(
-        //     this.curItem,
-        //     LoadEvent.ERROR,
-        //     this.onItemError
-        // );
+        this.curItemEventListenerHelper.addEventListener(
+            this.curItem,
+            LoadEvent.ERROR,
+            this.onItemError
+        );
     }
 
     protected removeCurItemListeners(): void {
