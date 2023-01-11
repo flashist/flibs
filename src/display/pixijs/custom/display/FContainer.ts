@@ -126,6 +126,10 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
         this.arrange();
     }
 
+    public forceArrange(): void {
+        this.arrange();
+    }
+
     protected arrange(): void {
         // Note: subclasses should implement their own logic here
     }
