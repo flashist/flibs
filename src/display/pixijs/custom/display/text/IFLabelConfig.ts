@@ -20,6 +20,7 @@ export interface IFLabelConfig {
 
     fontFamily?: string;
     size?: number;
+    lineHeight?: number;
     color?: number;
     gradientColor?: {
         colors: number[];

@@ -140,6 +140,9 @@ export class FLabel extends FContainer {
             if (this.config.size) {
                 textField.style.fontSize = this.config.size;
             }
+            if (this.config.lineHeight) {
+                textField.style.lineHeight = this.config.lineHeight;
+            }
 
             if (this.config.color) {
                 textField.style.fill = this.config.color;
