@@ -140,11 +140,11 @@ export class FLabel extends FContainer {
             if (this.config.size) {
                 textField.style.fontSize = this.config.size;
             }
-            
+
             if (this.config.color) {
                 textField.style.fill = this.config.color;
             }
- 
+
             if (this.config.gradientColor) {
                 textField.style.fill = this.config.gradientColor.colors;
                 textField.style.fillGradientStops = this.config.gradientColor.stops;
@@ -184,7 +184,7 @@ export class FLabel extends FContainer {
                 textField.style.dropShadow = false;
             }
 
-            if (this.config.stroke) {
+            if (this.config.stroke || this.config.stroke === 0) {
                 textField.style.stroke = this.config.stroke;
                 if (this.config.strokeThickness) {
                     textField.style.strokeThickness = this.config.strokeThickness;
