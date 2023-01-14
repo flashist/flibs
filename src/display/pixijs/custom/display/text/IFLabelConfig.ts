@@ -31,6 +31,9 @@ export interface IFLabelConfig {
     valign?: VAlign;
     bold?: boolean;
 
+    wordWrap?: boolean;
+    wordWrapWidth?: number;
+
     dropShadow?: boolean;
     dropShadowColor?: number;
     dropShadowAlpha?: number;

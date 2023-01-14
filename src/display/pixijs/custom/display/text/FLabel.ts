@@ -143,6 +143,12 @@ export class FLabel extends FContainer {
             if (this.config.lineHeight) {
                 textField.style.lineHeight = this.config.lineHeight;
             }
+            if (this.config.wordWrap || this.wordWrap === false) {
+                textField.style.wordWrap = this.config.wordWrap;
+            }
+            if (this.config.wordWrapWidth) {
+                textField.style.wordWrapWidth = this.config.wordWrapWidth;
+            }
 
             if (this.config.color) {
                 textField.style.fill = this.config.color;
@@ -640,5 +646,31 @@ export class FLabel extends FContainer {
         this.config.fieldPaddingY = value;
 
         this.arrange();
+    }
+
+    get wordWrap(): boolean {
+        return this.config.wordWrap;
+    }
+    set wordWrap(value: boolean) {
+        if (this.config.wordWrap === value) {
+            return;
+        }
+
+        this.config.wordWrap = value;
+
+        this.applyStyle();
+    }
+
+    get wordWrapWidth(): number {
+        return this.config.wordWrapWidth;
+    }
+    set wordWrapWidth(value: number) {
+        if (this.config.wordWrapWidth === value) {
+            return;
+        }
+
+        this.config.wordWrapWidth = value;
+
+        this.applyStyle();
     }
 }
