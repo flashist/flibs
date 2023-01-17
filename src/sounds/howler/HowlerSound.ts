@@ -1,9 +1,9 @@
-import {Howl} from "howler";
+import { Howl } from "howler";
 
-import {AbstractSound} from "../abstract/AbstractSound";
-import {IHowlerSoundConfig} from "./IHowlerSoundConfig";
-import {ISoundConfig} from "../..";
-import {IPlaySoundConfig} from "../abstract/IPlaySoundConfig";
+import { AbstractSound } from "../abstract/AbstractSound";
+import { IHowlerSoundConfig } from "./IHowlerSoundConfig";
+import { ISoundConfig } from "../..";
+import { IPlaySoundConfig } from "../abstract/IPlaySoundConfig";
 
 export class HowlerSound extends AbstractSound {
 
@@ -18,7 +18,7 @@ export class HowlerSound extends AbstractSound {
     protected construction(config: IHowlerSoundConfig): void {
         super.construction(config);
 
-        this.engineSound = new Howl({src: this.config.src, preload: this.config.preload});
+        this.engineSound = new Howl({ src: this.config.src, preload: this.config.preload });
     }
 
     destruction(): void {
@@ -39,6 +39,10 @@ export class HowlerSound extends AbstractSound {
     }
 
     play(config?: IPlaySoundConfig): void {
+        if (!config) {
+            config = {};
+        }
+
         this.engineSound.loop(config.loop);
         this.engineSound.play();
     }

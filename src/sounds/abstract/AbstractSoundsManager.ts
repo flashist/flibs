@@ -83,10 +83,15 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected commitData(): void {
         super.commitData();
 
+        if (!this.enabled) {
+            return;
+        }
+
         let newVolume: number = 0;
         if (this.enabled) {
             newVolume = this.getVolume();
         }
+
         // this.internalSetVolume(newVolume);
         this.internalSetVolume(newVolume)
     }
