@@ -4,6 +4,6 @@ import {getInstance} from "../index";
 export class ServiceLocatorObjectsPool extends ObjectsPool {
 
     protected createNewObject<T>(ObjectClass: IConstructor<T>, ...args): T {
-        return getInstance(ObjectClass);
+        return getInstance(ObjectClass, ...args);
     }
 }
