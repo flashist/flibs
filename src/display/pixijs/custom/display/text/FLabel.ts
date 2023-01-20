@@ -143,6 +143,12 @@ export class FLabel extends FContainer {
             if (this.config.lineHeight) {
                 textField.style.lineHeight = this.config.lineHeight;
             }
+            if (this.config.lineJoin) {
+                textField.style.lineJoin = this.config.lineJoin as any;
+            }
+            if (this.config.miterLimit || this.config.miterLimit === 0) {
+                textField.style.miterLimit = this.config.miterLimit;
+            }
             if (this.config.wordWrap || this.wordWrap === false) {
                 textField.style.wordWrap = this.config.wordWrap;
             }

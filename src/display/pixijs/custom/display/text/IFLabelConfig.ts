@@ -21,6 +21,8 @@ export interface IFLabelConfig {
     fontFamily?: string;
     size?: number;
     lineHeight?: number;
+    lineJoin?: string;
+    miterLimit?: number;
     color?: number;
     gradientColor?: {
         colors: number[];
