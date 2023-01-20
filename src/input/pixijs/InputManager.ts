@@ -1,4 +1,4 @@
-﻿import { ArrayTools, IEventDispatcher, JSKeyboardEvent, BaseObject } from "@flashist/fcore";
+﻿import { JSMouseEvent, IEventDispatcher, JSKeyboardEvent, BaseObject } from "@flashist/fcore";
 import {
     FApp,
     InteractiveEvent,
@@ -38,6 +38,8 @@ export class InputManager extends BaseObject {
         this.eventListenerHelper.addEventListener(documentDispatcher, JSKeyboardEvent.KEY_UP, this.onKeyUp);
         // this.eventListenerHelper.addEventListener(SharedTicker, TickerEvent.TICK, this.onTick);
 
+        this.eventListenerHelper.addEventListener(documentDispatcher, JSMouseEvent.MOUSE_WHEEL, this.onMouseWheel);
+
         this.eventListenerHelper.addEventListener(
             FApp.instance.stage,
             InteractiveEvent.DOWN,
@@ -59,6 +61,9 @@ export class InputManager extends BaseObject {
         FApp.instance.ticker.remove(this.onTick, this);
     }
 
+    protected onMouseWheel(event: WheelEvent): void {
+        this.dispatchEvent(InputManagerEvent.MOUSE_WHEEL, event);
+    }
 
     protected onStageUp(): void {
         this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
