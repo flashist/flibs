@@ -1,5 +1,5 @@
 import { ObjectTools } from "@flashist/fcore";
-import { IBitmapTextStyle } from "pixi.js";
+import { IBitmapTextStyle, Rectangle } from "pixi.js";
 
 import {
     Text,
@@ -239,14 +239,16 @@ export class FLabel extends FContainer {
 
         if (this.autosize) {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
-                this._width = this.field.width + (this.fieldPaddingX * 2);
+                // this._width = this.field.width + (this.fieldPaddingX * 2);
+                this._width = this.textWidth + (this.fieldPaddingX * 2);
                 if (this.maxAutosizeWidth) {
                     this._width = Math.min(this._width, this.maxAutosizeWidth);
                 }
             }
 
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.HEIGHT) {
-                this._height = this.field.height + (this.fieldPaddingY * 2);
+                // this._height = this.field.height + (this.fieldPaddingY * 2);
+                this._height = this.textHeight + (this.fieldPaddingY * 2);
                 if (this.maxAutosizeHeight) {
                     this._height = Math.min(this._height, this.maxAutosizeHeight);
                 }
