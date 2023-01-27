@@ -140,6 +140,16 @@ export class FLabel extends FContainer {
     protected applyStyle(): void {
         if (this.config.isBitmap) {
             // ToDo: implement configuring bitmap fields
+            const bitmapField: BitmapText = (this.field as BitmapText);
+            if (this.config.fontFamily) {
+                bitmapField.fontName = this.config.fontFamily;
+            }
+            if (this.config.size) {
+                bitmapField.fontSize = this.config.size;
+            }
+            if (this.config.color || this.config.color === 0) {
+                bitmapField.tint = this.config.color;
+            }
 
         } else {
             const textField: Text = (this.field as Text);
@@ -165,7 +175,7 @@ export class FLabel extends FContainer {
                 textField.style.wordWrapWidth = this.config.wordWrapWidth;
             }
 
-            if (this.config.color) {
+            if (this.config.color || this.config.color === 0) {
                 textField.style.fill = this.config.color;
             }
 
