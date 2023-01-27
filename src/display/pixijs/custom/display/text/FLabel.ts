@@ -1,4 +1,5 @@
 import { ObjectTools } from "@flashist/fcore";
+import { IBitmapTextStyle } from "pixi.js";
 
 import {
     Text,
@@ -9,7 +10,6 @@ import {
     Align,
     VAlign,
     FLabelEvent,
-    Point,
     AutosizeType,
     FLabelDefaultConfig,
     DisplayResizeTools
@@ -110,14 +110,19 @@ export class FLabel extends FContainer {
         }
 
         if (this.config.isBitmap) {
+            let bitmapConfig = {
+                fontName: this.config.fontFamily
+            } as Partial<IBitmapTextStyle>;
+            if (this.config.size) {
+                bitmapConfig.fontSize = this.config.size;
+            }
+            if (this.config.color || this.config.color === 0) {
+                bitmapConfig.tint = this.config.color;
+            }
+
             this.field = new BitmapText(
                 "",
-                {
-
-                    fontName: this.config.fontFamily,
-                    fontSize: this.config.size,
-                    tint: this.config.color
-                }
+                bitmapConfig
             );
         } else {
             this.field = new Text("");
