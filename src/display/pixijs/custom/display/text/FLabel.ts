@@ -28,12 +28,16 @@ export class FLabel extends FContainer {
     protected _height: number;
     protected _width: number;
 
+    protected fieldLocalBounds: Rectangle;
+
     constructor(config?: IFLabelConfig) {
         super(config);
     }
 
     protected construction(config?: IFLabelConfig): void {
         super.construction();
+
+        this.fieldLocalBounds = new Rectangle();
 
         // Properties overriding
         //
@@ -236,6 +240,8 @@ export class FLabel extends FContainer {
 
         // Reset Field Scale
         this.field.scale.set(1);
+        //
+        this.fieldLocalBounds = this.field.getLocalBounds();
 
         if (this.autosize) {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
@@ -266,6 +272,8 @@ export class FLabel extends FContainer {
         }
 
         this.field.scale.set(tempFieldScale);
+        //
+        this.fieldLocalBounds = this.field.getLocalBounds();
 
         this.bg.width = this._width;
         this.bg.height = this._height;
@@ -557,7 +565,8 @@ export class FLabel extends FContainer {
 
     get textWidth() {
         if (this.isBitmap) {
-            return (this.field as BitmapText).textWidth;
+            // return (this.field as BitmapText).textWidth;
+            return this.fieldLocalBounds.x + this.fieldLocalBounds.width;
         } else {
             return this.field.width / this.field.scale.x;
         }
@@ -565,7 +574,8 @@ export class FLabel extends FContainer {
 
     get textHeight() {
         if (this.isBitmap) {
-            return (this.field as BitmapText).textHeight;
+            // return (this.field as BitmapText).textHeight;
+            return this.fieldLocalBounds.y + this.fieldLocalBounds.height;
         } else {
             return this.field.height / this.field.scale.y;
         }
