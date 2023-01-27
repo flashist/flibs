@@ -120,6 +120,10 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
         }
     }
 
+    public forceCommitData(): void {
+        this.commitData();
+    }
+
     protected commitData(): void {
         // Note: subclasses should implement their own logic here
 
