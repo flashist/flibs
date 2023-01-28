@@ -1,4 +1,4 @@
-import {Logger} from "@flashist/fcore";
+import { Logger } from "@flashist/fcore";
 
 import {
     TextTruncateType,
@@ -8,10 +8,10 @@ import {
 
 export class FLabelTools {
     static truncateToFit(field: FLabel,
-                         maxWidth?: number,
-                         maxHeight?: number,
-                         truncateType: TextTruncateType = TextTruncateType.FROM_RIGHT,
-                         afterTruncateText: string = "..."): boolean {
+        maxWidth?: number,
+        maxHeight?: number,
+        truncateType: TextTruncateType = TextTruncateType.FROM_RIGHT,
+        afterTruncateText: string = "..."): boolean {
 
         if (!maxWidth || field.width <= maxWidth) {
             maxWidth = field.width;
@@ -28,7 +28,7 @@ export class FLabelTools {
         var maxSteps = 1000;
         var step = 0;
         while (text.length > 0 &&
-        ((field.textWidth > maxWidth) || (field.textHeight > maxHeight))) {
+            ((field.textWidth > maxWidth) || (field.textHeight > maxHeight))) {
             if (truncateType === TextTruncateType.FROM_LEFT) {
                 text = text.substring(1, text.length);
                 field.text = afterTruncateText + text;
@@ -39,7 +39,7 @@ export class FLabelTools {
             // Preventing code from "stucking"
             step++;
             if (step >= maxSteps) {
-                Logger.error("TextTools | truncateToFit __ ERROR! Max steps count!");
+                Logger.error("FLabelTools | truncateToFit __ ERROR! Max steps count!");
                 break;
             }
         }
