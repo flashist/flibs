@@ -84,12 +84,13 @@ export class ServiceLocator {
         }*/
     }
 
-    static getInstanceWithConstructorParams<Type extends IConstructor>(item: Type, ...args: ConstructorParameters<Type>): Type {
-        return ServiceLocator.getInstance(item, ...args);
-    }
+    // static getInstanceWithConstructorParams<Type extends any, ConstructorType extends IConstructor<Type>(item: ConstructorType, ...args: ConstructorParameters<ConstructorType>): Type {
+    //     return ServiceLocator.getInstance(item, ...args);
+    // }
 
-    static getInstance<Type extends any>(item: IConstructor<Type>, ...args: ConstructorParameters<IConstructor<Type>>): Type
-    static getInstance<Type extends any>(item: IConstructor<Type>, ...args): Type {
+    // static getInstance<Type extends any>(item: IConstructor<Type>, ...args: ConstructorParameters<IConstructor<Type>>): Type
+    // static getInstance<Type extends any>(item: IConstructor<Type>, ...args): Type {
+    static getInstance<Type extends any>(item: IConstructor<Type>, ...args: ConstructorParameters<IConstructor<Type>>): Type {
 
         let result: Type;
 
