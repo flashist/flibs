@@ -6,7 +6,7 @@ import {
     FLabel
 } from "../../../../index";
 
-export class TextTools {
+export class FLabelTools {
     static truncateToFit(field: FLabel,
                          maxWidth?: number,
                          maxHeight?: number,

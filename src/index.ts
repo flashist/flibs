@@ -98,7 +98,7 @@ export * from './display/pixijs/custom/display/tools/IFDisplayObjectUnderPointVO
 export * from './display/pixijs/display/tools/DisplayTools'
 export * from './display/pixijs/display/tools/IResizeConfig'
 export * from './display/pixijs/display/tools/DisplayResizeTools'
-export * from './display/pixijs/display/tools/TextTools'
+export * from './display/pixijs/display/tools/FLabelTools'
 export * from './display/pixijs/display/tools/TextTruncateType'
 export * from './display/pixijs/texture/Texture'
 
