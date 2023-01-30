@@ -100,7 +100,7 @@ export class LocaleManager {
 
         if (this.useTextLinks) {
             // Change links by key L on the specific locales
-            res = res.replace(/\@(.*)\@/gi, this.bindMethodReplaceRegExpKeyByStrings);
+            res = res.replace(/@([^@]+)@/gi, this.bindMethodReplaceRegExpKeyByStrings);
         }
 
         //
@@ -110,7 +110,7 @@ export class LocaleManager {
 
         if (this.useTextLinks) {
             // Check the links with L again
-            res = res.replace(/\@(.*)\@/gi, this.bindMethodReplaceRegExpKeyByStrings);
+            res = res.replace(/@([^@]+)@/gi, this.bindMethodReplaceRegExpKeyByStrings);
         }
 
         return res;
