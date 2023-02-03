@@ -36,13 +36,13 @@ export abstract class AbstractSoundsManager extends BaseObject {
     }
 
     public addDisableLock(locker: any): void {
-        this.disableLock.lock(locker);
+        this.disableLock.add(locker);
 
         this.calculateEnabled();
     }
 
     public removeDisableLock(locker: any): void {
-        this.disableLock.unlock(locker);
+        this.disableLock.remove(locker);
 
         this.calculateEnabled();
     }
@@ -70,7 +70,7 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected calculateEnabled(): void {
         const prevEnabled: boolean = this.enabled;
 
-        const newEnabled: boolean = !this.disableLock.isLocked && !this.isMuted;
+        const newEnabled: boolean = !this.disableLock.enabled && !this.isMuted;
         this._enabled = newEnabled;
 
         if (this.enabled !== prevEnabled) {
