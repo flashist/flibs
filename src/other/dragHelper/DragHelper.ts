@@ -8,10 +8,10 @@ import { DragHelperEvent } from "./DragHelperEvent";
 
 export class DragHelper extends BaseObject {
 
-    private _view: DisplayObject;
-    private viewEventListenerHelper: EventListenerHelper<string>;
+    protected _view: DisplayObject;
+    protected viewEventListenerHelper: EventListenerHelper<string>;
 
-    private _isDragStarted: boolean;
+    protected _isDragStarted: boolean;
 
     public startDragGlobalX: number = 0;
     public startDragGlobalY: number = 0;
@@ -97,15 +97,15 @@ export class DragHelper extends BaseObject {
     }
 
 
-    private onMouseDown(): void {
+    protected onMouseDown(): void {
         this.startDrag();
     }
 
-    private onMouseUp(): void {
+    protected onMouseUp(): void {
         this.stopDrag();
     }
 
-    private onTick(): void {
+    protected onTick(): void {
         if (this.isDragStarted) {
             if (this.checkIsNeedUpdateDrag()) {
                 this.updateDrag();
@@ -114,19 +114,19 @@ export class DragHelper extends BaseObject {
     }
 
 
-    private dispatchDragStartEvent(): void {
+    protected dispatchDragStartEvent(): void {
         this.dispatchEvent(DragHelperEvent.DRAG_START);
     }
 
-    private dispatchDragUpdateEvent(): void {
+    protected dispatchDragUpdateEvent(): void {
         this.dispatchEvent(DragHelperEvent.DRAG_UPDATE);
     }
 
-    private dispatchDragEndEvent(): void {
+    protected dispatchDragEndEvent(): void {
         this.dispatchEvent(DragHelperEvent.DRAG_END);
     }
 
-    private startDrag(): void {
+    protected startDrag(): void {
         if (this.isDragStarted) {
             return;
         }
@@ -163,7 +163,7 @@ export class DragHelper extends BaseObject {
         this.dispatchDragEndEvent();
     }
 
-    private updateDrag(): void {
+    protected updateDrag(): void {
         // Если последняя точка перетаскивания не изменилась, то прерываем функцию
         const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
         if (this.lastDragGlobalX == globalPos.x &&
@@ -217,7 +217,7 @@ export class DragHelper extends BaseObject {
     }
 
 
-    private checkIsNeedUpdateDrag(): boolean {
+    protected checkIsNeedUpdateDrag(): boolean {
         var result: boolean;
 
         if (Date.now() >= this.dragStartTime + this.dragUpdateDelay) {
