@@ -9,17 +9,25 @@ import {
 export class FLabelTools {
     static changeFontSizeToFit(
         field: FLabel,
-        maxWidth?: number,
-        maxHeight?: number
+        config?: {
+            maxWidth?: number,
+            maxHeight?: number,
+            stepChange?: number,
+            maxStepsCount?: number
+        }
     ): void {
 
-        if (!maxWidth || field.width <= maxWidth) {
-            maxWidth = field.width;
+        if (!config) {
+            config = {}
         }
-        if (!maxHeight || field.height <= maxHeight) {
-            maxHeight = field.height;
+
+        if (!config.maxWidth || field.width <= config.maxWidth) {
+            config.maxWidth = field.width;
         }
-        if (!field.text || (field.textWidth <= maxWidth && field.textHeight <= maxHeight)) {
+        if (!config.maxHeight || field.height <= config.maxHeight) {
+            config.maxHeight = field.height;
+        }
+        if (!field.text || (field.textWidth <= config.maxWidth && field.textHeight <= config.maxHeight)) {
             return;
         }
         if (field.isBitmap) {
@@ -27,10 +35,12 @@ export class FLabelTools {
             return;
         }
 
-        const maxSteps: number = 1000;
+        const maxSteps: number = config.maxStepsCount || 100;
+        const stepChange: number = config.stepChange || -1;
+
         let step: number = 0;
-        while (field.size > 0 && ((field.textWidth > maxWidth) || (field.textHeight > maxHeight))) {
-            field.size -= 1;
+        while (field.size > 0 && ((field.textWidth > config.maxWidth) || (field.textHeight > config.maxHeight))) {
+            field.size += stepChange;
 
             // Preventing code from "stucking"
             step++;

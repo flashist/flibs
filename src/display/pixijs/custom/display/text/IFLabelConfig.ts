@@ -15,6 +15,7 @@ export interface IFLabelConfig {
     maxAutosizeHeight?: number;
     fitToSize?: boolean;
     changeFontSizeToFit?: boolean;
+    changeFontSizeStepChange?: number;
     // fieldPadding?: Point;
     fieldPaddingX?: number;
     fieldPaddingY?: number;

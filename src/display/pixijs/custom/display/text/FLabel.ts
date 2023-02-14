@@ -276,7 +276,7 @@ export class FLabel extends FContainer {
         if (this.fitToSize) {
             // IMPORTANT: this is a performance-requiring task!
             if (this.changeFontSizeToFit) {
-                FLabelTools.changeFontSizeToFit(this);
+                FLabelTools.changeFontSizeToFit(this, {stepChange: this.config.changeFontSizeStepChange});
 
             } else {
                 tempFieldScale = DisplayResizeTools.getScale(
