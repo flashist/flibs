@@ -7,6 +7,40 @@ import {
 } from "../../../../index";
 
 export class FLabelTools {
+    static changeFontSizeToFit(
+        field: FLabel,
+        maxWidth?: number,
+        maxHeight?: number
+    ): void {
+
+        if (!maxWidth || field.width <= maxWidth) {
+            maxWidth = field.width;
+        }
+        if (!maxHeight || field.height <= maxHeight) {
+            maxHeight = field.height;
+        }
+        if (!field.text || (field.textWidth <= maxWidth && field.textHeight <= maxHeight)) {
+            return;
+        }
+        if (field.isBitmap) {
+            console.log("WARNING! FLabelTools | changeFontSizeToFit __ BITMAP FIELDS ARE NOT SUPPORTED YET!")
+            return;
+        }
+
+        const maxSteps: number = 1000;
+        let step: number = 0;
+        while (field.size > 0 && ((field.textWidth > maxWidth) || (field.textHeight > maxHeight))) {
+            field.size -= 1;
+
+            // Preventing code from "stucking"
+            step++;
+            if (step >= maxSteps) {
+                Logger.error("FLabelTools | changeFontSizeToFit __ ERROR! Max steps count!");
+                break;
+            }
+        }
+    };
+
     static truncateToFit(field: FLabel,
         maxWidth?: number,
         maxHeight?: number,

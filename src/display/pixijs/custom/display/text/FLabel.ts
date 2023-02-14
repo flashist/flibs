@@ -12,7 +12,7 @@ import {
     FLabelEvent,
     AutosizeType,
     FLabelDefaultConfig,
-    DisplayResizeTools
+    DisplayResizeTools, FLabelTools
 } from "../../../../../index";
 
 export class FLabel extends FContainer {
@@ -271,14 +271,21 @@ export class FLabel extends FContainer {
             }
         }
 
+
         let tempFieldScale: number = 1;
         if (this.fitToSize) {
-            tempFieldScale = DisplayResizeTools.getScale(
-                this.textWidth,
-                this.textHeight,
-                this.textAvailableWidth,
-                this.textAvailableHeight
-            );
+            // IMPORTANT: this is a performance-requiring task!
+            if (this.changeFontSizeToFit) {
+                FLabelTools.changeFontSizeToFit(this);
+
+            } else {
+                tempFieldScale = DisplayResizeTools.getScale(
+                    this.textWidth,
+                    this.textHeight,
+                    this.textAvailableWidth,
+                    this.textAvailableHeight
+                );
+            }
         }
 
         this.field.scale.set(tempFieldScale);
@@ -569,6 +576,19 @@ export class FLabel extends FContainer {
         }
 
         this.config.fitToSize = value;
+
+        this.arrange();
+    }
+
+    public get changeFontSizeToFit(): boolean {
+        return this.config.changeFontSizeToFit;
+    }
+    public set changeFontSizeToFit(value: boolean) {
+        if (value === this.config.changeFontSizeToFit) {
+            return;
+        }
+
+        this.config.changeFontSizeToFit = value;
 
         this.arrange();
     }
