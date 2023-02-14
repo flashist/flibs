@@ -60,7 +60,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
         this._isMuted = value;
         this.dispatchEvent(SoundsManagerEvent.IS_MUTED_CHANGE);
 
-        this.calculateEnabled();
+        // this.calculateEnabled();
+        this.commitData();
     }
 
     public get enabled(): boolean {
@@ -70,7 +71,7 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected calculateEnabled(): void {
         const prevEnabled: boolean = this.enabled;
 
-        const newEnabled: boolean = !this.disableLock.enabled && !this.isMuted;
+        const newEnabled: boolean = !this.disableLock.enabled;
         this._enabled = newEnabled;
 
         if (this.enabled !== prevEnabled) {
@@ -87,9 +88,9 @@ export abstract class AbstractSoundsManager extends BaseObject {
             return;
         }
 
-        let newVolume: number = 0;
-        if (this.enabled) {
-            newVolume = this.getVolume();
+        let newVolume: number = this.getVolume();
+        if (this.isMuted) {
+            newVolume = 0;
         }
 
         // this.internalSetVolume(newVolume);
