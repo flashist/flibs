@@ -107,6 +107,14 @@ export class FLabel extends FContainer {
         this.updateBg();
     }
 
+    public destruction(): void {
+        super.destruction();
+
+        if (this.field) {
+            this.field.destroy();
+        }
+    }
+
     protected createField(): void {
         if (this.field) {
             this.field.parent.removeChild(this.field);
