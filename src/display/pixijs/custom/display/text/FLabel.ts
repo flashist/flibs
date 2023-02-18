@@ -158,6 +158,9 @@ export class FLabel extends FContainer {
             if (this.config.color || this.config.color === 0) {
                 bitmapField.tint = this.config.color;
             }
+            if (this.config.wordWrapWidth) {
+                bitmapField.maxWidth = this.config.wordWrapWidth;
+            }
 
         } else {
             const textField: Text = (this.field as Text);
