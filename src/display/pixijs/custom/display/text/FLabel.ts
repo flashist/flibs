@@ -734,4 +734,8 @@ export class FLabel extends FContainer {
 
         this.applyStyle();
     }
+
+    public get engineField(): any {
+        return this.field;
+    }
 }
