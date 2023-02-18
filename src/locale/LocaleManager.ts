@@ -1,4 +1,6 @@
 ﻿import {
+    ArrayTools,
+    ObjectTools,
     StringTools
 } from "@flashist/fcore";
 import { getInstance } from "../servicelocator/ServiceLocatorShortcuts";
@@ -120,6 +122,39 @@ export class LocaleManager {
         // return this.currentLocale.texts[group1];
         return this.getText(group1);
     }
+
+    public findAllUniqueCharactersForCurrentLocale(): string[] {
+        const allTexts: string[] = [];
+        this.getAllTextsOf(this.currentLocale.texts, allTexts);
+
+        let usedCharactersMap: Record<string, boolean> = {};
+        let result: string[] = [];
+        for (let singleText of allTexts) {
+            const singleCharsList: string[] = Array.from(singleText);
+            for (let singleChar of singleCharsList) {
+                if (!usedCharactersMap[singleChar]) {
+                    usedCharactersMap[singleChar] = true;
+
+                    result.push(singleChar);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    protected getAllTextsOf(textNode: any, result: string[]): void {
+        for (let singleKey of textNode) {
+            let childNode: any = textNode[singleKey];
+            if (ObjectTools.isObject(childNode)) {
+                this.getAllTextsOf(textNode[singleKey], result);
+
+            } else {
+                result.push(textNode[singleKey]);
+            }
+        }
+    }
+
 }
 
 export function getText(textId: string, params: any = null): string {
