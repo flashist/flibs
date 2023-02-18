@@ -147,10 +147,10 @@ export class LocaleManager {
         for (let singleKey in textNode) {
             let childNode: any = textNode[singleKey];
             if (ObjectTools.isObject(childNode)) {
-                this.getAllTextsOf(textNode[singleKey], result);
+                this.getAllTextsOf(childNode, result);
 
             } else {
-                result.push(textNode[singleKey]);
+                result.push(childNode);
             }
         }
     }
