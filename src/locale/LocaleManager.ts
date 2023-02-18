@@ -129,7 +129,7 @@ export class LocaleManager {
 
         let usedCharactersMap: Record<string, boolean> = {};
         let result: string[] = [];
-        for (let singleText of allTexts) {
+        for (let singleText in allTexts) {
             const singleCharsList: string[] = Array.from(singleText);
             for (let singleChar of singleCharsList) {
                 if (!usedCharactersMap[singleChar]) {
@@ -144,7 +144,7 @@ export class LocaleManager {
     }
 
     protected getAllTextsOf(textNode: any, result: string[]): void {
-        for (let singleKey of textNode) {
+        for (let singleKey in textNode) {
             let childNode: any = textNode[singleKey];
             if (ObjectTools.isObject(childNode)) {
                 this.getAllTextsOf(textNode[singleKey], result);
