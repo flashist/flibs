@@ -129,7 +129,7 @@ export class LocaleManager {
 
         let usedCharactersMap: Record<string, boolean> = {};
         let result: string[] = [];
-        for (let singleText in allTexts) {
+        for (let singleText of allTexts) {
             const singleCharsList: string[] = Array.from(singleText);
             for (let singleChar of singleCharsList) {
                 if (!usedCharactersMap[singleChar]) {
