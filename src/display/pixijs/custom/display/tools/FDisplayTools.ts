@@ -2,10 +2,10 @@ import {
     DisplayObject,
     DisplayObjectContainer,
     FStage,
-    Point,
     IFDisplayObjectUnderPointVO,
     Rectangle
 } from "../../../../../index";
+import {Point} from "../../../../../geom/pixijs/Point";
 
 export class FDisplayTools {
 
