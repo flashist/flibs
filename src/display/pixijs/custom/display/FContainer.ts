@@ -1,15 +1,15 @@
 import { EventListenerHelper, Logger, IDatable } from "@flashist/fcore";
 
 import {
-    DisplayObjectContainer,
     FStage,
     FDisplayEvent,
     DisplayEvent,
     FDisplayTools,
     serviceLocatorProcessItemOnActivate,
     serviceLocatorProcessItemOnDeactivate,
-    DisplayObject
 } from "../../../../index";
+import {DisplayObjectContainer} from "../../display/DisplayObjectContainer";
+import {DisplayObject} from "../../display/DisplayObject";
 
 export class FContainer<DataType extends any = any> extends DisplayObjectContainer implements IDatable {
 
