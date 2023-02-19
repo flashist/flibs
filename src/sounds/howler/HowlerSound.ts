@@ -120,3 +120,8 @@ export class HowlerSound extends AbstractSound {
         return result;
     }*!/*/
 }
+
+// TODO: change when more adapters are supported,
+// probably builds of the flibs should be separated per adapter
+export class Sound extends HowlerSound {
+}

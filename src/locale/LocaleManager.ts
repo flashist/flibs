@@ -1,13 +1,7 @@
-﻿import {
-    ArrayTools,
-    ObjectTools,
-    StringTools
-} from "@flashist/fcore";
-import { getInstance } from "../servicelocator/ServiceLocatorShortcuts";
+﻿import {ObjectTools, StringTools} from "@flashist/fcore";
+import {getInstance} from "../servicelocator/ServiceLocatorShortcuts";
 
-import {
-    ILocaleConfig
-} from "./ILocaleConfig";
+import {ILocaleConfig} from "./ILocaleConfig";
 
 export class LocaleManager {
 

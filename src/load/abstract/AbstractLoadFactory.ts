@@ -1,8 +1,8 @@
-import { ILoadItemConfig } from "./item/ILoadItemConfig";
-import { AbstractLoadItem } from "./item/AbstractLoadItem";
-import { IConstructor } from "@flashist/fcore";
-import { FileType } from "./data/FileType";
-import { getInstance, LoadManager } from "../..";
+import {ILoadItemConfig} from "./item/ILoadItemConfig";
+import {AbstractLoadItem} from "./item/AbstractLoadItem";
+import {IConstructor} from "@flashist/fcore";
+import {FileType} from "./data/FileType";
+import {getInstance, LoadManager} from "../../index";
 
 export abstract class AbstractLoadFactory {
     static instance: AbstractLoadFactory;

@@ -1,4 +1,4 @@
-import {Lock, AssociativeArray, BaseObject} from "@flashist/fcore";
+import {AssociativeArray, BaseObject, Lock} from "@flashist/fcore";
 
 import {TweenLite} from "gsap";
 
