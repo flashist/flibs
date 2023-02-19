@@ -10,9 +10,10 @@ import {
     VAlign,
     FLabelEvent,
     AutosizeType,
-    FLabelDefaultConfig,
     DisplayResizeTools, FLabelTools
 } from "../../../../../index";
+
+import {FLabelDefaultConfig} from "./FLabelDefaultConfig";
 
 import {FContainer} from "../FContainer";
 
