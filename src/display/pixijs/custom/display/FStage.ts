@@ -1,6 +1,4 @@
-import {
-    DisplayObjectContainer
-} from "../../../../index";
+import {DisplayObjectContainer} from "../../display/DisplayObjectContainer";
 
 export abstract class FStage extends DisplayObjectContainer {
 
