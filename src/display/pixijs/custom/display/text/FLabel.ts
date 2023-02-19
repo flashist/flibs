@@ -6,7 +6,6 @@ import {
     BitmapText,
     IFLabelConfig,
     Graphics,
-    FContainer,
     Align,
     VAlign,
     FLabelEvent,
@@ -14,6 +13,8 @@ import {
     FLabelDefaultConfig,
     DisplayResizeTools, FLabelTools
 } from "../../../../../index";
+
+import {FContainer} from "../FContainer";
 
 export class FLabel extends FContainer {
 

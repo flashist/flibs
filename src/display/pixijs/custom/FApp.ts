@@ -1,9 +1,9 @@
 import {
-    App,
     FStage,
     AppProperties,
     Point
 } from "../../../index";
+import {App} from "../App";
 
 export class FApp extends App {
 
