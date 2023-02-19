@@ -40,3 +40,8 @@ export class PreloadjsPixiLoadFactory extends AbstractLoadFactory {
     // }
 
 }
+
+// TODO: change when more adapters are supported,
+// probably builds of the flibs should be separated per adapter
+export class LoadFactory extends PreloadjsPixiLoadFactory {
+}
