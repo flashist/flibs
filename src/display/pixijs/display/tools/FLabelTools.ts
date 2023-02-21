@@ -30,10 +30,10 @@ export class FLabelTools {
         if (!field.text || (field.textWidth <= config.maxWidth && field.textHeight <= config.maxHeight)) {
             return;
         }
-        if (field.isBitmap) {
-            console.log("WARNING! FLabelTools | changeFontSizeToFit __ BITMAP FIELDS ARE NOT SUPPORTED YET!")
-            return;
-        }
+        // if (field.isBitmap) {
+        //     console.log("WARNING! FLabelTools | changeFontSizeToFit __ BITMAP FIELDS ARE NOT SUPPORTED YET!")
+        //     return;
+        // }
 
         const maxSteps: number = config.maxStepsCount || 100;
         const stepChange: number = config.stepChange || -1;
