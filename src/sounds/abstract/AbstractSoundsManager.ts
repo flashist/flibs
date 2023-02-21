@@ -9,7 +9,9 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
     protected soundsToIdMap: AssociativeArray<Sound> = new AssociativeArray<Sound>();
 
-    protected disableLock: Lock = new Lock();
+    protected mutedLock: Lock = new Lock();
+    protected muteLock: Lock = new Lock();
+
     private _isMuted: boolean = false;
     private _enabled: boolean = true;
 
@@ -22,7 +24,7 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected construction(...args): void {
         super.construction(...args);
 
-        this.disableLock = new Lock();
+        this.mutedLock = new Lock();
 
         this.setVolume(this.volume);
     }
@@ -36,31 +38,43 @@ export abstract class AbstractSoundsManager extends BaseObject {
     }
 
     public addDisableLock(locker: any): void {
-        this.disableLock.add(locker);
+        this.mutedLock.add(locker);
 
         this.calculateEnabled();
     }
 
     public removeDisableLock(locker: any): void {
-        this.disableLock.remove(locker);
+        this.mutedLock.remove(locker);
 
         this.calculateEnabled();
     }
 
 
+    public addMuteLock(locker: any): void {
+        this.muteLock.add(locker);
+
+        this.calculateMuted();
+    }
+    public removeMuteLock(locker: any): void {
+        this.muteLock.remove(locker);
+
+        this.calculateMuted();
+    }
+
     public get isMuted(): boolean {
         return this._isMuted;
     }
 
-    public set isMuted(value: boolean) {
-        if (value === this._isMuted) {
-            return;
+    protected calculateMuted(): void {
+        const prevIsMuted: boolean = this.enabled;
+
+        const newIsMuted: boolean = !this.mutedLock.enabled;
+        this._isMuted = newIsMuted;
+
+        if (this.enabled !== prevIsMuted) {
+            this.dispatchEvent(SoundsManagerEvent.IS_MUTED_CHANGE);
         }
 
-        this._isMuted = value;
-        this.dispatchEvent(SoundsManagerEvent.IS_MUTED_CHANGE);
-
-        // this.calculateEnabled();
         this.commitData();
     }
 
@@ -71,7 +85,7 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected calculateEnabled(): void {
         const prevEnabled: boolean = this.enabled;
 
-        const newEnabled: boolean = !this.disableLock.enabled;
+        const newEnabled: boolean = !this.mutedLock.enabled;
         this._enabled = newEnabled;
 
         if (this.enabled !== prevEnabled) {
