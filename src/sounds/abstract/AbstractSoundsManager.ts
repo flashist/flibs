@@ -9,8 +9,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
     protected soundsToIdMap: AssociativeArray<Sound> = new AssociativeArray<Sound>();
 
-    protected disableLock: Lock = new Lock();
-    private _enabled: boolean = false;
+    protected disableLock: Lock ;
+    private _enabled: boolean;
 
     private _isActivated: boolean;
     private _isMuted: boolean;
@@ -18,13 +18,16 @@ export abstract class AbstractSoundsManager extends BaseObject {
     private _tweenVolumeValue: number;
 
     public defaultTweenTime: number = 0.5;
-
     protected volume: number = 1;
 
     protected construction(...args): void {
         super.construction(...args);
 
+        this._enabled = false
         this.disableLock = new Lock();
+
+        this.defaultTweenTime = 0.5;
+        this.volume = 1;
 
         this.setVolume(this.volume);
 
