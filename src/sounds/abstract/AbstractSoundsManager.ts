@@ -27,6 +27,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
         this.disableLock = new Lock();
 
         this.setVolume(this.volume);
+
+        this.calculateEnabled();
     }
 
     public registerSound(id: string, sound: Sound): void {
@@ -49,12 +51,12 @@ export abstract class AbstractSoundsManager extends BaseObject {
     }
 
     protected calculateEnabled(): void {
-        const prevIsMuted: boolean = this.enabled;
+        const prevEnabled: boolean = this.enabled;
 
-        const newIsMuted: boolean = !this.disableLock.enabled;
-        this._enabled = newIsMuted;
+        const newEnabled: boolean = !this.disableLock.enabled;
+        this._enabled = newEnabled;
 
-        if (newIsMuted !== prevIsMuted) {
+        if (newEnabled !== prevEnabled) {
             this.dispatchEvent(SoundsManagerEvent.ENABLED_CHANGE);
         }
 
