@@ -9,11 +9,11 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
     protected soundsToIdMap: AssociativeArray<Sound> = new AssociativeArray<Sound>();
 
-    protected mutedLock: Lock = new Lock();
-    protected muteLock: Lock = new Lock();
+    protected disableLock: Lock = new Lock();
+    private _enabled: boolean = false;
 
-    private _isMuted: boolean = false;
-    private _enabled: boolean = true;
+    private _isActivated: boolean;
+    private _isMuted: boolean;
 
     private _tweenVolumeValue: number;
 
@@ -24,7 +24,7 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected construction(...args): void {
         super.construction(...args);
 
-        this.mutedLock = new Lock();
+        this.disableLock = new Lock();
 
         this.setVolume(this.volume);
     }
@@ -37,60 +37,64 @@ export abstract class AbstractSoundsManager extends BaseObject {
         return this.soundsToIdMap.getItem(id);
     }
 
-    public addDisableLock(locker: any): void {
-        this.mutedLock.add(locker);
+    // ENABLED: START
 
-        this.calculateEnabled();
-    }
-
-    public removeDisableLock(locker: any): void {
-        this.mutedLock.remove(locker);
-
-        this.calculateEnabled();
-    }
-
-
-    public addMuteLock(locker: any): void {
-        this.muteLock.add(locker);
-
-        this.calculateMuted();
-    }
-    public removeMuteLock(locker: any): void {
-        this.muteLock.remove(locker);
-
-        this.calculateMuted();
-    }
-
-    public get isMuted(): boolean {
-        return this._isMuted;
-    }
-
-    protected calculateMuted(): void {
-        const prevIsMuted: boolean = this.enabled;
-
-        const newIsMuted: boolean = !this.mutedLock.enabled;
-        this._isMuted = newIsMuted;
-
-        if (this.enabled !== prevIsMuted) {
-            this.dispatchEvent(SoundsManagerEvent.IS_MUTED_CHANGE);
-        }
-
-        this.commitData();
-    }
-
+    /**
+     * Used to disable (aka mute) Sounds Manager (e.g. when focus is lost / tab is switched).
+     * It's different from the mute value, because the mute value will be controlled by the sound control buttons
+     * and saved / restored from the local storage (aka save system)
+     */
     public get enabled(): boolean {
         return this._enabled;
     }
 
     protected calculateEnabled(): void {
-        const prevEnabled: boolean = this.enabled;
+        const prevIsMuted: boolean = this.enabled;
 
-        const newEnabled: boolean = !this.mutedLock.enabled;
-        this._enabled = newEnabled;
+        const newIsMuted: boolean = !this.disableLock.enabled;
+        this._enabled = newIsMuted;
 
-        if (this.enabled !== prevEnabled) {
+        if (newIsMuted !== prevIsMuted) {
             this.dispatchEvent(SoundsManagerEvent.ENABLED_CHANGE);
         }
+
+        this.commitData();
+    }
+
+    public addDisableLock(locker: any): void {
+        this.disableLock.add(locker);
+
+        this.calculateEnabled();
+    }
+
+    public removeDisableLock(locker: any): void {
+        this.disableLock.remove(locker);
+
+        this.calculateEnabled();
+    }
+
+    // ENABLED: END
+
+    public get isActivated(): boolean {
+        return this._isActivated;
+    }
+
+    public activate(): void {
+        this._isActivated = true;
+        this.commitData();
+    }
+
+    get isMuted(): boolean {
+        return this._isMuted;
+    }
+
+    set isMuted(value: boolean) {
+        if (value === this.isMuted) {
+            return;
+        }
+
+        this._isMuted = value;
+        this.dispatchEvent(SoundsManagerEvent.IS_MUTED_CHANGE);
 
         this.commitData();
     }
@@ -98,7 +102,7 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected commitData(): void {
         super.commitData();
 
-        if (!this.enabled) {
+        if (!this.isActivated) {
             return;
         }
 
@@ -106,10 +110,15 @@ export abstract class AbstractSoundsManager extends BaseObject {
         if (this.isMuted) {
             newVolume = 0;
         }
+        if (!this.enabled) {
+            newVolume = 0;
+        }
 
         // this.internalSetVolume(newVolume);
         this.internalSetVolume(newVolume)
     }
+
+    // VOLUME: START
 
     public getVolume(): number {
         return this.volume;
