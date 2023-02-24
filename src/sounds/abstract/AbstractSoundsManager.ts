@@ -107,11 +107,10 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected commitData(): void {
         super.commitData();
 
-        if (!this.isActivated) {
-            return;
-        }
-
         let newVolume: number = this.getVolume();
+        if (!this.isActivated) {
+            newVolume = 0;
+        }
         if (this.isMuted) {
             newVolume = 0;
         }
@@ -120,7 +119,12 @@ export abstract class AbstractSoundsManager extends BaseObject {
         }
 
         // this.internalSetVolume(newVolume);
-        this.internalSetVolume(newVolume)
+        try {
+            this.internalSetVolume(newVolume);
+
+        } catch(error) {
+            console.log("AbstractSoundsManager | commitData __ error: ", error);
+        }
     }
 
     // VOLUME: START
