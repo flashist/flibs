@@ -58,7 +58,7 @@ export class FLabel extends FContainer {
 
                     this._width = value;
 
-                    this.commitData();
+                    this.applyStyle();
                 }
             }
         );
@@ -78,7 +78,7 @@ export class FLabel extends FContainer {
 
                     this._height = value;
 
-                    this.commitData();
+                    this.applyStyle();
                 }
             }
         );
