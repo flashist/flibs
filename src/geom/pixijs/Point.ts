@@ -14,4 +14,12 @@ export class Point extends PixiPoint {
             this.y + point.y
         )
     }
+
+    normalize(length: number = 1): void {
+        var magnitude: number = Math.sqrt(this.x * this.x + this.y * this.y);
+        if (magnitude != 0) {
+            this.x *= length / magnitude;
+            this.y *= length / magnitude;
+        }
+    }
 };
