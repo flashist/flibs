@@ -22,4 +22,8 @@ export class Point extends PixiPoint {
             this.y *= length / magnitude;
         }
     }
+
+    getLength(): number {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
 };
