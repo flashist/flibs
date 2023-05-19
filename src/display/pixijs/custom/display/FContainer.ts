@@ -8,8 +8,8 @@ import {
     serviceLocatorProcessItemOnActivate,
     serviceLocatorProcessItemOnDeactivate,
 } from "../../../../index";
-import {DisplayObjectContainer} from "../../display/DisplayObjectContainer";
-import {DisplayObject} from "../../display/DisplayObject";
+import { DisplayObjectContainer } from "../../display/DisplayObjectContainer";
+import { DisplayObject } from "../../display/DisplayObject";
 
 export class FContainer<DataType extends any = any> extends DisplayObjectContainer implements IDatable {
 
@@ -209,9 +209,9 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
         this.updateChildrenStage();
 
         if (this.stage) {
-            this.emit(FDisplayEvent.ADDED_TO_STAGE);
+            this.dispatchEvent(new Event(FDisplayEvent.ADDED_TO_STAGE));
         } else {
-            this.emit(FDisplayEvent.REMOVED_FROM_STAGE);
+            this.dispatchEvent(new Event(FDisplayEvent.REMOVED_FROM_STAGE));
         }
     }
 

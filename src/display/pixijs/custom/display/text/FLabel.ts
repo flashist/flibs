@@ -13,9 +13,9 @@ import {
     DisplayResizeTools, FLabelTools
 } from "../../../../../index";
 
-import {FLabelDefaultConfig} from "./FLabelDefaultConfig";
+import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
 
-import {FContainer} from "../FContainer";
+import { FContainer } from "../FContainer";
 
 export class FLabel extends FContainer {
 
@@ -289,7 +289,7 @@ export class FLabel extends FContainer {
         if (this.fitToSize) {
             // IMPORTANT: this is a performance-requiring task!
             if (this.changeFontSizeToFit) {
-                FLabelTools.changeFontSizeToFit(this, {stepChange: this.config.changeFontSizeStepChange});
+                FLabelTools.changeFontSizeToFit(this, { stepChange: this.config.changeFontSizeStepChange });
 
             } else {
                 tempFieldScale = DisplayResizeTools.getScale(
@@ -522,7 +522,7 @@ export class FLabel extends FContainer {
         }
 
         this.field.text = value;
-        this.emit(FLabelEvent.TEXT_CHANGE);
+        this.dispatchEvent(new Event(FLabelEvent.TEXT_CHANGE));
 
         this.commitData();
     }
