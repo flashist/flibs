@@ -7,9 +7,9 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
 
     // protected loader: Loader;
 
-    protected progressBinding: any;
-    protected completeBinding: any;
-    protected errorBinding: any;
+    // protected progressBinding: any;
+    // protected completeBinding: any;
+    // protected errorBinding: any;
 
     protected listenersEnabled: boolean;
     protected loadPromise: Promise<Record<string, any>>;
