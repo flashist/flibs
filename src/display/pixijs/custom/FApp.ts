@@ -3,7 +3,7 @@ import {
     AppProperties,
     Point
 } from "../../../index";
-import {App} from "../App";
+import { App } from "../App";
 
 export class FApp extends App {
 
@@ -50,7 +50,8 @@ export class FApp extends App {
 
     public getGlobalInteractionPosition(): Point {
         // return (this.renderer.plugins as RendererPlugins).interaction.mouse.global;
-        return this.renderer.plugins.interaction.eventData.data.global.clone();
+        // return this.renderer.plugins.interaction.eventData.data.global.clone();
+        return this.renderer.plugins.interaction.pointer.global.clone();
     }
 
 
