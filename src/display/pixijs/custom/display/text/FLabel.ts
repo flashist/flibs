@@ -522,7 +522,7 @@ export class FLabel extends FContainer {
         }
 
         this.field.text = value;
-        this.dispatchEvent(new Event(FLabelEvent.TEXT_CHANGE));
+        this.emit(FLabelEvent.TEXT_CHANGE as any);
 
         this.commitData();
     }

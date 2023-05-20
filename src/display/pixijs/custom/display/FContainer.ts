@@ -209,9 +209,9 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
         this.updateChildrenStage();
 
         if (this.stage) {
-            this.dispatchEvent(new Event(FDisplayEvent.ADDED_TO_STAGE));
+            this.emit(FDisplayEvent.ADDED_TO_STAGE as any);
         } else {
-            this.dispatchEvent(new Event(FDisplayEvent.REMOVED_FROM_STAGE));
+            this.emit(FDisplayEvent.REMOVED_FROM_STAGE as any);
         }
     }
 
