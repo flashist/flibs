@@ -21,9 +21,13 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         //     this.config.src
         // );
 
-        const tempUrl: URL = new URL(this.config.src, this.config.basePath);
+        let loadPath: string = this.config.src;
+        if (this.config.basePath) {
+            const tempUrl: URL = new URL(this.config.src, this.config.basePath);
+            loadPath = tempUrl.href;
+        }
         // Assets.add({ alias: this.config.id, src: tempUrl.href });
-        Assets.add(this.config.id, tempUrl.href);
+        Assets.add(this.config.id, loadPath);
     }
 
     protected internalStart(): void {
