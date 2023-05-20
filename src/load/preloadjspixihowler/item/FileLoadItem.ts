@@ -45,12 +45,13 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         );
 
         this.loadPromise.then(
-            (resourcesMap: { [key: string]: any }) => {
+            (data: any) => {
                 if (!this.listenersEnabled) {
                     return;
                 }
 
-                this.onLoaderComplete(resourcesMap);
+                // this.onLoaderComplete(resourcesMap);
+                this.processLoadingComplete(data, data);
             }
         );
 
@@ -121,12 +122,12 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         // this.loader.onError.detach(this.errorBinding);
     }
 
-    protected onLoaderComplete(resourcesMap: { [key: string]: any }): void {
-        for (let fileKey in resourcesMap) {
-            const tempFileItem = resourcesMap[fileKey];
-            this.processLoadingComplete(tempFileItem, tempFileItem.data);
-        }
-    }
+    // protected onLoaderComplete(resourcesMap: { [key: string]: any }): void {
+    //     for (let fileKey in resourcesMap) {
+    //         const tempFileItem = resourcesMap[fileKey];
+    //         this.processLoadingComplete(tempFileItem, tempFileItem.data);
+    //     }
+    // }
 
 
 }
