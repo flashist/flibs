@@ -120,6 +120,16 @@ export class FLabel extends FContainer {
         }
     }
 
+    public debugAddedToStage: boolean;
+
+    protected onAddedToStage(): void {
+        super.onAddedToStage();
+
+        if (this.debugAddedToStage) {
+            alert("TEST");
+        }
+    }
+
     protected createField(): void {
         if (this.field) {
             this.field.parent.removeChild(this.field);
