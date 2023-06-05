@@ -4,6 +4,7 @@ export * from './DisplayObject';
 export * from './DisplayObjectContainer';
 export * from './events';
 export * from './Graphics';
+export * from './HTMLText';
 export * from './Sprite';
 export * from './Text';
 export * from './TilingSprite';

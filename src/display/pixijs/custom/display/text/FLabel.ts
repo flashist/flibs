@@ -10,7 +10,9 @@ import {
     VAlign,
     FLabelEvent,
     AutosizeType,
-    DisplayResizeTools, FLabelTools
+    DisplayResizeTools,
+    FLabelTools,
+    HTMLText
 } from "../../../../../index";
 
 import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
@@ -25,7 +27,7 @@ export class FLabel extends FContainer {
 
     protected fieldMask: Graphics;
     protected bg: Graphics;
-    protected field: Text | BitmapText;
+    protected field: Text | BitmapText | HTMLText;
 
     protected _height: number;
     protected _width: number;
@@ -264,7 +266,7 @@ export class FLabel extends FContainer {
         // Reset Field Scale
         this.field.scale.set(1);
         //
-        this.fieldLocalBounds = this.field.getLocalBounds();
+        this.field.getLocalBounds(this.fieldLocalBounds);
 
         if (this.autosize) {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
@@ -303,7 +305,7 @@ export class FLabel extends FContainer {
 
         this.field.scale.set(tempFieldScale);
         //
-        this.fieldLocalBounds = this.field.getLocalBounds();
+        this.field.getLocalBounds(this.fieldLocalBounds);
 
         this.bg.width = this._width;
         this.bg.height = this._height;
