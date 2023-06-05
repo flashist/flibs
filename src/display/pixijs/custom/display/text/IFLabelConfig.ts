@@ -2,10 +2,11 @@
 import { Align } from "../../../../../other/align/Align";
 import { VAlign } from "../../../../../other/align/VAlign";
 import { AutosizeType } from "./AutosizeType";
+import { FLabelTextType } from "./FLabelTextType";
 import { GradientColorType } from "./GradientColorType";
 
 export interface IFLabelConfig {
-    isBitmap?: boolean;
+    textType?: FLabelTextType;
     bgColor?: number;
     bgAlpha?: number;
     autosize?: boolean;

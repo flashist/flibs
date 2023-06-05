@@ -18,6 +18,7 @@ import {
 import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
 
 import { FContainer } from "../FContainer";
+import { FLabelTextType } from "./FLabelTextType";
 
 export class FLabel extends FContainer {
 
@@ -125,7 +126,7 @@ export class FLabel extends FContainer {
             this.field = null;
         }
 
-        if (this.config.isBitmap) {
+        if (this.config.textType === FLabelTextType.BITMAP) {
             let bitmapConfig = {
                 fontName: this.config.fontFamily
             } as Partial<IBitmapTextStyle>;
@@ -140,6 +141,8 @@ export class FLabel extends FContainer {
                 "",
                 bitmapConfig
             );
+        } else if (this.config.textType === FLabelTextType.HTML_TEXT) {
+            this.field = new HTMLText("");
         } else {
             this.field = new Text("");
         }
@@ -150,7 +153,7 @@ export class FLabel extends FContainer {
     }
 
     protected applyStyle(): void {
-        if (this.config.isBitmap) {
+        if (this.config.textType === FLabelTextType.BITMAP) {
             // ToDo: implement configuring bitmap fields
             const bitmapField: BitmapText = (this.field as BitmapText);
             if (this.config.fontFamily) {
@@ -339,21 +342,21 @@ export class FLabel extends FContainer {
     }
 
 
-    public get isBitmap(): boolean {
-        return this.config.isBitmap;
-    }
+    // public get isBitmap(): boolean {
+    //     return this.config.isBitmap;
+    // }
 
-    public set isBitmap(value: boolean) {
-        if (value === this.config.isBitmap) {
-            return;
-        }
+    // public set isBitmap(value: boolean) {
+    //     if (value === this.config.isBitmap) {
+    //         return;
+    //     }
 
-        this.config.isBitmap = value;
+    //     this.config.isBitmap = value;
 
-        this.createField();
-        this.updateBg();
-        this.commitData();
-    }
+    //     this.createField();
+    //     this.updateBg();
+    //     this.commitData();
+    // }
 
     public get fontFamily(): string {
         return this.config.fontFamily;
@@ -609,7 +612,7 @@ export class FLabel extends FContainer {
     }
 
     get textWidth() {
-        if (this.isBitmap) {
+        if (this.config.textType === FLabelTextType.BITMAP) {
             // return (this.field as BitmapText).textWidth;
             return this.fieldLocalBounds.x + this.fieldLocalBounds.width;
         } else {
@@ -618,7 +621,7 @@ export class FLabel extends FContainer {
     }
 
     get textHeight() {
-        if (this.isBitmap) {
+        if (this.config.textType === FLabelTextType.BITMAP) {
             // return (this.field as BitmapText).textHeight;
             return this.fieldLocalBounds.y + this.fieldLocalBounds.height;
         } else {
