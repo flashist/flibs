@@ -35,6 +35,8 @@ export class FLabel extends FContainer {
 
     protected fieldLocalBounds: Rectangle;
 
+    protected _text: string;
+
     constructor(config?: IFLabelConfig) {
         super(config);
     }
@@ -43,6 +45,8 @@ export class FLabel extends FContainer {
         super.construction();
 
         this.fieldLocalBounds = new Rectangle();
+
+        this._text = "";
 
         // Properties overriding
         //
@@ -120,14 +124,10 @@ export class FLabel extends FContainer {
         }
     }
 
-    public debugAddedToStage: boolean;
-
     protected onAddedToStage(): void {
         super.onAddedToStage();
 
-        if (this.debugAddedToStage) {
-            alert("TEST");
-        }
+        this.applyText();
     }
 
     protected createField(): void {
@@ -528,7 +528,7 @@ export class FLabel extends FContainer {
     }
 
     public get text(): string {
-        return this.field.text;
+        return this._text;
     }
 
     public set text(value: string) {
@@ -536,9 +536,14 @@ export class FLabel extends FContainer {
             return;
         }
 
-        this.field.text = value;
+        this._text = value;
         this.emit(FLabelEvent.TEXT_CHANGE as any);
 
+        this.applyText();
+    }
+
+    protected applyText(): void {
+        this.field.text = this._text;
         this.commitData();
     }
 
