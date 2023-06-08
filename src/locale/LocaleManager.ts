@@ -1,14 +1,16 @@
-﻿import {ObjectTools, StringTools} from "@flashist/fcore";
-import {getInstance} from "../servicelocator/ServiceLocatorShortcuts";
+﻿import { ObjectTools, StringTools } from "@flashist/fcore";
+import { getInstance } from "../servicelocator/ServiceLocatorShortcuts";
 
-import {ILocaleConfig} from "./ILocaleConfig";
+import { ILocaleConfig } from "./ILocaleConfig";
+import { LocaleId } from "./LocaleId";
 
 export class LocaleManager {
 
     protected localeToIdMap: any;
 
-    private _currentLocale: string;
-    protected currentLocale: ILocaleConfig;
+    private _currentLocaleId: string;
+    protected currentLocaleTexts: ILocaleConfig;
+    protected defaultLocaleId: string;
 
     public useTextLinks: boolean = true;
 
@@ -18,10 +20,12 @@ export class LocaleManager {
         this.localeToIdMap = {};
         this.bindMethodReplaceRegExpKeyByStrings = this.replaceRegExpKeyByStrings.bind(this);
 
-        this.setCurrentLocale("");
+        this.defaultLocaleId = LocaleId.EN;
+
+        this.setCurrentLocaleId("");
     }
 
-    public addLocale(data: ILocaleConfig, localeId: string): void {
+    public addLocaleTexts(data: ILocaleConfig, localeId: string): void {
         // Support adding texts to the old localization
         let oldLocale: ILocaleConfig = {
             texts: {}
@@ -42,33 +46,39 @@ export class LocaleManager {
     }
 
 
-    public getCurrentLocale(): string {
-        return this._currentLocale;
+    public getCurrentLocaleId(): string {
+        return this._currentLocaleId;
     }
 
-    public setCurrentLocale(value: string) {
-        if (value == this._currentLocale) {
+    public setCurrentLocaleId(value: string) {
+        if (value == this._currentLocaleId) {
             return;
         }
 
-        this._currentLocale = value;
+        this._currentLocaleId = value;
 
         this.commitLocaleData();
     }
 
 
     protected commitLocaleData(): void {
-        this.currentLocale = this.localeToIdMap[this._currentLocale];
+        // this.currentLocaleTexts = this.localeToIdMap[this._currentLocaleId];
+        let newLocaleTexts = this.localeToIdMap[this._currentLocaleId];
+        if (!newLocaleTexts) {
+            newLocaleTexts = this.localeToIdMap[this.defaultLocaleId];
+        }
+
+        this.currentLocaleTexts = newLocaleTexts;
     }
 
 
     public getText(textId: string, params: any = null): string {
         // The text id will be used in the case of no text found
         let result: string = textId;
-        if (this.currentLocale) {
+        if (this.currentLocaleTexts) {
             const pathsToText: string[] = textId.split(".");
 
-            let curPathLevel: any = this.currentLocale.texts;
+            let curPathLevel: any = this.currentLocaleTexts.texts;
             const pathsCount: number = pathsToText.length;
             for (let pathIndex: number = 0; pathIndex < pathsCount; pathIndex++) {
                 const tempPathId: string = pathsToText[pathIndex];
@@ -119,7 +129,7 @@ export class LocaleManager {
 
     public findAllUniqueCharactersForCurrentLocale(): string[] {
         const allTexts: string[] = [];
-        this.getAllTextsOf(this.currentLocale.texts, allTexts);
+        this.getAllTextsOf(this.currentLocaleTexts.texts, allTexts);
 
         let usedCharactersMap: Record<string, boolean> = {};
         let result: string[] = [];
