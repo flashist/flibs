@@ -1,3 +1,3 @@
 export * from './ILocaleConfig';
-export * from './LanguageId';
+export * from './LocaleId';
 export * from './LocaleManager';
