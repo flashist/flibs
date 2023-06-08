@@ -30,6 +30,20 @@ export class DeviceTools {
         const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
         const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
         const iosPlatforms = ['iPhone', 'iPad', 'iPod'];
+        const languages: string[] = [];
+        if (navigator.languages) {
+            languages.push(...navigator.languages);
+        }
+        if (navigator.language) {
+            if (languages.indexOf(navigator.language) === -1) {
+                languages.push(navigator.language);
+            }
+        }
+        let mainLocale: string = "";
+        if (languages.length > 0) {
+            const mainLanguageSplit: string[] = languages[0].split("-");
+            mainLocale = mainLanguageSplit[0].toLowerCase();
+        }
 
         let osType: OSType;
         if (macosPlatforms.indexOf(platform) !== -1) {
@@ -48,7 +62,9 @@ export class DeviceTools {
             deviceType: deviceType,
             pixelRatio: pixelRatio,
             isFullScreenApiAvailable: DeviceFullscreenTools.isEnabled,
-            osType: osType
+            osType: osType,
+            mainLocale: mainLocale,
+            languages: languages
         };
     }
 }

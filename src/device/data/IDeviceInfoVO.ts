@@ -6,4 +6,6 @@ export interface IDeviceInfoVO {
     osType: OSType;
     pixelRatio: number;
     isFullScreenApiAvailable: boolean;
+    mainLocale: string;
+    languages: string[];
 }
