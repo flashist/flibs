@@ -7,7 +7,7 @@ export class LocaleManager {
 
     protected localeToIdMap: any;
 
-    private _currentLanguage: string;
+    private _currentLocale: string;
     protected currentLocale: ILocaleConfig;
 
     public useTextLinks: boolean = true;
@@ -18,7 +18,7 @@ export class LocaleManager {
         this.localeToIdMap = {};
         this.bindMethodReplaceRegExpKeyByStrings = this.replaceRegExpKeyByStrings.bind(this);
 
-        this.setCurrentLanguage("");
+        this.setCurrentLocale("");
     }
 
     public addLocale(data: ILocaleConfig, localeId: string): void {
@@ -42,23 +42,23 @@ export class LocaleManager {
     }
 
 
-    public getCurrentLanguage(): string {
-        return this._currentLanguage;
+    public getCurrentLocale(): string {
+        return this._currentLocale;
     }
 
-    public setCurrentLanguage(value: string) {
-        if (value == this._currentLanguage) {
+    public setCurrentLocale(value: string) {
+        if (value == this._currentLocale) {
             return;
         }
 
-        this._currentLanguage = value;
+        this._currentLocale = value;
 
         this.commitLocaleData();
     }
 
 
     protected commitLocaleData(): void {
-        this.currentLocale = this.localeToIdMap[this._currentLanguage];
+        this.currentLocale = this.localeToIdMap[this._currentLocale];
     }
 
 
