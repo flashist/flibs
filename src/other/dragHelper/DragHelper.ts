@@ -9,7 +9,9 @@ import { DragHelperEvent } from "./DragHelperEvent";
 export class DragHelper extends BaseObject {
 
     protected _view: DisplayObject;
-    protected viewEventListenerHelper: EventListenerHelper<string>;
+    protected _hitArea: DisplayObject;
+
+    protected hitAreaEventListenerHelper: EventListenerHelper<string>;
 
     protected _isDragStarted: boolean;
 
@@ -38,15 +40,15 @@ export class DragHelper extends BaseObject {
     protected construction(): void {
         super.construction();
 
-        this.viewEventListenerHelper = new EventListenerHelper(this);
+        this.hitAreaEventListenerHelper = new EventListenerHelper(this);
     }
 
     destruction(): void {
         super.destruction();
 
-        if (this.viewEventListenerHelper) {
-            this.viewEventListenerHelper.destruction();
-            this.viewEventListenerHelper = null;
+        if (this.hitAreaEventListenerHelper) {
+            this.hitAreaEventListenerHelper.destruction();
+            this.hitAreaEventListenerHelper = null;
         }
     }
 
@@ -54,27 +56,37 @@ export class DragHelper extends BaseObject {
     protected removeListeners(): void {
         super.removeListeners();
 
-        this.removeViewListeners(this.view);
+        this.removeHitAreaListeners();
     }
 
 
-    protected addViewObjectListeners(object: DisplayObject): void {
-        if (!object) {
+    protected updateHitAreaListeners(): void {
+        this.removeHitAreaListeners();
+
+        let tempHitAreaDispatcher: DisplayObject = this.view;
+        if (this.hitArea) {
+            tempHitAreaDispatcher = this.hitArea;
+        }
+        this.addHitAreaListeners(tempHitAreaDispatcher);
+    }
+
+    protected addHitAreaListeners(dispatcher: DisplayObject): void {
+        if (!dispatcher) {
             return;
         }
 
-        this.viewEventListenerHelper.addEventListener(
-            object,
+        this.hitAreaEventListenerHelper.addEventListener(
+            dispatcher,
             InteractiveEvent.DOWN,
             this.onMouseDown
         );
-        this.viewEventListenerHelper.addEventListener(
-            object,
+        this.hitAreaEventListenerHelper.addEventListener(
+            dispatcher,
             InteractiveEvent.UP,
             this.onMouseUp
         );
-        this.viewEventListenerHelper.addEventListener(
-            object,
+        this.hitAreaEventListenerHelper.addEventListener(
+            dispatcher,
             InteractiveEvent.UP_OUTSIDE,
             this.onMouseUp
         );
@@ -87,11 +99,8 @@ export class DragHelper extends BaseObject {
         FApp.instance.ticker.add(this.onTick, this);
     }
 
-    protected removeViewListeners(object: DisplayObject): void {
-        if (!object) {
-            return;
-        }
-        this.viewEventListenerHelper.removeAllListeners();
+    protected removeHitAreaListeners(): void {
+        this.hitAreaEventListenerHelper.removeAllListeners();
 
         FApp.instance.ticker.remove(this.onTick, this);
     }
@@ -203,17 +212,28 @@ export class DragHelper extends BaseObject {
     get view(): DisplayObject {
         return this._view;
     }
-
     set view(value: DisplayObject) {
 
         if (value == this.view) {
             return;
         }
 
-        this.removeViewListeners(this.view);
-
         this._view = value;
-        this.addViewObjectListeners(this.view);
+        this.updateHitAreaListeners();
+    }
+
+
+    get hitArea(): DisplayObject {
+        return this._hitArea;
+    }
+    set hitArea(value: DisplayObject) {
+
+        if (value == this.hitArea) {
+            return;
+        }
+
+        this._hitArea = value;
+        this.updateHitAreaListeners();
     }
 
 
