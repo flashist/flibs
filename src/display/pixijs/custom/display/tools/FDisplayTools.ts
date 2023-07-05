@@ -5,7 +5,7 @@ import {
     IFDisplayObjectUnderPointVO,
     Rectangle
 } from "../../../../../index";
-import {Point} from "../../../../../geom/pixijs/Point";
+import { Point } from "../../../../../geom/pixijs/Point";
 
 export class FDisplayTools {
 
@@ -46,7 +46,7 @@ export class FDisplayTools {
                 for (let childIndex: number = 0; childIndex < childrenCount; childIndex++) {
                     tempChild = rootContainer.children[childIndex];
                     if (!filter || filter(tempChild)) {
-                        tempChildResult = this.getObjectsUnderPoint(tempChild, x, y);
+                        tempChildResult = this.getObjectsUnderPoint(tempChild, x, y, filter);
                         if (tempChildResult) {
                             tempChildren.push(tempChildResult);
                         }
@@ -55,7 +55,7 @@ export class FDisplayTools {
 
                 // The container might be added only if at least one of its children is under cursor
                 if (tempChildren.length > 0) {
-                    result = {object: root, children: tempChildren};
+                    result = { object: root, children: tempChildren };
                 }
 
                 // If the object isn't a container
@@ -77,7 +77,7 @@ export class FDisplayTools {
                 }
 
                 if (isUnderPoint) {
-                    result = {object: root};
+                    result = { object: root };
                 }
             }
         }
