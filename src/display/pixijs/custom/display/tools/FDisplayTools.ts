@@ -84,4 +84,18 @@ export class FDisplayTools {
 
         return result;
     }
+
+    public static iterateThroughUnderPointData(data: IFDisplayObjectUnderPointVO, iterateMethod: (item: IFDisplayObjectUnderPointVO) => void): void {
+        if (data && data.object) {
+            if (data.children && data.children.length > 0) {
+                let childrenCount: number = data.children.length;
+                for (let childIndex: number = 0; childIndex < childrenCount; childIndex++) {
+                    const tempChild: IFDisplayObjectUnderPointVO = data.children[childIndex];
+                    iterateMethod(tempChild);
+
+                    this.iterateThroughUnderPointData(tempChild, iterateMethod);
+                }
+            }
+        }
+    };
 }
