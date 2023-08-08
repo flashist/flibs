@@ -7,7 +7,7 @@ import { SoundsManagerEvent } from "./SoundsManagerEvent";
 
 export abstract class AbstractSoundsManager extends BaseObject {
 
-    protected soundsToIdMap: AssociativeArray<Sound> = new AssociativeArray<Sound>();
+    protected soundsToIdMap: AssociativeArray<Sound>;
 
     protected disableLock: Lock;
     private _enabled: boolean;
@@ -24,6 +24,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
     protected construction(...args): void {
         super.construction(...args);
+
+        this.soundsToIdMap = new AssociativeArray<Sound>();
 
         this._enabled = false
         this.disableLock = new Lock();
