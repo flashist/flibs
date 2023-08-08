@@ -9,6 +9,7 @@ export interface ILoadItemConfig {
     priority?: number;
     loader?: string;
     loadGroups?: string[];
+    tags?: string[];
 
     uniqueId?: string;
 
