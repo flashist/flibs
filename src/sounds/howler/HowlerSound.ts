@@ -7,7 +7,7 @@ import { IPlaySoundConfig } from "../abstract/IPlaySoundConfig";
 
 export class HowlerSound extends AbstractSound {
 
-    protected config: IHowlerSoundConfig;
+    public config: IHowlerSoundConfig;
 
     public engineSound: Howl;
 

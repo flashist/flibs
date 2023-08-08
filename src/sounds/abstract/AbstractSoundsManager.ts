@@ -1,15 +1,15 @@
-import {AssociativeArray, BaseObject, Lock} from "@flashist/fcore";
+import { AssociativeArray, BaseObject, Lock } from "@flashist/fcore";
 
-import {TweenLite} from "gsap";
+import { TweenLite } from "gsap";
 
-import {Sound} from "../../index";
-import {SoundsManagerEvent} from "./SoundsManagerEvent";
+import { Sound } from "../../index";
+import { SoundsManagerEvent } from "./SoundsManagerEvent";
 
 export abstract class AbstractSoundsManager extends BaseObject {
 
     protected soundsToIdMap: AssociativeArray<Sound> = new AssociativeArray<Sound>();
 
-    protected disableLock: Lock ;
+    protected disableLock: Lock;
     private _enabled: boolean;
 
     private _isActivated: boolean;
@@ -17,8 +17,10 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
     private _tweenVolumeValue: number;
 
-    public defaultTweenTime: number = 0.5;
-    protected volume: number = 1;
+    public defaultTweenTime: number;
+    protected volume: number;
+
+    protected isMutedToTagsMap: { [tag: string]: boolean };
 
     protected construction(...args): void {
         super.construction(...args);
@@ -28,6 +30,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
         this.defaultTweenTime = 0.5;
         this.volume = 1;
+
+        this.isMutedToTagsMap = {};
 
         this.setVolume(this.volume);
 
@@ -122,9 +126,27 @@ export abstract class AbstractSoundsManager extends BaseObject {
         try {
             this.internalSetVolume(newVolume);
 
-        } catch(error) {
+        } catch (error) {
             console.log("AbstractSoundsManager | commitData __ error: ", error);
         }
+
+        this.commitTagsData();
+    }
+
+    protected commitTagsData(): void {
+        this.soundsToIdMap.forEach(
+            (item: Sound) => {
+                let newVolume: number = 1;
+                for (let singleTag of item.config.tags) {
+                    if (this.getTagIsMuted(singleTag)) {
+                        newVolume = 0;
+                        break;
+                    }
+                }
+
+                item.setVolume(newVolume)
+            }
+        );
     }
 
     // VOLUME: START
@@ -178,4 +200,27 @@ export abstract class AbstractSoundsManager extends BaseObject {
         this.setVolume(this._tweenVolumeValue);
     }
 
+
+    public getTagIsMuted(tag: string): boolean {
+        return !!this.isMutedToTagsMap[tag];
+    }
+
+    public setTagIsMuted(tag: string, isMuted: boolean): void {
+        this.isMutedToTagsMap[tag] = isMuted;
+
+        this.commitTagsData();
+    }
+
+    public getMutedTags(): string[] {
+        let result: string[] = [];
+
+        const allTags: string[] = Object.keys(this.isMutedToTagsMap);
+        for (let singleTag of allTags) {
+            if (this.getTagIsMuted(singleTag)) {
+                result.push(singleTag);
+            }
+        }
+
+        return result;
+    }
 }
