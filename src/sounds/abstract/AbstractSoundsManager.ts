@@ -208,12 +208,17 @@ export abstract class AbstractSoundsManager extends BaseObject {
     }
 
     public setTagIsMuted(tag: string, isMuted: boolean): void {
+        if (this.getTagIsMuted(tag) === isMuted) {
+            return;
+        }
+
         this.isMutedToTagsMap[tag] = isMuted;
+        this.dispatchEvent(SoundsManagerEvent.TAGS_IS_MUTED_CHANGE);
 
         this.commitTagsData();
     }
 
-    public getMutedTags(): string[] {
+    public getTagsMuted(): string[] {
         let result: string[] = [];
 
         const allTags: string[] = Object.keys(this.isMutedToTagsMap);
