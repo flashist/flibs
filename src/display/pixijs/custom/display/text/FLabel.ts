@@ -179,6 +179,12 @@ export class FLabel extends FContainer {
                 bitmapField.maxWidth = this.config.wordWrapWidth;
             }
 
+            if (this.config.align) {
+                bitmapField.align = this.config.align as any;
+            } else {
+                bitmapField.align = Align.LEFT as any;
+            }
+
         } else {
             const textField: Text = (this.field as Text);
             if (this.config.fontFamily) {
