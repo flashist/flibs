@@ -138,15 +138,19 @@ export abstract class AbstractSoundsManager extends BaseObject {
     protected commitTagsData(): void {
         this.soundsToIdMap.forEach(
             (item: Sound) => {
-                let newVolume: number = 1;
+                let tempSoundIsMuted: boolean = false;
                 for (let singleTag of item.config.tags) {
                     if (this.getTagIsMuted(singleTag)) {
-                        newVolume = 0;
+                        tempSoundIsMuted = true;
                         break;
                     }
                 }
 
-                item.setVolume(newVolume)
+                if (tempSoundIsMuted) {
+                    item.addMutedLock(this);
+                } else {
+                    item.removeMutedLock(this);
+                }
             }
         );
     }

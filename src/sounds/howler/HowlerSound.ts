@@ -51,6 +51,14 @@ export class HowlerSound extends AbstractSound {
         this.engineSound.stop();
     }
 
+    protected commitData(): void {
+        super.commitData();
+
+        if (this.engineSound) {
+            this.engineSound.mute(this.muted)
+        }
+    }
+
     /*
     public src: string;
     public id: string;

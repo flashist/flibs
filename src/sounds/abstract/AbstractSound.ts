@@ -1,15 +1,18 @@
-import {BaseObject} from "@flashist/fcore";
+import { BaseObject, Lock } from "@flashist/fcore";
 
-import {Howl} from "howler";
-import {TweenLite} from "gsap";
+import { Howl } from "howler";
+import { TweenLite } from "gsap";
 
-import {ISoundConfig} from "./ISoundConfig";
-import {IPlaySoundConfig} from "./IPlaySoundConfig";
+import { ISoundConfig } from "./ISoundConfig";
+import { IPlaySoundConfig } from "./IPlaySoundConfig";
 
 export abstract class AbstractSound extends BaseObject {
 
     protected config: ISoundConfig;
     private _tweenVolumeValue: number;
+
+    protected mutedLock: Lock;
+    protected _muted: boolean;
 
     constructor(config: ISoundConfig) {
         super(config);
@@ -17,6 +20,8 @@ export abstract class AbstractSound extends BaseObject {
 
     protected construction(config: ISoundConfig): void {
         super.construction();
+
+        this.mutedLock = new Lock();
 
         this.config = config;
     }
@@ -62,17 +67,30 @@ export abstract class AbstractSound extends BaseObject {
         this.internalSetVolume(this._tweenVolumeValue);
     }
 
-    /*public getLoadingStatus(): LoadStatus {
-        let result: LoadStatus = LoadStatus.WAIT;
-        switch (this.engineSound.state()) {
-            case "loading":
-                result = LoadStatus.LOADING;
-                break;
-            case "loaded":
-                result = LoadStatus.COMPLETE;
-                break;
+    protected calculateMuted(): void {
+        const prevMuted: boolean = this.muted;
+
+        const newMuted: boolean = this.mutedLock.enabled;
+        if (newMuted !== prevMuted) {
+            this._muted = newMuted;
         }
 
-        return result;
-    }*/
+        this.commitData();
+    }
+
+    public addMutedLock(locker: any): void {
+        this.mutedLock.add(locker);
+
+        this.calculateMuted();
+    }
+
+    public removeMutedLock(locker: any): void {
+        this.mutedLock.remove(locker);
+
+        this.calculateMuted();
+    }
+
+    public get muted(): boolean {
+        return this._muted;
+    }
 }
