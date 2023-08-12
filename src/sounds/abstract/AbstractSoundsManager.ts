@@ -42,6 +42,8 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
     public registerSound(id: string, sound: Sound): void {
         this.soundsToIdMap.push(sound, id);
+
+        this.commitTagsData();
     }
 
     public getSound(id: string): Sound {
