@@ -775,4 +775,10 @@ export class FLabel extends FContainer {
     public get engineField(): any {
         return this.field;
     }
+
+    public changeConfig(change: Partial<IFLabelConfig>): void {
+        ObjectTools.copyProps(this.config, change);
+
+        this.commitData();
+    }
 }
