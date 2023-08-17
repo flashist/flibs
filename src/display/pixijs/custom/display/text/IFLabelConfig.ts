@@ -34,7 +34,8 @@ export interface IFLabelConfig {
     };
     align?: Align;
     valign?: VAlign;
-    bold?: boolean;
+    // bold?: boolean;
+    fontWeight?: number | string;
 
     wordWrap?: boolean;
     wordWrapWidth?: number;

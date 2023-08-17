@@ -219,8 +219,13 @@ export class FLabel extends FContainer {
                 textField.style.fillGradientType = this.config.gradientColor.type as any;
             }
 
-            if (this.config.bold) {
-                textField.style.fontWeight = "bold";
+            if (this.config.fontWeight) {
+                if (typeof this.config.fontWeight === "string") {
+                    textField.style.fontWeight = this.config.fontWeight as any;
+                } else {
+                    this.config.fontWeight = this.config.fontWeight.toString();
+                }
+
             } else {
                 textField.style.fontWeight = "normal";
             }
@@ -657,16 +662,16 @@ export class FLabel extends FContainer {
         return this.height - (this.fieldPaddingY * 2);
     }
 
-    get bold(): boolean {
-        return this.config.bold;
+    get fontWeight(): string | number {
+        return this.config.fontWeight;
     }
 
-    set bold(value: boolean) {
-        if (this.config.bold === value) {
+    set fontWeight(value: string | number) {
+        if (this.config.fontWeight === value) {
             return;
         }
 
-        this.config.bold = value;
+        this.config.fontWeight = value;
 
         this.applyStyle();
     }
