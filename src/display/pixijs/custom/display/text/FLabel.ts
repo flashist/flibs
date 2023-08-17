@@ -19,6 +19,7 @@ import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
 
 import { FContainer } from "../FContainer";
 import { FLabelTextType } from "./FLabelTextType";
+import { FLabelFontWeight } from "./FLabelFontWeight";
 
 export class FLabel extends FContainer {
 
@@ -223,11 +224,11 @@ export class FLabel extends FContainer {
                 if (typeof this.config.fontWeight === "string") {
                     textField.style.fontWeight = this.config.fontWeight as any;
                 } else {
-                    this.config.fontWeight = this.config.fontWeight.toString();
+                    textField.style.fontWeight = this.config.fontWeight.toString() as any;
                 }
 
             } else {
-                textField.style.fontWeight = "normal";
+                textField.style.fontWeight = FLabelFontWeight.REGULAR.toString() as any;
             }
 
             if (this.config.dropShadow) {
