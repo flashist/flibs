@@ -35,7 +35,7 @@ export class DisplayTools {
         container.addChildAt(child, index);
     }
 
-    public addChildBefore(container: DisplayObjectContainer, child: DisplayObject, beforeTarget: DisplayObject): void {
+    static addChildBefore(container: DisplayObjectContainer, child: DisplayObject, beforeTarget: DisplayObject): void {
         if (beforeTarget.parent !== container) {
             console.error("DisplayTools | addChildBefore __ ERROR! beforeTarget is not a child of the container!");
             return;
