@@ -779,6 +779,7 @@ export class FLabel extends FContainer {
     public changeConfig(change: Partial<IFLabelConfig>): void {
         ObjectTools.copyProps(this.config, change);
 
+        this.updateBg();
         this.applyStyle();
     }
 }
