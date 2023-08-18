@@ -1,4 +1,4 @@
-import {DisplayObjectContainer, DisplayObject} from "../../../../index";
+import { DisplayObjectContainer, DisplayObject } from "../../../../index";
 
 export class DisplayTools {
     public static removeAllChildren(container: DisplayObjectContainer): void {
@@ -24,8 +24,8 @@ export class DisplayTools {
     }
 
     public static safeAddChildAt(container: DisplayObjectContainer,
-                                 child: DisplayObject,
-                                 index: number): void {
+        child: DisplayObject,
+        index: number): void {
         if (index < 0) {
             index = 0;
         } else if (index > container.children.length) {
@@ -33,6 +33,17 @@ export class DisplayTools {
         }
 
         container.addChildAt(child, index);
+    }
+
+    public addChildBefore(container: DisplayObjectContainer, child: DisplayObject, beforeTarget: DisplayObject): void {
+        if (beforeTarget.parent !== container) {
+            console.error("DisplayTools | addChildBefore __ ERROR! beforeTarget is not a child of the container!");
+            return;
+        }
+
+        const beforeTargetIndex: number = container.getChildIndex(beforeTarget);
+        const addIndex: number = beforeTargetIndex - 1;
+        DisplayTools.safeAddChildAt(container, child, addIndex);
     }
 
 
