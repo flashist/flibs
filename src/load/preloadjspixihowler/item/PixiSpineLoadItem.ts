@@ -10,8 +10,7 @@ export class PixiSpineLoadItem<DataType extends any = any> extends FileLoadItem<
 
     protected processLoadingComplete(sourceData: any, data: any): void {
         // Parsing of spine animations should be a bit different
-        const tempFileItem = sourceData[this.config.id];
-        this.processLoadingComplete(tempFileItem, tempFileItem.spineData);
+        this.processLoadingComplete(sourceData, sourceData.spineData);
 
         // super.processLoadingComplete(sourceData, data);
 
