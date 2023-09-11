@@ -71,6 +71,10 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
         );
     }
 
+    protected onLoadingComplete(): void {
+        
+    }
+
     protected internalStop(): void {
         super.internalStop();
 
