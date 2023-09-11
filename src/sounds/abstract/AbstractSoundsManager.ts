@@ -141,10 +141,12 @@ export abstract class AbstractSoundsManager extends BaseObject {
         this.soundsToIdMap.forEach(
             (item: Sound) => {
                 let tempSoundIsMuted: boolean = false;
-                for (let singleTag of item.config.tags) {
-                    if (this.getTagIsMuted(singleTag)) {
-                        tempSoundIsMuted = true;
-                        break;
+                if (item.config.tags) {
+                    for (let singleTag of item.config.tags) {
+                        if (this.getTagIsMuted(singleTag)) {
+                            tempSoundIsMuted = true;
+                            break;
+                        }
                     }
                 }
 
