@@ -1,3 +1,6 @@
+import { IEventListenerCallback } from "@flashist/fcore";
+import { DeviceFullscreenToolsEvents } from "./DeviceFullscreenToolsEvents";
+
 export class DeviceFullscreenTools {
 
     private static methodMap = [
@@ -75,8 +78,8 @@ export class DeviceFullscreenTools {
     })();
 
     private static eventNameMap = {
-        change: DeviceFullscreenTools.nativeAPI.fullscreenchange,
-        error: DeviceFullscreenTools.nativeAPI.fullscreenerror,
+        [DeviceFullscreenToolsEvents.CHANGE]: DeviceFullscreenTools.nativeAPI.fullscreenchange,
+        [DeviceFullscreenToolsEvents.ERROR]: DeviceFullscreenTools.nativeAPI.fullscreenerror,
     };
 
 
@@ -122,15 +125,15 @@ export class DeviceFullscreenTools {
         return DeviceFullscreenTools.isFullscreen ? DeviceFullscreenTools.exit() : DeviceFullscreenTools.request(element, options);
     }
 
-    static onchange(callback) {
+    static onChange(callback: IEventListenerCallback) {
         DeviceFullscreenTools.on('change', callback);
     }
 
-    static onerror(callback) {
+    static onError(callback: IEventListenerCallback) {
         DeviceFullscreenTools.on('error', callback);
     }
 
-    private static on(event: string, callback) {
+    private static on(event: string, callback: IEventListenerCallback) {
         const eventName = DeviceFullscreenTools.eventNameMap[event];
         if (eventName) {
             document.addEventListener(eventName, callback, false);
