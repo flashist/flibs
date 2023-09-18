@@ -134,7 +134,7 @@ export class ServiceLocator {
 
         let result: Type = null;
         if (foundInjection) {
-            ServiceLocator.getInstance(foundInjection.item)
+            result = ServiceLocator.getInstance(foundInjection.item)
         }
         return result;
     }
