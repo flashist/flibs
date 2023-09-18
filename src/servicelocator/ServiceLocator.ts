@@ -119,6 +119,26 @@ export class ServiceLocator {
         return result;
     }
 
+    static getInstanceById<Type extends any>(id: string, ...args: ConstructorParameters<IConstructor<Type>>): Type {
+        let tempInjection: IInjection;
+        //
+        let foundInjection: IInjection;
+        const injectionKeys: IConstructor[] = ServiceLocator.injectionsMap.getKeys();
+        for (let singleInjectionKey of injectionKeys) {
+            tempInjection = ServiceLocator.injectionsMap.getItem(singleInjectionKey);
+            if (tempInjection.config.id === id) {
+                foundInjection = tempInjection;
+                break;
+            }
+        }
+
+        let result: Type = null;
+        if (foundInjection) {
+            ServiceLocator.getInstance(foundInjection.item)
+        }
+        return result;
+    }
+
     private static getInjection(item: IConstructor): IInjection {
         // Create if not created yet
         if (!ServiceLocator.injectionsMap.getItem(item)) {
