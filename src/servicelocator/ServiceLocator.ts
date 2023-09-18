@@ -126,7 +126,7 @@ export class ServiceLocator {
         const injectionKeys: IConstructor[] = ServiceLocator.injectionsMap.getKeys();
         for (let singleInjectionKey of injectionKeys) {
             tempInjection = ServiceLocator.injectionsMap.getItem(singleInjectionKey);
-            if (tempInjection.config.id === id) {
+            if (tempInjection.config && tempInjection.config.id === id) {
                 foundInjection = tempInjection;
                 break;
             }
