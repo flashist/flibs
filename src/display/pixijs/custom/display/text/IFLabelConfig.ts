@@ -21,6 +21,9 @@ export interface IFLabelConfig {
     fieldPaddingX?: number;
     fieldPaddingY?: number;
 
+    maskToFieldShiftWidth?: number;
+    maskToFieldShiftHeight?: number;
+
     fontFamily?: string;
     size?: number;
     lineHeight?: number;

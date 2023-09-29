@@ -359,8 +359,8 @@ export class FLabel extends FContainer {
 
         this.fieldMask.x = this.fieldPaddingX;
         this.fieldMask.y = this.fieldPaddingY;
-        this.fieldMask.width = this._width - (this.fieldPaddingX * 2);
-        this.fieldMask.height = this._height - (this.fieldPaddingY * 2);
+        this.fieldMask.width = this._width - (this.fieldPaddingX * 2) + this.maskToFieldShiftWidth;
+        this.fieldMask.height = this._height - (this.fieldPaddingY * 2) + this.maskToFieldShiftHeight;
     }
 
 
@@ -742,6 +742,32 @@ export class FLabel extends FContainer {
         }
 
         this.config.fieldPaddingY = value;
+
+        this.arrange();
+    }
+
+    get maskToFieldShiftWidth(): number {
+        return this.config.maskToFieldShiftWidth || 0;
+    }
+    set maskToFieldShiftWidth(value: number) {
+        if (this.config.maskToFieldShiftWidth === value) {
+            return;
+        }
+
+        this.config.maskToFieldShiftWidth = value;
+
+        this.arrange();
+    }
+
+    get maskToFieldShiftHeight(): number {
+        return this.config.maskToFieldShiftHeight || 0;
+    }
+    set maskToFieldShiftHeight(value: number) {
+        if (this.config.maskToFieldShiftHeight === value) {
+            return;
+        }
+
+        this.config.maskToFieldShiftHeight = value;
 
         this.arrange();
     }
