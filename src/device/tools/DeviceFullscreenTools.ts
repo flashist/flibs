@@ -1,5 +1,5 @@
 import { IEventListenerCallback } from "@flashist/fcore";
-import { DeviceFullscreenToolsEvents } from "./DeviceFullscreenToolsEvents";
+import { DeviceFullscreenToolsEvent } from "./DeviceFullscreenToolsEvent";
 
 export class DeviceFullscreenTools {
 
@@ -78,8 +78,8 @@ export class DeviceFullscreenTools {
     })();
 
     private static eventNameMap = {
-        [DeviceFullscreenToolsEvents.CHANGE]: DeviceFullscreenTools.nativeAPI.fullscreenchange,
-        [DeviceFullscreenToolsEvents.ERROR]: DeviceFullscreenTools.nativeAPI.fullscreenerror,
+        [DeviceFullscreenToolsEvent.CHANGE]: DeviceFullscreenTools.nativeAPI.fullscreenchange,
+        [DeviceFullscreenToolsEvent.ERROR]: DeviceFullscreenTools.nativeAPI.fullscreenerror,
     };
 
 

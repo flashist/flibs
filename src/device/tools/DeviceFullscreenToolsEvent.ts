@@ -1,4 +1,4 @@
-export enum DeviceFullscreenToolsEvents {
+export enum DeviceFullscreenToolsEvent {
     CHANGE = "change",
     ERROR = "error"
 } ''
