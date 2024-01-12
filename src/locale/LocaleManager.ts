@@ -60,6 +60,10 @@ export class LocaleManager {
         this.commitLocaleData();
     }
 
+    public checkIfLocaleExists(localeId: string): boolean {
+        return !!this.localeToIdMap[localeId];
+    }
+
 
     protected commitLocaleData(): void {
         // this.currentLocaleTexts = this.localeToIdMap[this._currentLocaleId];
