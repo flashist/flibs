@@ -40,15 +40,15 @@ export class HtmlTools {
         return result;
     }
 
-    static scaleElement(element: HTMLElement, scale: number, xShift: number = 0, yShift: number = 0): void {
+    static scaleElement(element: HTMLElement, scale: number): void {
         element.style["transform"] = `scale(${scale})`;
-        element.style["transform-origin"] = `${xShift} ${yShift}`;
+        element.style["transform-origin"] = `0 0`;
         element.style["-ms-zoom"] = scale;
         element.style["-moz-transform"] = `scale(${scale})`;
-        element.style["-moz-transform-origin"] = `${xShift} ${yShift}`;
+        element.style["-moz-transform-origin"] = `0 0`;
         element.style["-o-transform"] = `scale(${scale})`;
-        element.style["-o-transform-origin"] = `${xShift} ${yShift}`;
+        element.style["-o-transform-origin"] = `0 0`;
         element.style["-webkit-transform"] = `scale(${scale})`;
-        element.style["-webkit-transform-origin"] = `${xShift} ${yShift}`;
+        element.style["-webkit-transform-origin"] = `0 0`;
     }
 }
