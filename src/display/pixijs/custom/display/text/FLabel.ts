@@ -109,6 +109,10 @@ export class FLabel extends FContainer {
 
         this.fieldMask = new Graphics();
         this.addChild(this.fieldMask);
+        //
+        this.fieldMask.beginFill(0x00FF00, 1);
+        this.fieldMask.drawRect(0, 0, 10, 10);
+        this.fieldMask.endFill();
 
         this.createField();
         // First size initialization
@@ -333,8 +337,9 @@ export class FLabel extends FContainer {
         //
         this.fieldLocalBounds = this.field.getLocalBounds(this.fieldLocalBounds);
 
-        this.bg.width = this._width;
-        this.bg.height = this._height;
+        // this.bg.width = this._width;
+        // this.bg.height = this._height;
+        this.updateBg();
 
         let newX: number = this.fieldPaddingX;
         switch (this.align) {
@@ -504,7 +509,7 @@ export class FLabel extends FContainer {
 
         this.config.bgAlpha = value;
 
-        this.updateBg();
+        // this.updateBg();
         this.arrange();
     }
 
@@ -519,7 +524,7 @@ export class FLabel extends FContainer {
 
         this.config.bgColor = value;
 
-        this.updateBg();
+        // this.updateBg();
         this.arrange();
     }
 
@@ -534,7 +539,7 @@ export class FLabel extends FContainer {
 
         this.config.bgLineStyle = value;
 
-        this.updateBg();
+        // this.updateBg();
         this.arrange();
     }
 
@@ -550,14 +555,9 @@ export class FLabel extends FContainer {
         }
 
         this.bg.beginFill(bgColor, 1);
-        this.bg.drawRect(0, 0, 10, 10);
+        this.bg.drawRect(0, 0, this._width, this._height);
         this.bg.endFill();
         this.bg.alpha = bgAlpha;
-
-        this.fieldMask.clear();
-        this.fieldMask.beginFill(0x00FF00, 1);
-        this.fieldMask.drawRect(0, 0, 10, 10);
-        this.fieldMask.endFill();
     }
 
     public get text(): string {
@@ -826,7 +826,7 @@ export class FLabel extends FContainer {
     public changeConfig(change: Partial<IFLabelConfig>): void {
         ObjectTools.copyProps(this.config, change);
 
-        this.updateBg();
+        // this.updateBg();
         this.applyStyle();
     }
 }
