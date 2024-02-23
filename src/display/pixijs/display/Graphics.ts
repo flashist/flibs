@@ -1,5 +1,6 @@
-import {Graphics} from "pixi.js";
+import { ILineStyleOptions, Graphics } from "pixi.js";
 
 export {
-    Graphics
+    Graphics,
+    ILineStyleOptions
 };

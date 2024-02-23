@@ -12,7 +12,8 @@ import {
     AutosizeType,
     DisplayResizeTools,
     FLabelTools,
-    HTMLText
+    HTMLText,
+    ILineStyleOptions
 } from "../../../../../index";
 
 import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
@@ -522,12 +523,32 @@ export class FLabel extends FContainer {
         this.arrange();
     }
 
+    public get bgLineStyle(): ILineStyleOptions {
+        return this.config.bgLineStyle;
+    }
+
+    public set bgLineStyle(value: ILineStyleOptions) {
+        if (ObjectTools.checkIfEqual(value, this.config.bgLineStyle)) {
+            return;
+        }
+
+        this.config.bgLineStyle = value;
+
+        this.updateBg();
+        this.arrange();
+    }
+
     private updateBg(): void {
 
         const bgColor = this.config.bgColor ? this.config.bgColor : 0;
         const bgAlpha = this.config.bgAlpha ? this.config.bgAlpha : 0;
 
         this.bg.clear();
+
+        if (this.bgLineStyle) {
+            this.bg.lineStyle(this.bgLineStyle);
+        }
+
         this.bg.beginFill(bgColor, 1);
         this.bg.drawRect(0, 0, 10, 10);
         this.bg.endFill();

@@ -1,14 +1,17 @@
-
 import { Align } from "../../../../../other/align/Align";
 import { VAlign } from "../../../../../other/align/VAlign";
 import { AutosizeType } from "./AutosizeType";
 import { FLabelTextType } from "./FLabelTextType";
 import { GradientColorType } from "./GradientColorType";
+import { ILineStyleOptions } from "../../../display/Graphics";
 
 export interface IFLabelConfig {
     textType?: FLabelTextType;
+
     bgColor?: number;
     bgAlpha?: number;
+    bgLineStyle?: ILineStyleOptions;
+
     autosize?: boolean;
     autosizeType?: AutosizeType;
     // maxAutoSize?: Point;

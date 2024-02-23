@@ -6,5 +6,5 @@ export const InteractiveEvent = {
     UP_OUTSIDE: "pointerupoutside",
     MOVE: "pointermove",
     OVER: "pointerover",
-    OUT: "pointerout"
+    OUT: "pointerout"´
 }
