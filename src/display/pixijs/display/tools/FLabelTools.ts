@@ -21,11 +21,11 @@ export class FLabelTools {
             config = {}
         }
 
-        if (!config.maxWidth || field.width <= config.maxWidth) {
-            config.maxWidth = field.width;
+        if (!config.maxWidth || field.fieldMaskWidth <= config.maxWidth) {
+            config.maxWidth = field.fieldMaskWidth;
         }
-        if (!config.maxHeight || field.height <= config.maxHeight) {
-            config.maxHeight = field.height;
+        if (!config.maxHeight || field.fieldMaskHeight <= config.maxHeight) {
+            config.maxHeight = field.fieldMaskHeight;
         }
         if (!field.text || (field.textWidth <= config.maxWidth && field.textHeight <= config.maxHeight)) {
             return;
