@@ -365,8 +365,8 @@ export class FLabel extends FContainer {
 
         this.fieldMask.x = this.fieldPaddingX;
         this.fieldMask.y = this.fieldPaddingY;
-        this.fieldMask.width = this._width - (this.fieldPaddingX * 2) + this.maskToFieldShiftWidth;
-        this.fieldMask.height = this._height - (this.fieldPaddingY * 2) + this.maskToFieldShiftHeight;
+        this.fieldMask.width = this.fieldMaskWidth;
+        this.fieldMask.height = this.fieldMaskHeight;
     }
 
     public get fieldMaskWidth(): number {
@@ -374,7 +374,7 @@ export class FLabel extends FContainer {
     }
 
     public get fieldMaskHeight(): number {
-        return this._width - (this.fieldPaddingX * 2) + this.maskToFieldShiftWidth;
+        return this._height - (this.fieldPaddingY * 2) + this.maskToFieldShiftHeight;
     }
 
     // public get isBitmap(): boolean {
