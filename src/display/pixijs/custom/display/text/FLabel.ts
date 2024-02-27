@@ -321,6 +321,17 @@ export class FLabel extends FContainer {
         if (this.fitToSize) {
             // IMPORTANT: this is a performance-requiring task!
             if (this.changeFontSizeToFit) {
+                // Temporarily disable the fit-to-size feature in order to set the base-size for the field,
+                // this is needed because we need to change size of the font of the field
+                // starting from the base-value (because otherwise the resize behaviour
+                // will be done from the latest fit-to-size value, not from the base value)
+                this.config.fitToSize = false;
+                this.config.size = this.config.changeFontSizeToFitStartSize;
+                //
+                this.applyStyle();
+
+                // Turn the fit-to-size feature back and resize the field
+                this.config.fitToSize = true;
                 FLabelTools.changeFontSizeToFit(this, { stepChange: this.config.changeFontSizeStepChange });
 
             } else {
