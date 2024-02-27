@@ -329,10 +329,11 @@ export class FLabel extends FContainer {
                 this.config.size = this.config.changeFontSizeToFitStartSize;
                 //
                 this.applyStyle();
-
-                // Turn the fit-to-size feature back and resize the field
-                this.config.fitToSize = true;
+                //
                 FLabelTools.changeFontSizeToFit(this, { stepChange: this.config.changeFontSizeStepChange });
+
+                // Turn the fit-to-size feature back, so in the future the fit-to-size behaviour will be working in a regular way
+                this.config.fitToSize = true;
 
             } else {
                 tempFieldScale = DisplayResizeTools.getScale(
