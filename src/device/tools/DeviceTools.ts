@@ -61,13 +61,20 @@ export class DeviceTools {
             osType = OSType.LINUX;
         }
 
-        return {
+        let result = {
             deviceType: deviceType,
             pixelRatio: pixelRatio,
-            isFullScreenApiAvailable: DeviceFullscreenTools.isEnabled,
+            isFullScreenApiAvailable: false,
             osType: osType,
             mainLocale: mainLocale,
             languages: languages
         };
+        try {
+            result.isFullScreenApiAvailable = DeviceFullscreenTools.isEnabled
+        } catch (error) {
+            console.log("ERROR! DeviceTools | getDeviceInfo __ error: ", error);
+        }
+
+        return result;
     }
 }
