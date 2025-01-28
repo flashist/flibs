@@ -17,3 +17,4 @@ export * from './sounds/abstract';
 export * from './sounds/howler';
 export * from './TestLibClass';
 export * from './timeout/tools';
+export * from './url/tools';
