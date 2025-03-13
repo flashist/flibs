@@ -1,6 +1,6 @@
 import { AssociativeArray, BaseObject, Lock } from "@flashist/fcore";
 
-import { TweenLite } from "gsap";
+import { gsap } from "gsap";
 
 import { Sound } from "../../index";
 import { SoundsManagerEvent } from "./SoundsManagerEvent";
@@ -166,7 +166,7 @@ export abstract class AbstractSoundsManager extends BaseObject {
     }
 
     public setVolume(value: number): void {
-        TweenLite.killTweensOf(this);
+        gsap.killTweensOf(this);
         this.volume = value;
 
         this.dispatchEvent(SoundsManagerEvent.VOLUME_CHANGE);
@@ -182,11 +182,12 @@ export abstract class AbstractSoundsManager extends BaseObject {
 
         this.tweenVolumeValue = this.getVolume();
 
-        TweenLite.killTweensOf(this);
-        TweenLite.to(
+        gsap.killTweensOf(this);
+        gsap.to(
             this,
-            time,
             {
+                duration: time,
+
                 tweenVolumeValue: volume,
 
                 onComplete: () => {

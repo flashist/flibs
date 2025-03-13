@@ -1,7 +1,7 @@
 import { BaseObject, Lock } from "@flashist/fcore";
 
 import { Howl } from "howler";
-import { TweenLite } from "gsap";
+import { gsap } from "gsap";
 
 import { ISoundConfig } from "./ISoundConfig";
 import { IPlaySoundConfig } from "./IPlaySoundConfig";
@@ -31,7 +31,7 @@ export abstract class AbstractSound extends BaseObject {
     abstract getVolume(): number;
 
     public setVolume(value: number): void {
-        TweenLite.killTweensOf(this);
+        gsap.killTweensOf(this);
         this.internalSetVolume(value);
     }
     protected abstract internalSetVolume(value: number): void;
@@ -39,11 +39,12 @@ export abstract class AbstractSound extends BaseObject {
     public tweenVolume(volume: number, time: number, onComplete?: Function): void {
         this.tweenVolumeValue = this.getVolume();
 
-        TweenLite.killTweensOf(this);
-        TweenLite.to(
+        gsap.killTweensOf(this);
+        gsap.to(
             this,
-            time,
             {
+                duration: time,
+
                 tweenVolumeValue: volume,
 
                 onComplete: () => {
