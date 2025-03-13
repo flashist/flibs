@@ -11,7 +11,7 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "dependencies": {
-    "@flashist/fcore": "^0.x",
+    "@flashist/fcore": "0.x",
     "@types/gsap": "^1.20.2",
     "@types/howler": "^2.2.12",
     "webfontloader": "^1.6.28"
@@ -19,7 +19,6 @@
   "devDependencies": {
     "@esotericsoftware/spine-pixi-v8": "^4.2.76",
     "@flashist/fbuildscripts": "0.x",
-    "npm": "^11.2.0",
     "pixi.js": "^8.8.1",
     "typescript": "^5.8.2"
   }
