@@ -28,27 +28,27 @@ export class FApp extends App {
         // FStage
         this.stage.isFStage = true;
 
-        // TEST
-        const origRender = this.render;
-        //
-        (this as any).render = () => {
-            return origRender;
-        };
+        // // TEST
+        // const origRender = this.render;
+        // //
+        // (this as any).render = () => {
+        //     return origRender;
+        // };
     }
 
-    public render(force?: boolean): void {
-        if (!force && this.fpsLimitterEnabled) {
-            let tempDelta: number = Date.now() - this.lastTimeRendered;
-            if (tempDelta >= this.targetRenderInterval) {
-                this.lastTimeRendered = Date.now();
+    // public render(force?: boolean): void {
+    //     if (!force && this.fpsLimitterEnabled) {
+    //         let tempDelta: number = Date.now() - this.lastTimeRendered;
+    //         if (tempDelta >= this.targetRenderInterval) {
+    //             this.lastTimeRendered = Date.now();
 
-                super.render();
-            }
+    //             super.render();
+    //         }
 
-        } else {
-            super.render();
-        }
-    }
+    //     } else {
+    //         super.render();
+    //     }
+    // }
 
     public getGlobalInteractionPosition(): Point {
         // return (this.renderer.plugins as RendererPlugins).interaction.mouse.global;
