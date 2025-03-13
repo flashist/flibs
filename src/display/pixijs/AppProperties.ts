@@ -1,5 +1,5 @@
 export interface AppProperties {
 
-    targetFps?: number;
+    // targetFps?: number;
 
 }

@@ -23,10 +23,10 @@ export class FApp extends App {
             this.options = {};
         }
 
-        if (this.options.targetFps) {
-            this.fpsLimitterEnabled = true;
-            this.targetRenderInterval = 1000 / this.options.targetFps;
-        }
+        // if (this.options.targetFps) {
+        //     this.fpsLimitterEnabled = true;
+        //     this.targetRenderInterval = 1000 / this.options.targetFps;
+        // }
 
         FApp._instance = this;
 
