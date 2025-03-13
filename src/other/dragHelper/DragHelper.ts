@@ -1,15 +1,15 @@
 import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 
 import {
-    DisplayObject, FApp, InteractiveEvent, Point
+    Container, FApp, InteractiveEvent, Point
 } from "../../index";
 
 import { DragHelperEvent } from "./DragHelperEvent";
 
 export class DragHelper extends BaseObject {
 
-    protected _view: DisplayObject;
-    protected _hitArea: DisplayObject;
+    protected _view: Container;
+    protected _hitArea: Container;
 
     protected hitAreaEventListenerHelper: EventListenerHelper<string>;
 
@@ -63,14 +63,14 @@ export class DragHelper extends BaseObject {
     protected updateHitAreaListeners(): void {
         this.removeHitAreaListeners();
 
-        let tempHitAreaDispatcher: DisplayObject = this.view;
+        let tempHitAreaDispatcher: Container = this.view;
         if (this.hitArea) {
             tempHitAreaDispatcher = this.hitArea;
         }
         this.addHitAreaListeners(tempHitAreaDispatcher);
     }
 
-    protected addHitAreaListeners(dispatcher: DisplayObject): void {
+    protected addHitAreaListeners(dispatcher: Container): void {
         if (!dispatcher) {
             return;
         }
@@ -209,10 +209,10 @@ export class DragHelper extends BaseObject {
     }
 
 
-    get view(): DisplayObject {
+    get view(): Container {
         return this._view;
     }
-    set view(value: DisplayObject) {
+    set view(value: Container) {
 
         if (value == this.view) {
             return;
@@ -223,10 +223,10 @@ export class DragHelper extends BaseObject {
     }
 
 
-    get hitArea(): DisplayObject {
+    get hitArea(): Container {
         return this._hitArea;
     }
-    set hitArea(value: DisplayObject) {
+    set hitArea(value: Container) {
 
         if (value == this.hitArea) {
             return;

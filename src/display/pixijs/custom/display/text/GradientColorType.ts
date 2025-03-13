@@ -1,6 +1,0 @@
-import {TEXT_GRADIENT} from "pixi.js";
-
-export enum GradientColorType {
-    VERTICAL = TEXT_GRADIENT.LINEAR_VERTICAL,
-    HORIZONTAL = TEXT_GRADIENT.LINEAR_HORIZONTAL
-};

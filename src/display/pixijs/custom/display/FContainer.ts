@@ -9,7 +9,7 @@ import {
     serviceLocatorProcessItemOnDeactivate,
 } from "../../../../index";
 import { DisplayObjectContainer } from "../../display/DisplayObjectContainer";
-import { DisplayObject } from "../../display/DisplayObject";
+import { Container } from "../../display/Container";
 
 export class FContainer<DataType extends any = any> extends DisplayObjectContainer implements IDatable {
 
@@ -139,7 +139,7 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
     }
 
 
-    public addChildBefore(child: DisplayObject, beforeChild: DisplayObject): void {
+    public addChildBefore(child: Container, beforeChild: Container): void {
         const beforeChildIndex: number = this.getChildIndex(beforeChild);
         if (beforeChildIndex === -1) {
             return;
@@ -153,7 +153,7 @@ export class FContainer<DataType extends any = any> extends DisplayObjectContain
         this.addChildAt(child, addIndex);
     }
 
-    public addChildAfter(child: DisplayObject, afterChild: DisplayObject): void {
+    public addChildAfter(child: Container, afterChild: Container): void {
         const afterChildIndex: number = this.getChildIndex(afterChild);
         if (afterChildIndex === -1) {
             return;

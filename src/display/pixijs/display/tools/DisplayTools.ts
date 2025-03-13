@@ -1,4 +1,4 @@
-import { DisplayObjectContainer, DisplayObject } from "../../../../index";
+import { DisplayObjectContainer, Container } from "../../../../index";
 
 export class DisplayTools {
     public static removeAllChildren(container: DisplayObjectContainer): void {
@@ -7,7 +7,7 @@ export class DisplayTools {
         }
     }
 
-    public static childRemoveItselfFromParent(child: DisplayObject): void {
+    public static childRemoveItselfFromParent(child: Container): void {
         if (!child || !child.parent) {
             return;
         }
@@ -15,7 +15,7 @@ export class DisplayTools {
         child.parent.removeChild(child);
     }
 
-    public static moveObjectToTopLayer(object: DisplayObject): void {
+    public static moveObjectToTopLayer(object: Container): void {
         if (!object || !object.parent) {
             return;
         }
@@ -24,7 +24,7 @@ export class DisplayTools {
     }
 
     public static safeAddChildAt(container: DisplayObjectContainer,
-        child: DisplayObject,
+        child: Container,
         index: number): void {
         if (index < 0) {
             index = 0;
@@ -35,7 +35,7 @@ export class DisplayTools {
         container.addChildAt(child, index);
     }
 
-    static addChildBefore(container: DisplayObjectContainer, child: DisplayObject, beforeTarget: DisplayObject): void {
+    static addChildBefore(container: DisplayObjectContainer, child: Container, beforeTarget: Container): void {
         if (beforeTarget.parent !== container) {
             console.error("DisplayTools | addChildBefore __ ERROR! beforeTarget is not a child of the container!");
             return;
@@ -48,9 +48,9 @@ export class DisplayTools {
 
 
     static findParentInDisplayList(
-        object: DisplayObject,
+        object: Container,
         condition: (object: DisplayObjectContainer) => boolean,
-        filter: (object: DisplayObject) => boolean = null): DisplayObjectContainer {
+        filter: (object: Container) => boolean = null): DisplayObjectContainer {
 
         let result: DisplayObjectContainer;
 

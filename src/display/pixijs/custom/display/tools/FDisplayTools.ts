@@ -1,17 +1,18 @@
 import {
-    DisplayObject,
+    Container,
     DisplayObjectContainer,
     FStage,
     IFDisplayObjectUnderPointVO,
     Rectangle
 } from "../../../../../index";
 import { Point } from "../../../../../geom/pixijs/Point";
+import { Bounds } from "pixi.js";
 
 export class FDisplayTools {
 
     private static cachedPoint: Point = new Point();
 
-    static findStageInDisplayList(object: DisplayObject): FStage {
+    static findStageInDisplayList(object: Container): FStage {
         let result: FStage;
 
         let tempParent: DisplayObjectContainer = object.parent;
@@ -28,10 +29,10 @@ export class FDisplayTools {
     }
 
     public static getObjectsUnderPoint(
-        root: DisplayObject,
+        root: Container,
         x: number,
         y: number,
-        filter: (object: DisplayObject) => boolean = null): IFDisplayObjectUnderPointVO {
+        filter: (object: Container) => boolean = null): IFDisplayObjectUnderPointVO {
 
         let result: IFDisplayObjectUnderPointVO;
 
@@ -70,8 +71,8 @@ export class FDisplayTools {
                     }
 
                 } else {
-                    let tempBounds: Rectangle = root.getBounds();
-                    if (tempBounds.contains(x, y)) {
+                    let tempBounds: Bounds = root.getBounds();
+                    if (tempBounds.containsPoint(x, y)) {
                         isUnderPoint = true;
                     }
                 }

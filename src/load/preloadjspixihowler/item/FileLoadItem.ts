@@ -27,7 +27,7 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
             loadPath = tempUrl.href;
         }
         // Assets.add({ alias: this.config.id, src: tempUrl.href });
-        Assets.add(this.config.id, loadPath);
+        Assets.add({ alias: this.config.id, src: loadPath });
     }
 
     protected internalStart(): void {
@@ -72,7 +72,7 @@ export class FileLoadItem<DataType extends any = any> extends AbstractLoadItem<D
     }
 
     protected onLoadingComplete(): void {
-        
+
     }
 
     protected internalStop(): void {

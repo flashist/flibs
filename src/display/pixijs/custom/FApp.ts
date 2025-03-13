@@ -51,7 +51,10 @@ export class FApp extends App {
     public getGlobalInteractionPosition(): Point {
         // return (this.renderer.plugins as RendererPlugins).interaction.mouse.global;
         // return this.renderer.plugins.interaction.eventData.data.global.clone();
-        return this.renderer.plugins.interaction.pointer.global.clone();
+        // return this.plugins.interaction.pointer.global.clone();
+
+        // TODO: fix and find a way for accessing global pointer position in the v8
+        return new Point();
     }
 
 

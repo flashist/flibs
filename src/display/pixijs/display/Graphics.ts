@@ -1,6 +1,6 @@
-import { ILineStyleOptions, Graphics } from "pixi.js";
+import { StrokeInput, Graphics } from "pixi.js";
 
 export {
     Graphics,
-    ILineStyleOptions
+    StrokeInput
 };

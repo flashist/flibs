@@ -1,5 +1,5 @@
 import { ObjectTools } from "@flashist/fcore";
-import { IBitmapTextStyle, Rectangle } from "pixi.js";
+import { TextStyle, Rectangle, Bounds, StrokeStyle, StrokeInput } from "pixi.js";
 
 import {
     Text,
@@ -12,9 +12,10 @@ import {
     AutosizeType,
     DisplayResizeTools,
     FLabelTools,
-    HTMLText,
-    ILineStyleOptions
+    HTMLText
 } from "../../../../../index";
+
+import { TextDropShadow } from "./TextDropShadow";
 
 import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
 
@@ -35,7 +36,7 @@ export class FLabel extends FContainer {
     protected _height: number;
     protected _width: number;
 
-    protected fieldLocalBounds: Rectangle;
+    protected fieldLocalBounds: Bounds;
 
     protected _text: string;
 
@@ -46,7 +47,7 @@ export class FLabel extends FContainer {
     protected construction(config?: IFLabelConfig): void {
         super.construction();
 
-        this.fieldLocalBounds = new Rectangle();
+        this.fieldLocalBounds = new Bounds();
 
         this._text = "";
 
@@ -110,9 +111,9 @@ export class FLabel extends FContainer {
         this.fieldMask = new Graphics();
         this.addChild(this.fieldMask);
         //
-        this.fieldMask.beginFill(0x00FF00, 1);
-        this.fieldMask.drawRect(0, 0, 10, 10);
-        this.fieldMask.endFill();
+        this.fieldMask.rect(0, 0, 10, 10);
+        this.fieldMask.fill({ color: 0x00FF00, alpha: 1 });
+        // this.fieldMask.endFill();
 
         this.createField();
         // First size initialization
@@ -143,24 +144,25 @@ export class FLabel extends FContainer {
         }
 
         if (this.config.textType === FLabelTextType.BITMAP) {
-            let bitmapConfig = {
-                fontName: this.config.fontFamily
-            } as Partial<IBitmapTextStyle>;
-            if (this.config.size) {
-                bitmapConfig.fontSize = this.config.size;
-            }
-            if (this.config.color || this.config.color === 0) {
-                bitmapConfig.tint = this.config.color;
-            }
+            // let bitmapConfig: TextOptions = {
+            //     style: {
+            //         fontFamily: this.config.fontFamily
+            //     }
+            // };
 
-            this.field = new BitmapText(
-                "",
-                bitmapConfig
-            );
+            // if (this.config.size) {
+            //     bitmapConfig.fontSize = this.config.size;
+            // }
+            // if (this.config.color || this.config.color === 0) {
+            //     bitmapConfig.fill = this.config.color;
+            // }
+
+            this.field = new BitmapText();
+
         } else if (this.config.textType === FLabelTextType.HTML_TEXT) {
-            this.field = new HTMLText("");
+            this.field = new HTMLText();
         } else {
-            this.field = new Text("");
+            this.field = new Text();
         }
         this.applyStyle();
 
@@ -169,117 +171,123 @@ export class FLabel extends FContainer {
     }
 
     protected applyStyle(): void {
-        if (this.config.textType === FLabelTextType.BITMAP) {
-            // ToDo: implement configuring bitmap fields
-            const bitmapField: BitmapText = (this.field as BitmapText);
-            if (this.config.fontFamily) {
-                bitmapField.fontName = this.config.fontFamily;
-            }
-            if (this.config.size) {
-                bitmapField.fontSize = this.config.size;
-            }
-            if (this.config.color || this.config.color === 0) {
-                bitmapField.tint = this.config.color;
-            }
-            if (this.config.wordWrapWidth) {
-                bitmapField.maxWidth = this.config.wordWrapWidth;
-            }
+        // if (this.config.textType === FLabelTextType.BITMAP) {
+        //     // ToDo: implement configuring bitmap fields
+        //     const bitmapField: BitmapText = (this.field as BitmapText);
+        //     if (this.config.fontFamily) {
+        //         bitmapField.style.fontFamily = this.config.fontFamily;
+        //     }
+        //     if (this.config.size) {
+        //         bitmapField.style.fontSize = this.config.size;
+        //     }
+        //     if (this.config.color || this.config.color === 0) {
+        //         bitmapField.tint = this.config.color;
+        //     }
+        //     if (this.config.wordWrapWidth) {
+        //         bitmapField.style.wordWrapWidth = this.config.wordWrapWidth;
+        //     }
 
-            if (this.config.align) {
-                bitmapField.align = this.config.align as any;
+        //     if (this.config.align) {
+        //         bitmapField.style.align = this.config.align as any;
+        //     } else {
+        //         bitmapField.style.align = Align.LEFT;
+        //     }
+
+        // } else {
+
+        if (this.config.fontFamily) {
+            this.field.style.fontFamily = this.config.fontFamily;
+        }
+        if (this.config.size) {
+            this.field.style.fontSize = this.config.size;
+        }
+        if (this.config.lineHeight) {
+            this.field.style.lineHeight = this.config.lineHeight;
+        }
+        // if (this.config.lineJoin) {
+        //     this.field.style.lineJoin = this.config.lineJoin;
+        // }
+        // if (this.config.miterLimit || this.config.miterLimit === 0) {
+        //     this.field.style.miterLimit = this.config.miterLimit;
+        // }
+        if (this.config.wordWrap || this.wordWrap === false) {
+            this.field.style.wordWrap = this.config.wordWrap;
+        }
+        if (this.config.wordWrapWidth) {
+            this.field.style.wordWrapWidth = this.config.wordWrapWidth;
+        }
+
+        if (this.config.color || this.config.color === 0) {
+            this.field.style.fill = this.config.color;
+        }
+
+        // if (this.config.gradientColor) {
+        //     this.field.style.fill = this.config.gradientColor.colors;
+        //     this.field.style.fillGradientStops = this.config.gradientColor.stops;
+        //     this.field.style.fillGradientType = this.config.gradientColor.type;
+        // }
+
+        if (this.config.fontWeight) {
+            if (typeof this.config.fontWeight === "string") {
+                this.field.style.fontWeight = this.config.fontWeight as any;
             } else {
-                bitmapField.align = Align.LEFT as any;
+                this.field.style.fontWeight = this.config.fontWeight.toString() as any;
             }
 
         } else {
-            const textField: Text = (this.field as Text);
-            if (this.config.fontFamily) {
-                textField.style.fontFamily = this.config.fontFamily;
-            }
-            if (this.config.size) {
-                textField.style.fontSize = this.config.size;
-            }
-            if (this.config.lineHeight) {
-                textField.style.lineHeight = this.config.lineHeight;
-            }
-            if (this.config.lineJoin) {
-                textField.style.lineJoin = this.config.lineJoin as any;
-            }
-            if (this.config.miterLimit || this.config.miterLimit === 0) {
-                textField.style.miterLimit = this.config.miterLimit;
-            }
-            if (this.config.wordWrap || this.wordWrap === false) {
-                textField.style.wordWrap = this.config.wordWrap;
-            }
-            if (this.config.wordWrapWidth) {
-                textField.style.wordWrapWidth = this.config.wordWrapWidth;
-            }
-
-            if (this.config.color || this.config.color === 0) {
-                textField.style.fill = this.config.color;
-            }
-
-            if (this.config.gradientColor) {
-                textField.style.fill = this.config.gradientColor.colors;
-                textField.style.fillGradientStops = this.config.gradientColor.stops;
-                textField.style.fillGradientType = this.config.gradientColor.type as any;
-            }
-
-            if (this.config.fontWeight) {
-                if (typeof this.config.fontWeight === "string") {
-                    textField.style.fontWeight = this.config.fontWeight as any;
-                } else {
-                    textField.style.fontWeight = this.config.fontWeight.toString() as any;
-                }
-
-            } else {
-                textField.style.fontWeight = FLabelFontWeight.REGULAR.toString() as any;
-            }
-
-            if (this.config.dropShadow) {
-                textField.style.dropShadow = true;
-
-                if (this.config.dropShadowColor !== undefined) {
-                    textField.style.dropShadowColor = this.config.dropShadowColor;
-                }
-
-                if (this.config.dropShadowAlpha !== undefined) {
-                    textField.style.dropShadowAlpha = this.config.dropShadowAlpha;
-                }
-
-                if (this.config.dropShadowDistance !== undefined) {
-                    textField.style.dropShadowDistance = this.config.dropShadowDistance;
-                }
-
-                if (this.config.dropShadowAngle !== undefined) {
-                    textField.style.dropShadowAngle = this.config.dropShadowAngle;
-                }
-
-                if (this.config.dropShadowBlur !== undefined) {
-                    textField.style.dropShadowBlur = this.config.dropShadowBlur;
-                }
-
-            } else {
-                textField.style.dropShadow = false;
-            }
-
-            if (this.config.stroke || this.config.stroke === 0) {
-                textField.style.stroke = this.config.stroke;
-                if (this.config.strokeThickness) {
-                    textField.style.strokeThickness = this.config.strokeThickness;
-                } else {
-                    this.config.strokeThickness = 0;
-                }
-            } else {
-                textField.style.stroke = 0;
-            }
-
-            if (this.config.align) {
-                textField.style.align = this.config.align as any;
-            } else {
-                textField.style.align = Align.LEFT as any;
-            }
+            this.field.style.fontWeight = FLabelFontWeight.REGULAR.toString() as any;
         }
+
+        if (this.config.dropShadow) {
+            this.field.style.dropShadow = true;
+
+            if (this.config.dropShadow !== undefined) {
+                this.field.style.dropShadow = this.config.dropShadow;
+            }
+
+            // if (this.config.dropShadowAlpha !== undefined) {
+            //     this.field.style.dropShadowAlpha = this.config.dropShadowAlpha;
+            // }
+
+            // if (this.config.dropShadowDistance !== undefined) {
+            //     this.field.style.dropShadowDistance = this.config.dropShadowDistance;
+            // }
+
+            // if (this.config.dropShadowAngle !== undefined) {
+            //     this.field.style.dropShadowAngle = this.config.dropShadowAngle;
+            // }
+
+            // if (this.config.dropShadowBlur !== undefined) {
+            //     this.field.style.dropShadowBlur = this.config.dropShadowBlur;
+            // }
+
+        } else {
+            this.field.style.dropShadow = false;
+        }
+
+        if (this.config.stroke) {
+            this.field.style.stroke = this.config.stroke;
+        } else {
+            this.config.stroke = null;
+        }
+
+        // if (this.config.stroke || this.config.stroke === 0) {
+        //     this.field.style.stroke = this.config.stroke;
+        //     if (this.config.strokeThickness) {
+        //         this.field.style.strokeThickness = this.config.strokeThickness;
+        //     } else {
+        //         this.config.strokeThickness = 0;
+        //     }
+        // } else {
+        //     this.field.style.stroke = 0;
+        // }
+
+        if (this.config.align) {
+            this.field.style.align = this.config.align as any;
+        } else {
+            this.field.style.align = Align.LEFT;
+        }
+        // }
 
         this.arrange();
     }
@@ -433,15 +441,15 @@ export class FLabel extends FContainer {
         this.applyStyle();
     }
 
-    public get gradientColor(): typeof this.config.gradientColor {
-        return this.config.gradientColor;
-    }
+    // public get gradientColor(): typeof this.config.gradientColor {
+    //     return this.config.gradientColor;
+    // }
 
-    public set gradientColor(value: typeof this.config.gradientColor) {
-        this.config.gradientColor = value;
+    // public set gradientColor(value: typeof this.config.gradientColor) {
+    //     this.config.gradientColor = value;
 
-        this.applyStyle();
-    }
+    //     this.applyStyle();
+    // }
 
     public get size(): number {
         return this.config.size;
@@ -547,16 +555,16 @@ export class FLabel extends FContainer {
         this.arrange();
     }
 
-    public get bgLineStyle(): ILineStyleOptions {
-        return this.config.bgLineStyle;
+    public get bgStrokeStyle(): StrokeInput {
+        return this.config.bgStrokeStyle;
     }
 
-    public set bgLineStyle(value: ILineStyleOptions) {
-        if (ObjectTools.checkIfEqual(value, this.config.bgLineStyle)) {
+    public set bgStrokeStyle(value: StrokeInput) {
+        if (ObjectTools.checkIfEqual(value, this.config.bgStrokeStyle)) {
             return;
         }
 
-        this.config.bgLineStyle = value;
+        this.config.bgStrokeStyle = value;
 
         // this.updateBg();
         this.arrange();
@@ -569,13 +577,14 @@ export class FLabel extends FContainer {
 
         this.bg.clear();
 
-        if (this.bgLineStyle) {
-            this.bg.lineStyle(this.bgLineStyle);
+        if (this.bgStrokeStyle) {
+            this.bg.setStrokeStyle(this.bgStrokeStyle);
         }
 
-        this.bg.beginFill(bgColor, 1);
-        this.bg.drawRect(0, 0, this._width, this._height);
-        this.bg.endFill();
+        this.bg.rect(0, 0, this._width, this._height);
+        this.bg.fill({ color: bgColor, alpha: 1 });
+        // this.bg.endFill();
+
         this.bg.alpha = bgAlpha;
     }
 
@@ -589,7 +598,7 @@ export class FLabel extends FContainer {
         }
 
         this._text = value;
-        this.emit(FLabelEvent.TEXT_CHANGE as any);
+        this.emit(FLabelEvent.TEXT_CHANGE);
 
         this.applyText();
     }
@@ -717,11 +726,11 @@ export class FLabel extends FContainer {
         this.applyStyle();
     }
 
-    get dropShadow(): boolean {
+    get dropShadow(): TextDropShadow {
         return this.config.dropShadow;
     }
 
-    set dropShadow(value: boolean) {
+    set dropShadow(value: TextDropShadow) {
         if (this.config.dropShadow === value) {
             return;
         }
@@ -731,7 +740,7 @@ export class FLabel extends FContainer {
         this.applyStyle();
     }
 
-    get stroke(): number {
+    get stroke(): StrokeInput {
         return this.config.stroke;
     }
 
@@ -745,19 +754,19 @@ export class FLabel extends FContainer {
         this.applyStyle();
     }
 
-    get strokeThickness(): number {
-        return this.config.strokeThickness;
-    }
+    // get strokeThickness(): number {
+    //     return this.config.strokeThickness;
+    // }
 
-    set strokeThickness(value: number) {
-        if (this.config.strokeThickness === value) {
-            return;
-        }
+    // set strokeThickness(value: number) {
+    //     if (this.config.strokeThickness === value) {
+    //         return;
+    //     }
 
-        this.config.strokeThickness = value;
+    //     this.config.strokeThickness = value;
 
-        this.applyStyle();
-    }
+    //     this.applyStyle();
+    // }
 
 
     get fieldPaddingX(): number {

@@ -1,6 +1,6 @@
 export * from './AnimatedSprite';
 export * from './BitmapText';
-export * from './DisplayObject';
+export * from './Container';
 export * from './DisplayObjectContainer';
 export * from './events';
 export * from './Graphics';

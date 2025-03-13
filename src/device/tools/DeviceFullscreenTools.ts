@@ -1,4 +1,3 @@
-import { IEventListenerCallback } from "@flashist/fcore";
 import { DeviceFullscreenToolsEvent } from "./DeviceFullscreenToolsEvent";
 
 export class DeviceFullscreenTools {
@@ -125,15 +124,15 @@ export class DeviceFullscreenTools {
         return DeviceFullscreenTools.isFullscreen ? DeviceFullscreenTools.exit() : DeviceFullscreenTools.request(element, options);
     }
 
-    static onChange(callback: IEventListenerCallback) {
+    static onChange(callback: any) {
         DeviceFullscreenTools.on('change', callback);
     }
 
-    static onError(callback: IEventListenerCallback) {
+    static onError(callback: any) {
         DeviceFullscreenTools.on('error', callback);
     }
 
-    private static on(event: string, callback: IEventListenerCallback) {
+    private static on(event: string, callback: any) {
         const eventName = DeviceFullscreenTools.eventNameMap[event];
         if (eventName) {
             document.addEventListener(eventName, callback, false);

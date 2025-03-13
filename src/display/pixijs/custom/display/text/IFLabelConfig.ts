@@ -2,15 +2,15 @@ import { Align } from "../../../../../other/align/Align";
 import { VAlign } from "../../../../../other/align/VAlign";
 import { AutosizeType } from "./AutosizeType";
 import { FLabelTextType } from "./FLabelTextType";
-import { GradientColorType } from "./GradientColorType";
-import { ILineStyleOptions } from "../../../display/Graphics";
+import { TextDropShadow } from "./TextDropShadow";
+import { StrokeInput } from "../../../display/Graphics";
 
 export interface IFLabelConfig {
     textType?: FLabelTextType;
 
     bgColor?: number;
     bgAlpha?: number;
-    bgLineStyle?: ILineStyleOptions;
+    bgStrokeStyle?: StrokeInput;
 
     autosize?: boolean;
     autosizeType?: AutosizeType;
@@ -34,14 +34,16 @@ export interface IFLabelConfig {
     fontFamily?: string;
     size?: number;
     lineHeight?: number;
-    lineJoin?: string;
-    miterLimit?: number;
+    // lineJoin?: string;
+    // miterLimit?: number;
     color?: number;
-    gradientColor?: {
-        colors: number[];
-        stops: number[];
-        type: GradientColorType
-    };
+
+    // gradientColor?: {
+    //     colors: number[];
+    //     stops: number[];
+    //     type: GradientType
+    // };
+
     align?: Align;
     valign?: VAlign;
     // bold?: boolean;
@@ -50,14 +52,16 @@ export interface IFLabelConfig {
     wordWrap?: boolean;
     wordWrapWidth?: number;
 
-    dropShadow?: boolean;
-    dropShadowColor?: number;
-    dropShadowAlpha?: number;
-    dropShadowDistance?: number;
-    dropShadowAngle?: number;
-    dropShadowBlur?: number;
+    dropShadow?: TextDropShadow;
+    // dropShadow?: boolean;
+    // dropShadowColor?: number;
+    // dropShadowAlpha?: number;
+    // dropShadowDistance?: number;
+    // dropShadowAngle?: number;
+    // dropShadowBlur?: number;
 
 
-    stroke?: number;
-    strokeThickness?: number;
+    // stroke?: number;
+    // strokeThickness?: number;
+    stroke?: StrokeInput;
 }
