@@ -15,13 +15,8 @@ export class FApp extends App {
     protected lastTimeRendered: number = 0;
     protected targetRenderInterval: number;
 
-    constructor(protected options?: any | AppProperties) {
-        super(options);
-
-        this.options = options;
-        if (!this.options) {
-            this.options = {};
-        }
+    constructor() {
+        super();
 
         // if (this.options.targetFps) {
         //     this.fpsLimitterEnabled = true;
@@ -32,6 +27,13 @@ export class FApp extends App {
 
         // FStage
         this.stage.isFStage = true;
+
+        // TEST
+        const origRender = this.render;
+        //
+        (this as any).render = () => {
+            return origRender;
+        };
     }
 
     public render(force?: boolean): void {
