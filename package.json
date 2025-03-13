@@ -13,14 +13,14 @@
   "dependencies": {
     "@flashist/fcore": "0.x",
     "@types/gsap": "^1.20.2",
-    "@types/howler": "^2.1.0",
+    "@types/howler": "^2.2.12",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "@esotericsoftware/spine-pixi-v8": "^4.2.76",
     "@flashist/fbuildscripts": "0.x",
-    "@types/webfontloader": "^1.6.29",
-    "pixi-spine": "^3.1.0",
-    "pixi.js": "^7.2.4",
-    "typescript": "^4.9.4"
+    "npm": "^11.2.0",
+    "pixi.js": "^8.8.1",
+    "typescript": "^5.8.2"
   }
 }
