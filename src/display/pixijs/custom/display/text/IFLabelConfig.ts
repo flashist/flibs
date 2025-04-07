@@ -1,9 +1,8 @@
-import { Align } from "../../../../../other/align/Align";
 import { VAlign } from "../../../../../other/align/VAlign";
 import { AutosizeType } from "./AutosizeType";
 import { FLabelTextType } from "./FLabelTextType";
-import { TextDropShadow } from "./TextDropShadow";
 import { StrokeInput } from "../../../display/Graphics";
+import { TextStyle } from "./TextStyle";
 
 export interface IFLabelConfig {
     textType?: FLabelTextType;
@@ -31,37 +30,22 @@ export interface IFLabelConfig {
     maskToFieldShiftWidth?: number;
     maskToFieldShiftHeight?: number;
 
-    fontFamily?: string;
-    size?: number;
-    lineHeight?: number;
-    // lineJoin?: string;
-    // miterLimit?: number;
-    color?: number;
-
-    // gradientColor?: {
-    //     colors: number[];
-    //     stops: number[];
-    //     type: GradientType
-    // };
-
-    align?: Align;
     valign?: VAlign;
-    // bold?: boolean;
-    fontWeight?: number | string;
 
-    wordWrap?: boolean;
-    wordWrapWidth?: number;
+    nativeTextStyle?: Partial<TextStyle>;
 
-    dropShadow?: TextDropShadow;
-    // dropShadow?: boolean;
-    // dropShadowColor?: number;
-    // dropShadowAlpha?: number;
-    // dropShadowDistance?: number;
-    // dropShadowAngle?: number;
-    // dropShadowBlur?: number;
+    // fontFamily?: string;
+    // size?: number;
+    // lineHeight?: number;
+    // color?: number;
+    // align?: Align;
 
+    // // bold?: boolean;
+    // fontWeight?: number | string;
 
-    // stroke?: number;
-    // strokeThickness?: number;
-    stroke?: StrokeInput;
+    // wordWrap?: boolean;
+    // wordWrapWidth?: number;
+
+    // dropShadow?: TextDropShadow;
+    // stroke?: StrokeInput;
 }

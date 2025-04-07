@@ -40,7 +40,12 @@ export class FLabelTools {
 
         let step: number = 0;
         while (field.size > 0 && ((field.textWidth > config.maxWidth) || (field.textHeight > config.maxHeight))) {
-            field.size += stepChange;
+            // field.size += stepChange;
+            field.changeConfig({
+                nativeTextStyle: {
+                    fontSize: field.size + stepChange
+                }
+            });
 
             // Preventing code from "stucking"
             step++;

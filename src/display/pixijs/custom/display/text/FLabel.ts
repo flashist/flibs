@@ -21,7 +21,7 @@ import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
 
 import { FContainer } from "../FContainer";
 import { FLabelTextType } from "./FLabelTextType";
-import { FLabelFontWeight } from "./FLabelFontWeight";
+import { TextStyleFontWeight } from "./TextStyleFontWeight";
 
 export class FLabel extends FContainer {
 
@@ -94,7 +94,9 @@ export class FLabel extends FContainer {
         );
 
         if (!config) {
-            config = {};
+            config = {
+                nativeTextStyle: {}
+            };
         }
         this.config = config;
         ObjectTools.copyProps(
@@ -171,123 +173,10 @@ export class FLabel extends FContainer {
     }
 
     protected applyStyle(): void {
-        // if (this.config.textType === FLabelTextType.BITMAP) {
-        //     // ToDo: implement configuring bitmap fields
-        //     const bitmapField: BitmapText = (this.field as BitmapText);
-        //     if (this.config.fontFamily) {
-        //         bitmapField.style.fontFamily = this.config.fontFamily;
-        //     }
-        //     if (this.config.size) {
-        //         bitmapField.style.fontSize = this.config.size;
-        //     }
-        //     if (this.config.color || this.config.color === 0) {
-        //         bitmapField.tint = this.config.color;
-        //     }
-        //     if (this.config.wordWrapWidth) {
-        //         bitmapField.style.wordWrapWidth = this.config.wordWrapWidth;
-        //     }
 
-        //     if (this.config.align) {
-        //         bitmapField.style.align = this.config.align as any;
-        //     } else {
-        //         bitmapField.style.align = Align.LEFT;
-        //     }
-
-        // } else {
-
-        if (this.config.fontFamily) {
-            this.field.style.fontFamily = this.config.fontFamily;
+        if (this.config.nativeTextStyle) {
+            this.field.style = this.config.nativeTextStyle;
         }
-        if (this.config.size) {
-            this.field.style.fontSize = this.config.size;
-        }
-        if (this.config.lineHeight) {
-            this.field.style.lineHeight = this.config.lineHeight;
-        }
-        // if (this.config.lineJoin) {
-        //     this.field.style.lineJoin = this.config.lineJoin;
-        // }
-        // if (this.config.miterLimit || this.config.miterLimit === 0) {
-        //     this.field.style.miterLimit = this.config.miterLimit;
-        // }
-        if (this.config.wordWrap || this.wordWrap === false) {
-            this.field.style.wordWrap = this.config.wordWrap;
-        }
-        if (this.config.wordWrapWidth) {
-            this.field.style.wordWrapWidth = this.config.wordWrapWidth;
-        }
-
-        if (this.config.color || this.config.color === 0) {
-            this.field.style.fill = this.config.color;
-        }
-
-        // if (this.config.gradientColor) {
-        //     this.field.style.fill = this.config.gradientColor.colors;
-        //     this.field.style.fillGradientStops = this.config.gradientColor.stops;
-        //     this.field.style.fillGradientType = this.config.gradientColor.type;
-        // }
-
-        if (this.config.fontWeight) {
-            if (typeof this.config.fontWeight === "string") {
-                this.field.style.fontWeight = this.config.fontWeight as any;
-            } else {
-                this.field.style.fontWeight = this.config.fontWeight.toString() as any;
-            }
-
-        } else {
-            this.field.style.fontWeight = FLabelFontWeight.REGULAR.toString() as any;
-        }
-
-        if (this.config.dropShadow) {
-            this.field.style.dropShadow = true;
-
-            if (this.config.dropShadow !== undefined) {
-                this.field.style.dropShadow = this.config.dropShadow;
-            }
-
-            // if (this.config.dropShadowAlpha !== undefined) {
-            //     this.field.style.dropShadowAlpha = this.config.dropShadowAlpha;
-            // }
-
-            // if (this.config.dropShadowDistance !== undefined) {
-            //     this.field.style.dropShadowDistance = this.config.dropShadowDistance;
-            // }
-
-            // if (this.config.dropShadowAngle !== undefined) {
-            //     this.field.style.dropShadowAngle = this.config.dropShadowAngle;
-            // }
-
-            // if (this.config.dropShadowBlur !== undefined) {
-            //     this.field.style.dropShadowBlur = this.config.dropShadowBlur;
-            // }
-
-        } else {
-            this.field.style.dropShadow = false;
-        }
-
-        if (this.config.stroke) {
-            this.field.style.stroke = this.config.stroke;
-        } else {
-            this.config.stroke = null;
-        }
-
-        // if (this.config.stroke || this.config.stroke === 0) {
-        //     this.field.style.stroke = this.config.stroke;
-        //     if (this.config.strokeThickness) {
-        //         this.field.style.strokeThickness = this.config.strokeThickness;
-        //     } else {
-        //         this.config.strokeThickness = 0;
-        //     }
-        // } else {
-        //     this.field.style.stroke = 0;
-        // }
-
-        if (this.config.align) {
-            this.field.style.align = this.config.align as any;
-        } else {
-            this.field.style.align = Align.LEFT;
-        }
-        // }
 
         this.arrange();
     }
@@ -324,7 +213,6 @@ export class FLabel extends FContainer {
             }
         }
 
-
         let tempFieldScale: number = 1;
         if (this.fitToSize) {
             // IMPORTANT: this is a performance-requiring task!
@@ -334,7 +222,8 @@ export class FLabel extends FContainer {
                 // starting from the base-value (because otherwise the resize behaviour
                 // will be done from the latest fit-to-size value, not from the base value)
                 this.config.fitToSize = false;
-                this.config.size = this.config.changeFontSizeToFitStartSize;
+                // this.config.size = this.config.changeFontSizeToFitStartSize;
+                this.config.nativeTextStyle.fontSize = this.config.changeFontSizeToFitStartSize;
                 //
                 this.applyStyle();
                 //
@@ -362,7 +251,7 @@ export class FLabel extends FContainer {
         this.updateBg();
 
         let newX: number = this.fieldPaddingX;
-        switch (this.align) {
+        switch (this.config.nativeTextStyle.align) {
             case Align.CENTER:
                 newX = Math.floor((this._width - (this.textWidth * this.field.scale.x)) * 0.5);
                 break;
@@ -397,178 +286,69 @@ export class FLabel extends FContainer {
         return this._height - (this.fieldPaddingY * 2) + this.maskToFieldShiftHeight;
     }
 
-    // public get isBitmap(): boolean {
-    //     return this.config.isBitmap;
-    // }
-
-    // public set isBitmap(value: boolean) {
-    //     if (value === this.config.isBitmap) {
-    //         return;
-    //     }
-
-    //     this.config.isBitmap = value;
-
-    //     this.createField();
-    //     this.updateBg();
-    //     this.commitData();
-    // }
-
-    public get fontFamily(): string {
-        return this.config.fontFamily;
-    }
-
-    public set fontFamily(value: string) {
-        if (value === this.config.fontFamily) {
-            return;
-        }
-
-        this.config.fontFamily = value;
-
-        this.applyStyle();
-    }
-
-    public get color(): number {
-        return this.config.color;
-    }
-
-    public set color(value: number) {
-        if (value === this.config.color) {
-            return;
-        }
-
-        this.config.color = value;
-
-        this.applyStyle();
-    }
-
-    // public get gradientColor(): typeof this.config.gradientColor {
-    //     return this.config.gradientColor;
-    // }
-
-    // public set gradientColor(value: typeof this.config.gradientColor) {
-    //     this.config.gradientColor = value;
-
-    //     this.applyStyle();
-    // }
-
-    public get size(): number {
-        return this.config.size;
-    }
-
-    public set size(value: number) {
-        if (value === this.config.size) {
-            return;
-        }
-
-        this.config.size = value;
-
-        this.applyStyle();
-    }
-
-    /*public get width(): number {
-        return this._width;
-    }
-
-    public set width(value: number) {
-        if (value === this._width) {
-            return;
-        }
-
-        this._width = value;
-
-        this.commitData();
-    }*/
-
-    /*public get height(): number {
-        return this._height;
-    }
-
-    public set height(value: number) {
-        if (value === this._height) {
-            return;
-        }
-
-        this._height = value;
-
-        this.commitData();
-    }*/
-
-
-    public get align(): Align {
-        return this.config.align;
-    }
-
-    public set align(value: Align) {
-        if (value === this.config.align) {
-            return;
-        }
-
-        this.config.align = value;
-
-        // this.arrange();
-        this.applyStyle();
-    }
-
-
     public get valign(): VAlign {
         return this.config.valign;
     }
 
-    public set valign(value: VAlign) {
-        if (value === this.config.valign) {
-            return;
-        }
-
-        this.config.valign = value;
-
-        this.arrange();
+    public get size(): number {
+        return this.config.nativeTextStyle.fontSize;
     }
+
+    // public set valign(value: VAlign) {
+    //     if (value === this.config.valign) {
+    //         return;
+    //     }
+
+    //     this.config.valign = value;
+
+    //     this.arrange();
+    // }
 
 
     public get bgAlpha(): number {
         return this.config.bgAlpha;
     }
 
-    public set bgAlpha(value: number) {
-        if (value === this.config.bgAlpha) {
-            return;
-        }
+    // public set bgAlpha(value: number) {
+    //     if (value === this.config.bgAlpha) {
+    //         return;
+    //     }
 
-        this.config.bgAlpha = value;
+    //     this.config.bgAlpha = value;
 
-        // this.updateBg();
-        this.arrange();
-    }
+    //     // this.updateBg();
+    //     this.arrange();
+    // }
 
     public get bgColor(): number {
         return this.config.bgColor;
     }
 
-    public set bgColor(value: number) {
-        if (value === this.config.bgColor) {
-            return;
-        }
+    // public set bgColor(value: number) {
+    //     if (value === this.config.bgColor) {
+    //         return;
+    //     }
 
-        this.config.bgColor = value;
+    //     this.config.bgColor = value;
 
-        // this.updateBg();
-        this.arrange();
-    }
+    //     // this.updateBg();
+    //     this.arrange();
+    // }
 
     public get bgStrokeStyle(): StrokeInput {
         return this.config.bgStrokeStyle;
     }
 
-    public set bgStrokeStyle(value: StrokeInput) {
-        if (ObjectTools.checkIfEqual(value, this.config.bgStrokeStyle)) {
-            return;
-        }
+    // public set bgStrokeStyle(value: StrokeInput) {
+    //     if (ObjectTools.checkIfEqual(value, this.config.bgStrokeStyle)) {
+    //         return;
+    //     }
 
-        this.config.bgStrokeStyle = value;
+    //     this.config.bgStrokeStyle = value;
 
-        // this.updateBg();
-        this.arrange();
-    }
+    //     // this.updateBg();
+    //     this.arrange();
+    // }
 
     private updateBg(): void {
 
@@ -611,81 +391,81 @@ export class FLabel extends FContainer {
     public get autosize(): boolean {
         return this.config.autosize;
     }
-    public set autosize(value: boolean) {
-        if (value === this.config.autosize) {
-            return;
-        }
+    // public set autosize(value: boolean) {
+    //     if (value === this.config.autosize) {
+    //         return;
+    //     }
 
-        this.config.autosize = value;
+    //     this.config.autosize = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     public get autosizeType(): AutosizeType {
         return this.config.autosizeType;
     }
-    public set autosizeType(value: AutosizeType) {
-        if (value === this.config.autosizeType) {
-            return;
-        }
+    // public set autosizeType(value: AutosizeType) {
+    //     if (value === this.config.autosizeType) {
+    //         return;
+    //     }
 
-        this.config.autosizeType = value;
+    //     this.config.autosizeType = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     public get maxAutosizeWidth(): number {
         return this.config.maxAutosizeWidth || 0;
     }
-    public set maxAutosizeWidth(value: number) {
-        if (value === this.config.maxAutosizeWidth) {
-            return;
-        }
+    // public set maxAutosizeWidth(value: number) {
+    //     if (value === this.config.maxAutosizeWidth) {
+    //         return;
+    //     }
 
-        this.config.maxAutosizeWidth = value;
+    //     this.config.maxAutosizeWidth = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     public get maxAutosizeHeight(): number {
         return this.config.maxAutosizeHeight || 0;
     }
-    public set maxAutosizeHeight(value: number) {
-        if (value === this.config.maxAutosizeHeight) {
-            return;
-        }
+    // public set maxAutosizeHeight(value: number) {
+    //     if (value === this.config.maxAutosizeHeight) {
+    //         return;
+    //     }
 
-        this.config.maxAutosizeHeight = value;
+    //     this.config.maxAutosizeHeight = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
 
     public get fitToSize(): boolean {
         return this.config.fitToSize;
     }
-    public set fitToSize(value: boolean) {
-        if (value === this.config.fitToSize) {
-            return;
-        }
+    // public set fitToSize(value: boolean) {
+    //     if (value === this.config.fitToSize) {
+    //         return;
+    //     }
 
-        this.config.fitToSize = value;
+    //     this.config.fitToSize = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     public get changeFontSizeToFit(): boolean {
         return this.config.changeFontSizeToFit;
     }
-    public set changeFontSizeToFit(value: boolean) {
-        if (value === this.config.changeFontSizeToFit) {
-            return;
-        }
+    // public set changeFontSizeToFit(value: boolean) {
+    //     if (value === this.config.changeFontSizeToFit) {
+    //         return;
+    //     }
 
-        this.config.changeFontSizeToFit = value;
+    //     this.config.changeFontSizeToFit = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     get textWidth() {
         if (this.config.textType === FLabelTextType.BITMAP) {
@@ -712,149 +492,110 @@ export class FLabel extends FContainer {
         return this.height - (this.fieldPaddingY * 2);
     }
 
-    get fontWeight(): string | number {
-        return this.config.fontWeight;
-    }
-
-    set fontWeight(value: string | number) {
-        if (this.config.fontWeight === value) {
-            return;
-        }
-
-        this.config.fontWeight = value;
-
-        this.applyStyle();
-    }
-
-    get dropShadow(): TextDropShadow {
-        return this.config.dropShadow;
-    }
-
-    set dropShadow(value: TextDropShadow) {
-        if (this.config.dropShadow === value) {
-            return;
-        }
-
-        this.config.dropShadow = value;
-
-        this.applyStyle();
-    }
-
-    get stroke(): StrokeInput {
-        return this.config.stroke;
-    }
-
-    set stroke(value: number) {
-        if (this.config.stroke === value) {
-            return;
-        }
-
-        this.config.stroke = value;
-
-        this.applyStyle();
-    }
-
-    // get strokeThickness(): number {
-    //     return this.config.strokeThickness;
-    // }
-
-    // set strokeThickness(value: number) {
-    //     if (this.config.strokeThickness === value) {
-    //         return;
-    //     }
-
-    //     this.config.strokeThickness = value;
-
-    //     this.applyStyle();
-    // }
-
-
     get fieldPaddingX(): number {
         return this.config.fieldPaddingX || 0;
     }
-    set fieldPaddingX(value: number) {
-        if (this.config.fieldPaddingX === value) {
-            return;
-        }
+    // set fieldPaddingX(value: number) {
+    //     if (this.config.fieldPaddingX === value) {
+    //         return;
+    //     }
 
-        this.config.fieldPaddingX = value;
+    //     this.config.fieldPaddingX = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     get fieldPaddingY(): number {
         return this.config.fieldPaddingY || 0;
     }
-    set fieldPaddingY(value: number) {
-        if (this.config.fieldPaddingY === value) {
-            return;
-        }
+    // set fieldPaddingY(value: number) {
+    //     if (this.config.fieldPaddingY === value) {
+    //         return;
+    //     }
 
-        this.config.fieldPaddingY = value;
+    //     this.config.fieldPaddingY = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     get maskToFieldShiftWidth(): number {
         return this.config.maskToFieldShiftWidth || 0;
     }
-    set maskToFieldShiftWidth(value: number) {
-        if (this.config.maskToFieldShiftWidth === value) {
-            return;
-        }
+    // set maskToFieldShiftWidth(value: number) {
+    //     if (this.config.maskToFieldShiftWidth === value) {
+    //         return;
+    //     }
 
-        this.config.maskToFieldShiftWidth = value;
+    //     this.config.maskToFieldShiftWidth = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
     get maskToFieldShiftHeight(): number {
         return this.config.maskToFieldShiftHeight || 0;
     }
-    set maskToFieldShiftHeight(value: number) {
-        if (this.config.maskToFieldShiftHeight === value) {
-            return;
-        }
+    // set maskToFieldShiftHeight(value: number) {
+    //     if (this.config.maskToFieldShiftHeight === value) {
+    //         return;
+    //     }
 
-        this.config.maskToFieldShiftHeight = value;
+    //     this.config.maskToFieldShiftHeight = value;
 
-        this.arrange();
-    }
+    //     this.arrange();
+    // }
 
-    get wordWrap(): boolean {
-        return this.config.wordWrap;
-    }
-    set wordWrap(value: boolean) {
-        if (this.config.wordWrap === value) {
-            return;
-        }
+    // get wordWrap(): boolean {
+    //     return this.config.wordWrap;
+    // }
+    // set wordWrap(value: boolean) {
+    //     if (this.config.wordWrap === value) {
+    //         return;
+    //     }
 
-        this.config.wordWrap = value;
+    //     this.config.wordWrap = value;
 
-        this.applyStyle();
-    }
+    //     this.applyStyle();
+    // }
 
-    get wordWrapWidth(): number {
-        return this.config.wordWrapWidth;
-    }
-    set wordWrapWidth(value: number) {
-        if (this.config.wordWrapWidth === value) {
-            return;
-        }
+    // get wordWrapWidth(): number {
+    //     return this.config.wordWrapWidth;
+    // }
+    // set wordWrapWidth(value: number) {
+    //     if (this.config.wordWrapWidth === value) {
+    //         return;
+    //     }
 
-        this.config.wordWrapWidth = value;
+    //     this.config.wordWrapWidth = value;
 
-        this.applyStyle();
-    }
+    //     this.applyStyle();
+    // }
 
-    public get engineField(): any {
+    public get nativeField(): any {
         return this.field;
     }
 
-    public changeConfig(change: Partial<IFLabelConfig>): void {
-        ObjectTools.copyProps(this.config, change);
+    public changeConfig(value: Partial<IFLabelConfig>): void {
+        // Remove the native style from the main changing value,
+        // to make sure the native style config is not substituting the existing config,
+        // but is overriding existing properties if they exist
+        // (and leaves the properties that are not overridden without changes)
+        let nativeStyleTempCopy = value.nativeTextStyle;
+        delete value.nativeTextStyle;
+        // Here we copy all changes without the native style config
+        ObjectTools.copyProps(this.config, value);
+
+        // Here we apply the native style config only
+        if (nativeStyleTempCopy) {
+            ObjectTools.copyProps(this.config.nativeTextStyle, nativeStyleTempCopy);
+        }
 
         // this.updateBg();
         this.applyStyle();
     }
+
+    // public changeNativeStyle(value: Partial<TextStyle>): void {
+    //     ObjectTools.copyProps(this.config.nativeTextStyle, value);
+
+    //     this.applyStyle();
+    // }
 }
