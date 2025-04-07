@@ -21,7 +21,6 @@ import { FLabelDefaultConfig } from "./FLabelDefaultConfig";
 
 import { FContainer } from "../FContainer";
 import { FLabelTextType } from "./FLabelTextType";
-import { TextStyleFontWeight } from "./TextStyleFontWeight";
 
 export class FLabel extends FContainer {
 
