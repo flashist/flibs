@@ -304,7 +304,7 @@ export class FLabel extends FContainer {
         // Reset Field Scale
         this.field.scale.set(1);
         //
-        this.fieldLocalBounds = this.field.getLocalBounds(this.fieldLocalBounds);
+        this.fieldLocalBounds = this.field.getLocalBounds();
 
         if (this.autosize) {
             if (!this.autosizeType || this.autosizeType === AutosizeType.BOTH || this.autosizeType === AutosizeType.WIDTH) {
@@ -355,7 +355,7 @@ export class FLabel extends FContainer {
 
         this.field.scale.set(tempFieldScale);
         //
-        this.fieldLocalBounds = this.field.getLocalBounds(this.fieldLocalBounds);
+        this.fieldLocalBounds = this.field.getLocalBounds();
 
         // this.bg.width = this._width;
         // this.bg.height = this._height;

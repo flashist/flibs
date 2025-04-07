@@ -56,7 +56,7 @@ export class FApp extends App {
         // return this.plugins.interaction.pointer.global.clone();
 
         // TODO: fix and find a way for accessing global pointer position in the v8
-        return new Point();
+        return this.renderer.events.pointer.screen.clone();
     }
 
 
