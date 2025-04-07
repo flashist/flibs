@@ -6,4 +6,5 @@ export * from './FLabelTextType';
 export * from './IFLabelConfig';
 export * from './TextDropShadow';
 export * from './TextStyle';
+export * from './TextStyleAlign';
 export * from './TextStyleFontWeight';
