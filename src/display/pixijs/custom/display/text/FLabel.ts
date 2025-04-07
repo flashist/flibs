@@ -93,10 +93,12 @@ export class FLabel extends FContainer {
         );
 
         if (!config) {
-            config = {
-                nativeTextStyle: {}
-            };
+            config = {};
         }
+        if (!config.nativeTextStyle) {
+            config.nativeTextStyle = {}
+        }
+
         this.config = config;
         ObjectTools.copyProps(
             this.config,
