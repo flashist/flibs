@@ -374,6 +374,10 @@ export class FLabel extends FContainer {
     }
 
     public set text(value: string) {
+        if (value === undefined) {
+            value = "";
+        }
+
         if (value === this.field.text) {
             return;
         }
