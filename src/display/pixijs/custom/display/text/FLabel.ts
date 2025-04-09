@@ -169,8 +169,8 @@ export class FLabel extends FContainer {
         }
         this.applyStyle();
 
-        this.addChild(this.field);
-        this.field.mask = this.fieldMask;
+        // this.addChild(this.field);
+        // this.field.mask = this.fieldMask;
     }
 
     protected applyStyle(): void {
