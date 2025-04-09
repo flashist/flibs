@@ -117,6 +117,9 @@ export class FLabel extends FContainer {
         this.fieldMask.rect(0, 0, 10, 10);
         this.fieldMask.fill({ color: 0x00FF00, alpha: 1 });
         // this.fieldMask.endFill();
+        //
+        // TEMPORARY: in pixi v8 the mask logic stopped working =(
+        this.fieldMask.alpha = 0;
 
         this.createField();
         // First size initialization
@@ -170,7 +173,8 @@ export class FLabel extends FContainer {
         this.applyStyle();
 
         this.addChild(this.field);
-        this.field.mask = this.fieldMask;
+        // TEMPORARY: in pixi v8 this stopped working =(
+        // this.field.mask = this.fieldMask;
     }
 
     protected applyStyle(): void {
