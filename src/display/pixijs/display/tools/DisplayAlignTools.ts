@@ -1,6 +1,6 @@
 import { DisplayObjectContainer, Container, Align } from "../../../../index";
 
-export class DisplayTools {
+export class DisplayAlignTools {
     public static alignWith(object: DisplayObjectContainer, alignWith: DisplayObjectContainer, align: Align, floorPixels: boolean = true): void {
         let newX: number = alignWith.x;
 
