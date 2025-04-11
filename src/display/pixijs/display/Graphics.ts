@@ -1,6 +1,5 @@
-import { StrokeInput, Graphics } from "pixi.js";
+import { Graphics } from "pixi.js";
 
 export {
-    Graphics,
-    StrokeInput
+    Graphics
 };

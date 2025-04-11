@@ -1,8 +1,9 @@
+
 import { VAlign } from "../../../../../other/align/VAlign";
 import { AutosizeType } from "./AutosizeType";
 import { FLabelTextType } from "./FLabelTextType";
-import { StrokeInput } from "../../../display/Graphics";
 import { TextStyle } from "./TextStyle";
+import { StrokeInput } from "./StrokeInput";
 
 export interface IFLabelConfig {
     textType?: FLabelTextType;

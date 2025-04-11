@@ -5,5 +5,6 @@ export * from './FLabelEvent';
 export * from './FLabelNativeStyleConstants';
 export * from './FLabelTextType';
 export * from './IFLabelConfig';
+export * from './StrokeInput';
 export * from './TextDropShadow';
 export * from './TextStyle';
