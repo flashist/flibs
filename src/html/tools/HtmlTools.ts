@@ -1,6 +1,6 @@
 import {
     Point
-} from "../../index";
+} from "../../../index";
 
 export class HtmlTools {
     static getDocumentSize(): Point {

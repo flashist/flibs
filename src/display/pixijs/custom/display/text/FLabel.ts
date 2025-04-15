@@ -13,7 +13,7 @@ import {
     DisplayResizeTools,
     FLabelTools,
     HTMLText
-} from "../../../../../index";
+} from "../../../../../../index";
 
 import { TextDropShadow } from "./TextDropShadow";
 

@@ -1,10 +1,9 @@
 import { Logger } from "@flashist/fcore";
 
 import {
-    TextTruncateType,
-    Text,
-    FLabel
-} from "../../../../index";
+    FLabel,
+    TextTruncateType
+} from "../../../../../index";
 
 export class FLabelTools {
     static changeFontSizeToFit(

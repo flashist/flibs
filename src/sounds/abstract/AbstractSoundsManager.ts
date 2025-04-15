@@ -2,8 +2,8 @@ import { AssociativeArray, BaseObject, Lock } from "@flashist/fcore";
 
 import { gsap } from "gsap";
 
-import { Sound } from "../../index";
 import { SoundsManagerEvent } from "./SoundsManagerEvent";
+import { Sound } from "../howler/HowlerSound";
 
 export abstract class AbstractSoundsManager extends BaseObject {
 

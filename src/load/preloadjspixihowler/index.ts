@@ -1,3 +1,0 @@
-export * from './PreloadjsPixiLoadFactory';
-export * from './PreloadjsPixiLoadManager';
-export * from './item';

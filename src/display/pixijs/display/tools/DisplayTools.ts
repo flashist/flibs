@@ -1,4 +1,4 @@
-import { DisplayObjectContainer, Container } from "../../../../index";
+import { DisplayObjectContainer, Container } from "../../../../../index";
 
 export class DisplayTools {
     public static removeAllChildren(container: DisplayObjectContainer): void {

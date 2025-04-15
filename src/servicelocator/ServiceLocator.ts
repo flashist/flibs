@@ -1,10 +1,8 @@
 import { Dictionary, IConstructor, ObjectTools } from "@flashist/fcore";
 
-import {
-    ICreateConfig,
-    IServiceLocatorOptions,
-    IActivatee
-} from "../index";
+import { IServiceLocatorOptions } from "./IServiceLocatorOptions";
+import { IActivatee } from "./IActivatee";
+import { ICreateConfig } from "./ICreateConfig";
 
 export class ServiceLocator {
 

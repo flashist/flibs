@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@esotericsoftware/spine-pixi-v8": "^4.2.76",
-    "@flashist/fbuildscripts": "^0.0.48",
+    "@flashist/fbuildscripts": "0.x",
     "gsap": "^3.12.7",
     "pixi.js": "^8.8.1",
     "typescript": "^5.8.2"

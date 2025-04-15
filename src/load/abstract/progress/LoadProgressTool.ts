@@ -1,4 +1,4 @@
-import {AbstractLoadItem, ILoadProgressVO, LoadStatus} from "../../..";
+import { AbstractLoadItem, ILoadProgressVO, LoadStatus } from "../../../../index";
 
 export class LoadProgressTool {
     static getProgressForItems(items: AbstractLoadItem[]): ILoadProgressVO {

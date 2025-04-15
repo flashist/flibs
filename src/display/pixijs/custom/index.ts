@@ -1,2 +1,0 @@
-export * from './FApp';
-export * from './display';

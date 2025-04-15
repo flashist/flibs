@@ -1,4 +1,4 @@
-import { DisplayObjectContainer, Container, Align } from "../../../../index";
+import { Align, DisplayObjectContainer } from "../../../../../index";
 
 export class DisplayAlignTools {
     public static alignWith(object: DisplayObjectContainer, alignWith: DisplayObjectContainer, align: Align, floorPixels: boolean = true): void {

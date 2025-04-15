@@ -1,6 +1,5 @@
-import {Howl, Howler} from "howler";
-
-import {AbstractSoundsManager} from "../../index";
+import { Howler } from "howler";
+import { AbstractSoundsManager } from "../abstract/AbstractSoundsManager";
 
 export class HowlerSoundsManager extends AbstractSoundsManager {
     protected internalSetVolume(value: number): void {

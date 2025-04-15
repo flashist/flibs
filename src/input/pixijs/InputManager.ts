@@ -3,7 +3,7 @@ import {
     FApp,
     InteractiveEvent,
     Point
-} from "../../index";
+} from "../../../index";
 
 import { InputManagerEvent } from "./InputManagerEvent";
 import { InputManagerEventData } from "./InputManagerEventData";

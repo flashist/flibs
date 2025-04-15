@@ -3,7 +3,7 @@ import { StringTools } from "@flashist/fcore";
 import { HowlerSound } from "../../../sounds/howler/HowlerSound";
 import { HowlerSoundEvent } from "../../../sounds/howler/HowlerSoundEvent";
 import { AbstractSoundLoadItem } from "../../abstract/item/AbstractSoundLoadItem";
-import { getInstance, SoundsManager } from "../../../index";
+import { getInstance, SoundsManager } from "../../../../index";
 
 
 export class HowlerSoundLoadItem<DataType extends any = any> extends AbstractSoundLoadItem<DataType> {

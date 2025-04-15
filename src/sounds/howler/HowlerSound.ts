@@ -1,9 +1,8 @@
 import { Howl } from "howler";
 
 import { AbstractSound } from "../abstract/AbstractSound";
-import { IHowlerSoundConfig } from "./IHowlerSoundConfig";
-import { ISoundConfig } from "../..";
 import { IPlaySoundConfig } from "../abstract/IPlaySoundConfig";
+import { IHowlerSoundConfig } from "./IHowlerSoundConfig";
 
 export class HowlerSound extends AbstractSound {
 

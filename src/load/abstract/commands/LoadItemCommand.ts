@@ -1,5 +1,5 @@
-import {Command, CommandErrorCode} from "@flashist/fcore";
-import {AbstractLoadItem, getInstance, ILoadItemConfig, LoadManager, LoadStatus, LoadStatusEvent} from "../../..";
+import { Command, CommandErrorCode } from "@flashist/fcore";
+import { AbstractLoadItem, getInstance, ILoadItemConfig, LoadManager, LoadStatus, LoadStatusEvent } from "../../../../index";
 
 export class LoadItemCommand extends Command {
 

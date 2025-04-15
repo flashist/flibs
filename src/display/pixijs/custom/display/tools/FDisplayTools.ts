@@ -1,12 +1,11 @@
+import { Bounds } from "pixi.js";
 import {
     Container,
     DisplayObjectContainer,
     FStage,
     IFDisplayObjectUnderPointVO,
-    Rectangle
-} from "../../../../../index";
-import { Point } from "../../../../../geom/pixijs/Point";
-import { Bounds } from "pixi.js";
+    Point
+} from "../../../../../../index";
 
 export class FDisplayTools {
 
