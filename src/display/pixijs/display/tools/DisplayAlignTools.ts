@@ -1,4 +1,4 @@
-import { Align, DisplayObjectContainer } from "../../../../index";
+import { Align, DisplayObjectContainer, VAlign } from "../../../../index";
 
 export class DisplayAlignTools {
     public static alignWith(object: DisplayObjectContainer, alignWith: DisplayObjectContainer, align: Align, floorPixels: boolean = true): void {
@@ -18,5 +18,24 @@ export class DisplayAlignTools {
         }
 
         object.x = newX;
+    }
+
+    public static valignWith(object: DisplayObjectContainer, valignWith: DisplayObjectContainer, valign: VAlign, floorPixels: boolean = true): void {
+        let newY: number = valignWith.y;
+
+        switch (valign) {
+            case VAlign.MIDDLE:
+                newY = valignWith.y + ((valignWith.height - object.height) * 0.5);
+                break;
+            case VAlign.BOTTOM:
+                newY = valignWith.y + (valignWith.height - object.height);
+                break;
+        }
+
+        if (floorPixels) {
+            newY = Math.floor(newY);
+        }
+
+        object.y = newY;
     }
 }
