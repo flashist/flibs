@@ -1,4 +1,4 @@
-import { Align } from "../../../../../../index";
+import { Align } from "../../../../../index";
 
 export enum FLabelNativeStyleFontWeight {
     NORMAL = 'normal',

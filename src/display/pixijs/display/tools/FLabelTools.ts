@@ -3,7 +3,7 @@ import { Logger } from "@flashist/fcore";
 import {
     FLabel,
     TextTruncateType
-} from "../../../../../index";
+} from "../../../../index";
 
 export class FLabelTools {
     static changeFontSizeToFit(

@@ -1,4 +1,4 @@
-import { Graphics } from "../../../../../index";
+import { Graphics } from "../../../../index";
 
 export class GraphicsTools {
     static createTraspRect(x: number = 0, y: number = 0, width: number = 10, height: number = 10): Graphics {

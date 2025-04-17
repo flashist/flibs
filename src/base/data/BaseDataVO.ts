@@ -1,6 +1,6 @@
 ﻿import { ArrayTools, ObjectTools, BaseEventDispatcher } from "@flashist/fcore";
 
-import { IGenericObjectVO } from "../../../index";
+import { IGenericObjectVO } from "../../index";
 import { BaseDataVOEvent } from "./BaseDataVOEvent";
 
 export class BaseDataVO extends BaseEventDispatcher implements IGenericObjectVO {

@@ -1,7 +1,7 @@
 import {
     FStage,
     Point
-} from "../../../../index";
+} from "../../../index";
 import { App } from "../App";
 
 export class FApp extends App {

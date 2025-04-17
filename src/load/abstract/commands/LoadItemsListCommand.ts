@@ -3,7 +3,7 @@ import {
     AbstractLoadItem,
     ILoadItemConfig,
     LoadItemCommand
-} from "../../../../index";
+} from "../../../index";
 
 export class LoadItemsListCommand extends Command {
 

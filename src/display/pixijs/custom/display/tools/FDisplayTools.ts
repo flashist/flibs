@@ -5,7 +5,7 @@ import {
     FStage,
     IFDisplayObjectUnderPointVO,
     Point
-} from "../../../../../../index";
+} from "../../../../../index";
 
 export class FDisplayTools {
 

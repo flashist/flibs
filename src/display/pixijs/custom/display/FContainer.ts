@@ -7,7 +7,7 @@ import {
     FStage,
     serviceLocatorProcessItemOnActivate,
     serviceLocatorProcessItemOnDeactivate,
-} from "../../../../../index";
+} from "../../../../index";
 import { Container } from "../../display/Container";
 import { DisplayObjectContainer } from "../../display/DisplayObjectContainer";
 

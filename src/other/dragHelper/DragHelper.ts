@@ -2,7 +2,7 @@ import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 
 import {
     Container, FApp, InteractiveEvent, Point
-} from "../../../index";
+} from "../../index";
 
 import { DragHelperEvent } from "./DragHelperEvent";
 

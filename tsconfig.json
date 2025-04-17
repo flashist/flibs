@@ -3,16 +3,18 @@
     "target": "es6",
     "module": "es2015",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
     "lib": [
-      "es2015",
+      "es2018",
       "dom"
     ],
+
+    "skipLibCheck": true,
+
     "sourceMap": true,
     "declaration": true,
+
     "outDir": "dist/",
-    "declarationDir": "dist/",
-    "skipLibCheck": true
+    "declarationDir": "dist/"
   },
   "include": [
     "src/**/*"
