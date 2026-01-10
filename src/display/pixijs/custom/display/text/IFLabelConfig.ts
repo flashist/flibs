@@ -11,6 +11,7 @@ export interface IFLabelConfig {
     bgColor?: number;
     bgAlpha?: number;
     bgStrokeStyle?: StrokeInput;
+    bgRadius?: number;
 
     autosize?: boolean;
     autosizeType?: AutosizeType;
