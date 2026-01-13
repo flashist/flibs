@@ -125,11 +125,14 @@ export class DragHelper extends BaseObject {
     }
 
     protected onPointerMove(event: FederatedPointerEvent): void {
-        if (event.pointerId !== this.activePointerId) {
-            return;
-        }
+        if (event.pointerId === this.activePointerId) {
+            this.updateDrag(event.pointerId, event.globalX, event.globalY);
 
-        this.updateDrag(event.pointerId, event.globalX, event.globalY);
+        } else {
+            // If there are more than 1 pointer ID (or something is wrong with the original poitner id),
+            // the stop the drag logic (stop drag completely, only 1-pointer-drags are allowed)
+            this.stopDrag();
+        }
     }
 
     protected onPointerUp(event: FederatedPointerEvent): void {
