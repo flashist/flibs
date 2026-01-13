@@ -15,7 +15,7 @@ export class DragHelper extends BaseObject {
 
     protected hitAreaEventListenerHelper: EventListenerHelper<string>;
 
-    protected _isDragStarted: boolean;
+    protected _isDragActive: boolean;
 
     protected activePointerId: number;
 
@@ -136,6 +136,13 @@ export class DragHelper extends BaseObject {
     }
 
     protected onPointerUp(event: FederatedPointerEvent): void {
+        if (!this.isDragActive) {
+            return;
+        }
+        if (event.pointerId !== this.activePointerId) {
+            return;
+        }
+
         this.updateDrag(event.pointerId, event.globalX, event.globalY);
 
         this.stopDrag();
@@ -163,10 +170,10 @@ export class DragHelper extends BaseObject {
     }
 
     protected startDrag(pointerId: number, globalX: number, globalY: number): void {
-        if (this.isDragStarted) {
+        if (this.isDragActive) {
             return;
         }
-        this.isDragStarted = true;
+        this.isDragActive = true;
 
         this.activePointerId = pointerId;
 
@@ -191,10 +198,10 @@ export class DragHelper extends BaseObject {
     }
 
     public stopDrag(): void {
-        if (!this.isDragStarted) {
+        if (!this.isDragActive) {
             return;
         }
-        this.isDragStarted = false;
+        this.isDragActive = false;
 
         this.activePointerId = null;
 
@@ -223,17 +230,17 @@ export class DragHelper extends BaseObject {
         this.dispatchDragUpdateEvent();
     }
 
-    public get isDragStarted(): boolean {
-        return this._isDragStarted;
+    public get isDragActive(): boolean {
+        return this._isDragActive;
     }
 
-    public set isDragStarted(value: boolean) {
-        if (value == this.isDragStarted) {
+    public set isDragActive(value: boolean) {
+        if (value == this.isDragActive) {
             return;
         }
 
-        this._isDragStarted = value;
-        if (this.isDragStarted) {
+        this._isDragActive = value;
+        if (this.isDragActive) {
             this.dragStartTime = Date.now();
         }
     }
