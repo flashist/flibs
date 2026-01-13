@@ -15,6 +15,8 @@ export class DragHelper extends BaseObject {
 
     protected _isDragStarted: boolean;
 
+    protected activePointerId: number;
+
     public startDragGlobalX: number = 0;
     public startDragGlobalY: number = 0;
     public lastDragGlobalX: number = 0;
@@ -78,17 +80,27 @@ export class DragHelper extends BaseObject {
         this.hitAreaEventListenerHelper.addEventListener(
             dispatcher,
             InteractiveEvent.DOWN,
-            this.onMouseDown
+            this.onPointerDown
+        );
+        this.hitAreaEventListenerHelper.addEventListener(
+            dispatcher,
+            InteractiveEvent.MOVE,
+            this.onPointerMove
         );
         this.hitAreaEventListenerHelper.addEventListener(
             dispatcher,
             InteractiveEvent.UP,
-            this.onMouseUp
+            this.onPointerUp
         );
         this.hitAreaEventListenerHelper.addEventListener(
             dispatcher,
             InteractiveEvent.UP_OUTSIDE,
-            this.onMouseUp
+            this.onPointerUp
+        );
+        this.hitAreaEventListenerHelper.addEventListener(
+            dispatcher,
+            InteractiveEvent.CANCEL,
+            this.onPointerUp
         );
 
         /*this.viewEventListenerHelper.addEventListener(
@@ -96,31 +108,41 @@ export class DragHelper extends BaseObject {
             TickerEvent.TICK,
             this.onTick
         );*/
-        FApp.instance.ticker.add(this.onTick, this);
+        // FApp.instance.ticker.add(this.onTick, this);
     }
 
     protected removeHitAreaListeners(): void {
         this.hitAreaEventListenerHelper.removeAllListeners();
 
-        FApp.instance.ticker.remove(this.onTick, this);
+        // FApp.instance.ticker.remove(this.onTick, this);
     }
 
 
-    protected onMouseDown(): void {
-        this.startDrag();
+    protected onPointerDown(event: PointerEvent): void {
+        this.startDrag(event.pointerId, event.clientX, event.clientY);
     }
 
-    protected onMouseUp(): void {
+    protected onPointerMove(event: PointerEvent): void {
+        if (event.pointerId !== this.activePointerId) {
+            return;
+        }
+
+        this.updateDrag(event.pointerId, event.clientX, event.clientY);
+    }
+
+    protected onPointerUp(event: PointerEvent): void {
+        this.updateDrag(event.pointerId, event.clientX, event.clientY);
+
         this.stopDrag();
     }
 
-    protected onTick(): void {
-        if (this.isDragStarted) {
-            if (this.checkIsNeedUpdateDrag()) {
-                this.updateDrag();
-            }
-        }
-    }
+    // protected onTick(): void {
+    //     if (this.isDragStarted) {
+    //         if (this.checkIsNeedUpdateDrag()) {
+    //             this.updateDrag();
+    //         }
+    //     }
+    // }
 
 
     protected dispatchDragStartEvent(): void {
@@ -135,15 +157,17 @@ export class DragHelper extends BaseObject {
         this.dispatchEvent(DragHelperEvent.DRAG_END);
     }
 
-    protected startDrag(): void {
+    protected startDrag(pointerId: number, globalX: number, globalY: number): void {
         if (this.isDragStarted) {
             return;
         }
         this.isDragStarted = true;
 
-        const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
-        this.startDragGlobalX = globalPos.x;
-        this.startDragGlobalY = globalPos.y;
+        this.activePointerId = pointerId;
+
+        // const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
+        this.startDragGlobalX = globalX;
+        this.startDragGlobalY = globalY;
         this.view.parent.toLocal({ x: this.startDragGlobalX, y: this.startDragGlobalY }, null, this.startDragLocalPoint);
 
         // 
@@ -167,21 +191,21 @@ export class DragHelper extends BaseObject {
         }
         this.isDragStarted = false;
 
-        this.updateDrag();
+        this.activePointerId = null;
 
         this.dispatchDragEndEvent();
     }
 
-    protected updateDrag(): void {
+    protected updateDrag(pointerId: number, globalX: number, globalY: number): void {
         // Если последняя точка перетаскивания не изменилась, то прерываем функцию
-        const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
-        if (this.lastDragGlobalX == globalPos.x &&
-            this.lastDragGlobalY == globalPos.y) {
+        // const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
+        if (this.lastDragGlobalX == globalX &&
+            this.lastDragGlobalY == globalY) {
             return;
         }
 
-        this.lastDragGlobalX = globalPos.x;
-        this.lastDragGlobalY = globalPos.y;
+        this.lastDragGlobalX = globalX;
+        this.lastDragGlobalY = globalY;
 
         this.changeDragGlobalX = this.lastDragGlobalX - this.startDragGlobalX;
         this.changeDragGlobalY = this.lastDragGlobalY - this.startDragGlobalY;
@@ -189,6 +213,7 @@ export class DragHelper extends BaseObject {
         console.log("this.startDragGlobalX:", this.startDragGlobalX, " | this.startDragGlobalY:", this.startDragGlobalY);
 
         this.view.parent.toLocal({ x: this.lastDragGlobalX, y: this.lastDragGlobalY }, null, this.lastDragLocalPoint);
+        console.log("this.lastDragLocalPoint: ", this.lastDragLocalPoint);
 
         this.dispatchDragUpdateEvent();
     }
