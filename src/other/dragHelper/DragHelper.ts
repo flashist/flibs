@@ -209,8 +209,13 @@ export class DragHelper extends BaseObject {
     }
 
     protected updateDrag(pointerId: number, globalX: number, globalY: number): void {
-        // Если последняя точка перетаскивания не изменилась, то прерываем функцию
-        // const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
+        if (!this._isDragActive) {
+            return;
+        }
+        if (this.activePointerId !== pointerId) {
+            return;
+        }
+
         if (this.lastDragGlobalX == globalX &&
             this.lastDragGlobalY == globalY) {
             return;
