@@ -1,9 +1,11 @@
 import { BaseObject, EventListenerHelper } from "@flashist/fcore";
 
 import {
-    Container, FApp, InteractiveEvent, Point
+    Container,
+    InteractiveEvent, Point
 } from "../../index";
 
+import { FederatedPointerEvent } from "pixi.js";
 import { DragHelperEvent } from "./DragHelperEvent";
 
 export class DragHelper extends BaseObject {
@@ -118,20 +120,20 @@ export class DragHelper extends BaseObject {
     }
 
 
-    protected onPointerDown(event: PointerEvent): void {
-        this.startDrag(event.pointerId, event.clientX, event.clientY);
+    protected onPointerDown(event: FederatedPointerEvent): void {
+        this.startDrag(event.pointerId, event.globalX, event.globalY);
     }
 
-    protected onPointerMove(event: PointerEvent): void {
+    protected onPointerMove(event: FederatedPointerEvent): void {
         if (event.pointerId !== this.activePointerId) {
             return;
         }
 
-        this.updateDrag(event.pointerId, event.clientX, event.clientY);
+        this.updateDrag(event.pointerId, event.globalX, event.globalY);
     }
 
-    protected onPointerUp(event: PointerEvent): void {
-        this.updateDrag(event.pointerId, event.clientX, event.clientY);
+    protected onPointerUp(event: FederatedPointerEvent): void {
+        this.updateDrag(event.pointerId, event.globalX, event.globalY);
 
         this.stopDrag();
     }
