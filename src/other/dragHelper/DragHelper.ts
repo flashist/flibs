@@ -195,7 +195,7 @@ export class DragHelper extends BaseObject {
         this.dragReset();
     }
 
-    protected dragReset(): void {
+    public dragReset(): void {
         this.stopDrag();
         this.resetActivePointerId();
     }
