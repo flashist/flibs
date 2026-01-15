@@ -1,4 +1,4 @@
-import { BaseObject, EventListenerHelper } from "@flashist/fcore";
+import { BaseObject, EventListenerHelper, NumberTools } from "@flashist/fcore";
 
 import {
     Container,
@@ -119,14 +119,66 @@ export class DragHelper extends BaseObject {
         // FApp.instance.ticker.remove(this.onTick, this);
     }
 
-
+    public minDistanceToStartDrag: number = 0;
+    protected lastPointerDownEvent: FederatedPointerEvent;
     protected onPointerDown(event: FederatedPointerEvent): void {
-        this.startDrag(event.pointerId, event.globalX, event.globalY);
+        this.lastPointerDownEvent = event;
+        if (this.minDistanceToStartDrag <= 0) {
+            this.startDrag(event.pointerId, event.globalX, event.globalY);
+        }
     }
 
     protected onPointerMove(event: FederatedPointerEvent): void {
         if (event.pointerId === this.activePointerId) {
-            this.updateDrag(event.pointerId, event.globalX, event.globalY);
+            let shouldStartDrag: boolean = false;
+            let shouldUpdateDrag: boolean = false;
+            if (this.isDragActive) {
+                shouldUpdateDrag = true;
+            } else {
+                const tempDistance: number = NumberTools.getDistance(
+                    event.globalX,
+                    event.globalY,
+                    this.lastPointerDownEvent.globalX,
+                    this.lastPointerDownEvent.globalY
+                );
+                if (tempDistance > this.minDistanceToStartDrag) {
+                    shouldStartDrag = true;
+                    shouldUpdateDrag = true;
+                }
+            }
+
+            if (shouldStartDrag) {
+                this.startDrag(
+                    this.lastPointerDownEvent.pointerId,
+                    this.lastPointerDownEvent.globalX,
+                    this.lastPointerDownEvent.globalY
+                );
+            }
+            if (shouldUpdateDrag) {
+                this.updateDrag(event.pointerId, event.globalX, event.globalY);
+            }
+
+            // if (this.isDragActive) {
+            //     this.updateDrag(event.pointerId, event.globalX, event.globalY);
+
+            // } else if (this.minDistanceToStartDrag > 0) {
+            //     const tempDistance: number = NumberTools.getDistance(
+            //         event.globalX,
+            //         event.globalY,
+            //         this.lastPointerDownEvent.globalX,
+            //         this.lastPointerDownEvent.globalY
+            //     );
+            //     if (tempDistance > this.minDistanceToStartDrag) {
+            //         // this.isDragActive = true;
+            //         this.startDrag(
+            //             this.lastPointerDownEvent.pointerId,
+            //             this.lastPointerDownEvent.globalX,
+            //             this.lastPointerDownEvent.globalY
+            //         );
+
+            //         this.updateDrag(event.pointerId, event.globalX, event.globalY);
+            //     }
+            // }
 
         } else {
             // If there are more than 1 pointer ID (or something is wrong with the original poitner id),
