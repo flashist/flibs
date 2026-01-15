@@ -129,8 +129,7 @@ export class DragHelper extends BaseObject {
         if (this.activePointerId) {
             if (this.isDragCancelOnMultitouch) {
                 if (InputManager.instance.getActivePointers().length > 1) {
-                    this.stopDrag();
-                    this.resetActivePointerId();
+                    this.dragReset();
                 }
             }
 
@@ -180,9 +179,7 @@ export class DragHelper extends BaseObject {
         } else {
             // If there are more than 1 pointer ID (or something is wrong with the original poitner id),
             // the stop the drag logic (stop drag completely, only 1-pointer-drags are allowed)
-            this.stopDrag();
-
-            this.resetActivePointerId();
+            this.dragReset();
         }
     }
 
@@ -198,7 +195,12 @@ export class DragHelper extends BaseObject {
             this.updateDrag(event.pointerId, event.globalX, event.globalY);
         }
 
+        this.dragReset();
+    }
+
+    protected dragReset(): void {
         this.stopDrag();
+        this.resetActivePointerId();
     }
 
     // protected onTick(): void {
