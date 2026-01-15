@@ -82,6 +82,7 @@ export class InputManager extends BaseObject {
     protected onStageUp(event: FederatedPointerEvent): void {
         this.removePointer(event.pointerId);
 
+        this.stopHoldTimeout();
         this.endHold();
 
         this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
@@ -91,7 +92,7 @@ export class InputManager extends BaseObject {
     protected onStageDown(event: FederatedPointerEvent): void {
         this.updatePointer(event.pointerId, event.globalX, event.globalY);
 
-        this.startHoldWithTimer(event);
+        this.startHoldWithTimeout(event);
 
         this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
         this.dispatchEvent(InputManagerEvent.STAGE_DOWN, this.lastGlobalInteractionPos);
@@ -293,8 +294,8 @@ export class InputManager extends BaseObject {
     }
 
     protected holdStartTimeout: any;
-    protected startHoldWithTimer(event: FederatedPointerEvent): void {
-        this.stopHoldTimout();
+    protected startHoldWithTimeout(event: FederatedPointerEvent): void {
+        this.stopHoldTimeout();
 
         this.holdStartTimeout = setTimeout(
             () => {
@@ -303,10 +304,12 @@ export class InputManager extends BaseObject {
             this.holdStartDelay
         );
     }
-    protected stopHoldTimout(): void {
-        if (this.holdStartTimeout && this.holdStartTimeout !== 0) {
-            clearTimeout(this.holdStartTimeout);
-            this.holdStartTimeout = null;
+    protected stopHoldTimeout(): void {
+        if (!this.holdStartTimeout && this.holdStartTimeout !== 0) {
+            return;
         }
+
+        clearTimeout(this.holdStartTimeout);
+        this.holdStartTimeout = null;
     }
 }
