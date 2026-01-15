@@ -82,12 +82,16 @@ export class InputManager extends BaseObject {
     protected onStageUp(event: FederatedPointerEvent): void {
         this.removePointer(event.pointerId);
 
+        this.endHold();
+
         this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
         this.dispatchEvent(InputManagerEvent.STAGE_UP, this.lastGlobalInteractionPos);
     }
 
     protected onStageDown(event: FederatedPointerEvent): void {
         this.updatePointer(event.pointerId, event.globalX, event.globalY);
+
+        this.startHoldWithTimer(event);
 
         this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
         this.dispatchEvent(InputManagerEvent.STAGE_DOWN, this.lastGlobalInteractionPos);
