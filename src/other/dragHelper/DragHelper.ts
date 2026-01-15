@@ -38,7 +38,9 @@ export class DragHelper extends BaseObject {
     protected dragStartTime: number = 0;
 
     public minDistanceToStartDrag: number = 0;
-    protected lastPointerDownEvent: FederatedPointerEvent;
+    // protected lastPointerDownEvent: FederatedPointerEvent;
+    protected firstDownGlobalX: number;
+    protected firstDownGlobalY: number;
 
     public isDragCancelOnMultitouch: boolean = true;
 
@@ -134,7 +136,10 @@ export class DragHelper extends BaseObject {
             }
 
         } else {
-            this.lastPointerDownEvent = event;
+            // this.lastPointerDownEvent = event;
+            this.firstDownGlobalX = event.globalX;
+            this.firstDownGlobalY = event.globalY;
+
             this.setActivePointerId(event.pointerId);
 
             if (this.minDistanceToStartDrag <= 0) {
@@ -157,8 +162,8 @@ export class DragHelper extends BaseObject {
                 const tempDistance: number = NumberTools.getDistance(
                     event.globalX,
                     event.globalY,
-                    this.lastPointerDownEvent.globalX,
-                    this.lastPointerDownEvent.globalY
+                    this.firstDownGlobalX,
+                    this.firstDownGlobalY
                 );
                 if (tempDistance > this.minDistanceToStartDrag) {
                     shouldStartDrag = true;
@@ -168,8 +173,8 @@ export class DragHelper extends BaseObject {
 
             if (shouldStartDrag) {
                 this.startDrag(
-                    this.lastPointerDownEvent.globalX,
-                    this.lastPointerDownEvent.globalY
+                    this.firstDownGlobalX,
+                    this.firstDownGlobalY
                 );
             }
             if (shouldUpdateDrag) {
