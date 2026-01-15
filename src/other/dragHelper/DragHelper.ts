@@ -184,17 +184,9 @@ export class DragHelper extends BaseObject {
     }
 
     protected onPointerUp(event: FederatedPointerEvent): void {
-        if (!this.isDragActive) {
-            return;
-        }
-        if (event.pointerId !== this.activePointerId) {
-            return;
-        }
-
         if (this.isDragActive) {
             this.updateDrag(event.pointerId, event.globalX, event.globalY);
         }
-
         this.dragReset();
     }
 
