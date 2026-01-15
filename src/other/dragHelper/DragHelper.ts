@@ -2,6 +2,7 @@ import { BaseObject, EventListenerHelper, NumberTools } from "@flashist/fcore";
 
 import {
     Container,
+    InputManager,
     InteractiveEvent, Point
 } from "../../index";
 
@@ -35,6 +36,11 @@ export class DragHelper extends BaseObject {
     public dragUpdateDelay: number = 0;
 
     protected dragStartTime: number = 0;
+
+    public minDistanceToStartDrag: number = 0;
+    protected lastPointerDownEvent: FederatedPointerEvent;
+
+    public isDragCancelOnMultitouch: boolean = true;
 
     public constructor() {
         super();
@@ -119,16 +125,30 @@ export class DragHelper extends BaseObject {
         // FApp.instance.ticker.remove(this.onTick, this);
     }
 
-    public minDistanceToStartDrag: number = 0;
-    protected lastPointerDownEvent: FederatedPointerEvent;
     protected onPointerDown(event: FederatedPointerEvent): void {
-        this.lastPointerDownEvent = event;
-        if (this.minDistanceToStartDrag <= 0) {
-            this.startDrag(event.pointerId, event.globalX, event.globalY);
+        if (this.activePointerId) {
+            if (this.isDragCancelOnMultitouch) {
+                if (InputManager.instance.getActivePointers().length > 1) {
+                    this.stopDrag();
+                    this.resetActivePointerId();
+                }
+            }
+
+        } else {
+            this.lastPointerDownEvent = event;
+            this.setActivePointerId(event.pointerId);
+
+            if (this.minDistanceToStartDrag <= 0) {
+                this.startDrag(event.globalX, event.globalY);
+            }
         }
     }
 
     protected onPointerMove(event: FederatedPointerEvent): void {
+        if (!this.activePointerId) {
+            return;
+        }
+
         if (event.pointerId === this.activePointerId) {
             let shouldStartDrag: boolean = false;
             let shouldUpdateDrag: boolean = false;
@@ -149,7 +169,6 @@ export class DragHelper extends BaseObject {
 
             if (shouldStartDrag) {
                 this.startDrag(
-                    this.lastPointerDownEvent.pointerId,
                     this.lastPointerDownEvent.globalX,
                     this.lastPointerDownEvent.globalY
                 );
@@ -158,32 +177,12 @@ export class DragHelper extends BaseObject {
                 this.updateDrag(event.pointerId, event.globalX, event.globalY);
             }
 
-            // if (this.isDragActive) {
-            //     this.updateDrag(event.pointerId, event.globalX, event.globalY);
-
-            // } else if (this.minDistanceToStartDrag > 0) {
-            //     const tempDistance: number = NumberTools.getDistance(
-            //         event.globalX,
-            //         event.globalY,
-            //         this.lastPointerDownEvent.globalX,
-            //         this.lastPointerDownEvent.globalY
-            //     );
-            //     if (tempDistance > this.minDistanceToStartDrag) {
-            //         // this.isDragActive = true;
-            //         this.startDrag(
-            //             this.lastPointerDownEvent.pointerId,
-            //             this.lastPointerDownEvent.globalX,
-            //             this.lastPointerDownEvent.globalY
-            //         );
-
-            //         this.updateDrag(event.pointerId, event.globalX, event.globalY);
-            //     }
-            // }
-
         } else {
             // If there are more than 1 pointer ID (or something is wrong with the original poitner id),
             // the stop the drag logic (stop drag completely, only 1-pointer-drags are allowed)
             this.stopDrag();
+
+            this.resetActivePointerId();
         }
     }
 
@@ -195,7 +194,9 @@ export class DragHelper extends BaseObject {
             return;
         }
 
-        this.updateDrag(event.pointerId, event.globalX, event.globalY);
+        if (this.isDragActive) {
+            this.updateDrag(event.pointerId, event.globalX, event.globalY);
+        }
 
         this.stopDrag();
     }
@@ -221,13 +222,11 @@ export class DragHelper extends BaseObject {
         this.dispatchEvent(DragHelperEvent.DRAG_END);
     }
 
-    protected startDrag(pointerId: number, globalX: number, globalY: number): void {
+    protected startDrag(globalX: number, globalY: number): void {
         if (this.isDragActive) {
             return;
         }
         this.isDragActive = true;
-
-        this.activePointerId = pointerId;
 
         // const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
         this.startDragGlobalX = globalX;
@@ -249,13 +248,19 @@ export class DragHelper extends BaseObject {
         this.dispatchDragStartEvent();
     }
 
+    protected setActivePointerId(pointerId: number): void {
+        this.activePointerId = pointerId;
+    }
+
+    protected resetActivePointerId(): void {
+        this.activePointerId = null;
+    }
+
     public stopDrag(): void {
         if (!this.isDragActive) {
             return;
         }
         this.isDragActive = false;
-
-        this.activePointerId = null;
 
         this.dispatchDragEndEvent();
     }
