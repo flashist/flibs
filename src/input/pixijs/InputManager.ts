@@ -1,4 +1,4 @@
-﻿import { JSMouseEvent, IEventDispatcher, JSKeyboardEvent, BaseObject } from "@flashist/fcore";
+﻿import { JSMouseEvent, IEventDispatcher, JSKeyboardEvent, BaseObject, Dictionary, AssociativeArray } from "@flashist/fcore";
 import {
     FApp,
     InteractiveEvent,
@@ -7,6 +7,8 @@ import {
 
 import { InputManagerEvent } from "./InputManagerEvent";
 import { InputManagerEventData } from "./InputManagerEventData";
+import { IPointerVO } from "./IPointerVO";
+import { FederatedPointerEvent } from "pixi.js";
 
 export class InputManager extends BaseObject {
 
@@ -20,6 +22,12 @@ export class InputManager extends BaseObject {
     private isDataChanged: boolean;
 
     private lastGlobalInteractionPos: Point;
+
+    private isHoldActive: boolean = false;
+    private holdStartDelay: number = 500;
+    private isHoldCancelOnMultitouch: boolean = true;
+
+    private activePointers: AssociativeArray<IPointerVO> = new AssociativeArray<IPointerVO>();
 
     protected constructor(...args) {
         super(...args)
@@ -52,6 +60,12 @@ export class InputManager extends BaseObject {
             this.onStageUp
         );
 
+        this.eventListenerHelper.addEventListener(
+            FApp.instance.stage,
+            InteractiveEvent.MOVE,
+            this.onStageMove
+        );
+
         FApp.instance.ticker.add(this.onTick, this);
     }
 
@@ -65,14 +79,22 @@ export class InputManager extends BaseObject {
         this.dispatchEvent(InputManagerEvent.MOUSE_WHEEL, event);
     }
 
-    protected onStageUp(): void {
+    protected onStageUp(event: FederatedPointerEvent): void {
+        this.removePointer(event.pointerId);
+
         this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
         this.dispatchEvent(InputManagerEvent.STAGE_UP, this.lastGlobalInteractionPos);
     }
 
-    protected onStageDown(): void {
+    protected onStageDown(event: FederatedPointerEvent): void {
+        this.updatePointer(event.pointerId, event.globalX, event.globalY);
+
         this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
         this.dispatchEvent(InputManagerEvent.STAGE_DOWN, this.lastGlobalInteractionPos);
+    }
+
+    protected onStageMove(event: FederatedPointerEvent): void {
+        this.updatePointer(event.pointerId, event.globalX, event.globalY);
     }
 
     protected onTick(): void {
@@ -199,5 +221,88 @@ export class InputManager extends BaseObject {
         }
 
         return InputManager._instance;
+    }
+
+    // POINTERS
+    // protected addPointer(id: number, x: number, y: number): void {
+    //     this.addPointer(id, x, y);
+    // }
+
+    protected removePointer(id: number): void {
+        this.activePointers.removeByKey(id.toString());
+
+        this.commitPointerData();
+    }
+
+    protected updatePointer(id: number, x: number, y: number): void {
+        let tempId: string = id.toString();
+
+        let tempPointer: IPointerVO = this.activePointers.getItem(tempId);
+        if (!tempPointer) {
+            tempPointer = {
+                id: id,
+                x: x,
+                y: y
+            };
+
+            this.activePointers.push(
+                tempPointer,
+                tempId
+            );
+        }
+
+        tempPointer.x = x;
+        tempPointer.y = y;
+
+        this.commitPointerData();
+    }
+
+    protected commitPointerData(): void {
+        if (this.activePointers.length > 1) {
+            if (this.isHoldCancelOnMultitouch) {
+                this.endHold();
+            }
+        }
+    }
+
+    public getActivePointers(): IPointerVO[] {
+        return this.activePointers.getAllItems().concat();
+    }
+
+    // HOLD
+    protected startHold(event: FederatedPointerEvent): void {
+        if (this.isHoldActive) {
+            return;
+        }
+        this.isHoldActive = true;
+
+        let tempData: InputManagerEventData = new InputManagerEventData(event);
+        this.dispatchEvent(InputManagerEvent.HOLD_START, tempData);
+    }
+    protected endHold(): void {
+        if (!this.isHoldActive) {
+            return;
+        }
+        this.isHoldActive = false;
+
+        this.dispatchEvent(InputManagerEvent.HOLD_END);
+    }
+
+    protected holdStartTimeout: any;
+    protected startHoldWithTimer(event: FederatedPointerEvent): void {
+        this.stopHoldTimout();
+
+        this.holdStartTimeout = setTimeout(
+            () => {
+                this.startHold(event);
+            },
+            this.holdStartDelay
+        );
+    }
+    protected stopHoldTimout(): void {
+        if (this.holdStartTimeout && this.holdStartTimeout !== 0) {
+            clearTimeout(this.holdStartTimeout);
+            this.holdStartTimeout = null;
+        }
     }
 }

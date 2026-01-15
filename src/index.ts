@@ -26,6 +26,7 @@ export * from './html/tools/HtmlTools';
 export * from './input/pixijs/InputManager';
 export * from './input/pixijs/InputManagerEvent';
 export * from './input/pixijs/InputManagerEventData';
+export * from './input/pixijs/IPointerVO';
 export * from './load/abstract/AbstractLoadFactory';
 export * from './load/abstract/AbstractLoadManager';
 export * from './load/abstract/Loader';
