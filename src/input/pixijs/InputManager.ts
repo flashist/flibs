@@ -100,6 +100,9 @@ export class InputManager extends BaseObject {
 
     protected onStageMove(event: FederatedPointerEvent): void {
         this.updatePointer(event.pointerId, event.globalX, event.globalY);
+
+        this.lastGlobalInteractionPos = FApp.instance.getGlobalInteractionPosition();
+        this.dispatchEvent(InputManagerEvent.MOVE, this.lastGlobalInteractionPos);
     }
 
     protected onTick(): void {
