@@ -1,5 +1,5 @@
 ﻿export const InputManagerEvent = {
-    DATA_CHANGE: "DATA_CHANGE",
+    KEYS_DATA_CHANGE: "KEYS_DATA_CHANGE",
 
     KEY_DOWN: "KEY_DOWN",
     // KEY_PRESS:string = "KEY_PRESS",

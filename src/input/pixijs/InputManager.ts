@@ -19,13 +19,14 @@ export class InputManager extends BaseObject {
     private justPressedKeyCodes: any = {};
     private justReleasedKeyCodes: any = {};
 
-    private isDataChanged: boolean;
+    private isKeysDataChanged: boolean;
 
     private lastGlobalInteractionPos: Point;
 
     private isHoldActive: boolean = false;
     private holdStartDelay: number = 500;
     private isHoldCancelOnMultitouch: boolean = true;
+    private isHoldJustStopped: boolean = false;
 
     private activePointers: AssociativeArray<IPointerVO> = new AssociativeArray<IPointerVO>();
 
@@ -115,7 +116,7 @@ export class InputManager extends BaseObject {
         if (!this.pressedKeyCodes[event.code]) {
             this.pressedKeyCodes[event.code] = true;
 
-            this.isDataChanged = true;
+            this.isKeysDataChanged = true;
         }
 
         this.updateInput();
@@ -137,7 +138,7 @@ export class InputManager extends BaseObject {
         if (this.pressedKeyCodes[event.code]) {
             this.pressedKeyCodes[event.code] = false;
 
-            this.isDataChanged = true;
+            this.isKeysDataChanged = true;
         }
 
         this.updateInput();
@@ -153,8 +154,8 @@ export class InputManager extends BaseObject {
         //CustomLogger.log("InputManager | updateInput __ START");
         //CustomLogger.logCurrentTime();
 
-        if (this.isDataChanged) {
-            this.isDataChanged = false;
+        if (this.isKeysDataChanged) {
+            this.isKeysDataChanged = false;
 
             var keyCode: string;
             for (keyCode in this.pressedKeyCodes) {
@@ -173,7 +174,12 @@ export class InputManager extends BaseObject {
                 this.prevPressedKeyCodes[keyCode] = this.pressedKeyCodes[keyCode];
             }
 
-            this.dispatchEvent(InputManagerEvent.DATA_CHANGE);
+            this.dispatchEvent(InputManagerEvent.KEYS_DATA_CHANGE);
+        }
+
+        // When the tick is over, consider that the hold behaviour is not JUST stopped
+        if (this.isHoldJustStopped) {
+            this.isHoldJustStopped = false;
         }
 
         //CustomLogger.logCurrentTime();
@@ -292,6 +298,8 @@ export class InputManager extends BaseObject {
             return;
         }
         this.isHoldActive = false;
+
+        this.isHoldJustStopped = true;
 
         this.dispatchEvent(InputManagerEvent.HOLD_END);
     }
