@@ -585,6 +585,11 @@ export class FLabel extends FContainer {
     }
 
     public changeConfig(value: Partial<IFLabelConfig>): void {
+
+
+        // First of all make a deep copy of the external config
+        // to make sure we're not changing it afterwards (and only change the deep-copy version)
+        value = ObjectTools.clone(value);
         // Remove the native style from the main changing value,
         // to make sure the native style config is not substituting the existing config,
         // but is overriding existing properties if they exist
