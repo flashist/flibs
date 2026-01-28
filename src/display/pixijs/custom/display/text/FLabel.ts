@@ -359,7 +359,7 @@ export class FLabel extends FContainer {
 
         const bgColor = this.config.bgColor || 0;
         const bgAlpha = this.config.bgAlpha || 0;
-        const bgRadius = this.config.bgCornerRadius || 0;
+        const bgCornerRadius = this.config.bgCornerRadius || 0;
 
         this.bg.clear();
 
@@ -367,7 +367,7 @@ export class FLabel extends FContainer {
             this.bg.setStrokeStyle(this.bgStrokeStyle);
         }
 
-        this.bg.roundRect(0, 0, this._width, this._height, bgRadius);
+        this.bg.roundRect(0, 0, this._width, this._height, bgCornerRadius);
         this.bg.fill({ color: bgColor, alpha: 1 });
         // this.bg.endFill();
 
