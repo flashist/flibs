@@ -368,7 +368,7 @@ export class FLabel extends FContainer {
         // this.bg.endFill();
 
         if (this.bgStrokeStyle) {
-            this.bg.setStrokeStyle(this.bgStrokeStyle);
+            this.bg.stroke(this.bgStrokeStyle);
         }
 
         this.bg.alpha = bgAlpha;
