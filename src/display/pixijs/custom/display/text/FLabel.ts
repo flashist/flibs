@@ -363,13 +363,13 @@ export class FLabel extends FContainer {
 
         this.bg.clear();
 
-        if (this.bgStrokeStyle) {
-            this.bg.setStrokeStyle(this.bgStrokeStyle);
-        }
-
         this.bg.roundRect(0, 0, this._width, this._height, bgCornerRadius);
         this.bg.fill({ color: bgColor, alpha: 1 });
         // this.bg.endFill();
+
+        if (this.bgStrokeStyle) {
+            this.bg.setStrokeStyle(this.bgStrokeStyle);
+        }
 
         this.bg.alpha = bgAlpha;
     }
